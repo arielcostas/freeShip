@@ -54,12 +54,15 @@ export default function Home() {
 
           {/* Alternar entre Login y Register */}
           <div className="text-center mb-4">
-            <span>{isLogin ? "Don't have an account?" : "Already have an account?"}</span>
+            <span>
+              {isLogin ? "Don't have an account?" : "Already have an account?"}
+            </span>
             <button
               className="text-blue-500 hover:underline ml-2"
               onClick={() => setIsLogin(!isLogin)} // Cambiar el estado entre login y register
             >
-              {isLogin ? "Sign up" : "Log in"} {/* Cambiar texto según el estado */}
+              {isLogin ? "Sign up" : "Log in"}{" "}
+              {/* Cambiar texto según el estado */}
             </button>
           </div>
 

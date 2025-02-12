@@ -2,6 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
+import MyProjects from "@/components/dashboard/MyProjects";
+import ExploreProjects from "@/components/dashboard/ExploreProjects";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -30,15 +32,26 @@ export default async function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
-      <div className="w-full max-w-md p-8 space-y-6 bg-white rounded-lg shadow-md">
-        <h1 className="text-2xl font-bold text-center">Dashboard</h1>
-        <p className="text-center">Welcome, {user.email}!</p>
+    <div className="flex flex-col min-h-screen bg-gray-100 p-6">
+      {/* Header */}
+      <div className="flex justify-between items-center bg-white p-4 shadow-md rounded-lg">
+        <h1 className="text-2xl font-bold">Dashboard</h1>
         <form action={handleSignOut}>
-          <Button type="submit" className="w-full">
-            Sign Out
-          </Button>
+          <Button type="submit">Sign Out</Button>
         </form>
+      </div>
+
+      {/* Contenido */}
+      <div className="flex flex-row gap-6 mt-6">
+        {/* Sección: Mis Proyectos */}
+        <div className="w-1/2 bg-white p-4 rounded-lg shadow-md">
+          <MyProjects userId={user.id} />
+        </div>
+
+        {/* Sección: Explorar Proyectos */}
+        <div className="w-1/2 bg-white p-4 rounded-lg shadow-md">
+          <ExploreProjects />
+        </div>
       </div>
     </div>
   );

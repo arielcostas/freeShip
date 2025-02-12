@@ -1,4 +1,3 @@
-import Link from "next/link";
 import Image from "next/image";
 
 const HeroSection = () => {
@@ -18,12 +17,11 @@ const HeroSection = () => {
               </svg>
             </div>
           </div>
-          <h1 className="text-5xl font-semibold text-white mb-4">Welcome to PickAll</h1>
-          <p className="text-lg text-zinc-300 mb-6">
-            Choose the best for you. Simple, effective, and always stylish.
-          </p>
+          <h1 className="text-5xl font-semibold text-white mb-4">
+            Pickall
+          </h1>
         </div>
-
+        {/*
         <div className="w-full lg:w-1/2">
           <Image
             src="/path/to/your/image.jpg"
@@ -33,6 +31,7 @@ const HeroSection = () => {
             className="rounded-lg shadow-lg"
           />
         </div>
+        */}
       </div>
     </div>
   );
