@@ -1,6 +1,6 @@
 # Código de Conducta
 
-Este código de conducta tiene como objetivo crear un ambiente acogedor y respetuoso para todos los participantes, independientemente de su género, identidad de género, orientación sexual, discapacidad, aspecto físico, religión, nivel de experiencia, etc. A continuación se detallan las expectativas de comportamiento para todos los miembros de nuestra comunidad:
+Este código de conducta tiene como objetivo crear un ambiente acogedor y respetuoso para todos los participantes. A continuación se detallan las expectativas de comportamiento para todos los miembros de nuestra comunidad:
 
 ## Comportamiento Esperado
 
