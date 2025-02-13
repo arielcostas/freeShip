@@ -33,6 +33,8 @@ export default async function Dashboard() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100 p-6">
+      {/*<Navbar /> DEBERIA SUSTITUIR EL HEADER DADO QUE ES UN COMPONENTE ESPECIFICO? PROBABLEMENTE*/}
+
       {/* Header */}
       <div className="flex justify-between items-center bg-white p-4 shadow-md rounded-lg">
         <h1 className="text-2xl font-bold">pickall</h1>

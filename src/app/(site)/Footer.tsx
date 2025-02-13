@@ -2,8 +2,9 @@ export default function Footer() {
   return (
     <footer className="border-t border-zinc-800 bg-[#0F0F0F] px-4 py-12 md:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
+        {/*
         <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
-          {/* Brand Column */}
+
           <div className="space-y-4">
             <div className="flex items-center gap-2">
               <span className="text-xl font-semibold text-white">
@@ -19,7 +20,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Links Column */}
+
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-zinc-400">
               🚀 Links
@@ -68,7 +69,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Legal Column */}
+
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-zinc-400">
               📜 Legal
@@ -104,13 +105,13 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* By the Creator Column */}
+
           <div>
             <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-zinc-400">
               🌎 By the Creator of ShipFree
             </h3>
             <ul className="space-y-3 text-sm">
-              {/* {["idee8.agency", "React AI", "Code Mentor"].map((item) => ( */}
+
               <li>
                 <a
                   href="https://idee8.agency"
@@ -140,7 +141,7 @@ export default function Footer() {
               </li>
             </ul>
 
-            {/* Newsletter Section */}
+
             <div className="mt-6">
               <h4 className="mb-3 text-sm font-semibold text-zinc-400">
                 📩 Newsletter for Makers
@@ -164,16 +165,17 @@ export default function Footer() {
             </div>
           </div>
         </div>
+        */}
 
         <div className="mt-12 border-t border-zinc-800 pt-8 text-center text-sm text-zinc-500">
-          © 2025 ShipFree. All Rights Reserved. Cooked for you by{" "}
+          © 2025
           <a
-            href="https://idee8.agency"
+            href="https://pickall.netlify.app/"
             className="text-zinc-400 hover:text-white"
           >
-            idee8.agency
+             pickall
           </a>
-          .
+          .  All Rights Reserved.
         </div>
       </div>
     </footer>

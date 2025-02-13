@@ -81,13 +81,14 @@ export default function Home() {
           </div>
         </div>
       </section>
-
+      {/*
       <FeaturedTime />
       <MakerIntro />
       <PricingSection />
       <FAQ />
       <TestimonialsPage />
       <CTA />
+      */}
       <Footer />
     </div>
   );

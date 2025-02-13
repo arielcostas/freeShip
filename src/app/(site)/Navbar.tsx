@@ -36,7 +36,7 @@ export default function Navbar() {
               stroke="black"
               strokeWidth={1.4}
             />
-            <span className="text-lg font-semibold text-white">ShipFree</span>
+            <span className="text-lg font-semibold text-white">pickall</span>
           </Link>
         </div>
 
