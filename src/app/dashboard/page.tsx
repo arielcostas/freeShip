@@ -35,7 +35,7 @@ export default async function Dashboard() {
     <div className="flex flex-col min-h-screen bg-gray-100 p-6">
       {/* Header */}
       <div className="flex justify-between items-center bg-white p-4 shadow-md rounded-lg">
-        <h1 className="text-2xl font-bold">Dashboard</h1>
+        <h1 className="text-2xl font-bold">pickall</h1>
         <form action={handleSignOut}>
           <Button type="submit">Sign Out</Button>
         </form>

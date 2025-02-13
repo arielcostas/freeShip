@@ -1,0 +1,16 @@
+{
+  "auth": {
+    "welcomeBack": "¡Bienvenido de nuevo!",
+    "createAccount": "Crea tu cuenta",
+    "alreadyHaveAccount": "¿Ya tienes una cuenta?",
+    "dontHaveAccount": "¿No tienes una cuenta?",
+    "signUpPrompt": "Regístrate para empezar",
+    "signUp": "Regístrate",
+    "logIn": "Inicia sesión",
+    "signInWithGoogle": "O inicia sesión con Google",
+    "googleButton": "Iniciar sesión con Google"
+  },
+"appName": "pickall",
+  "noPublicProjectsFound": "No se han encontrado proyectos públicos.",
+  "signOut": "Cerrar sesión"
+}

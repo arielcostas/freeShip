@@ -17,9 +17,7 @@ const HeroSection = () => {
               </svg>
             </div>
           </div>
-          <h1 className="text-5xl font-semibold text-white mb-4">
-            Pickall
-          </h1>
+          <h1 className="text-5xl font-semibold text-white mb-4">Pickall</h1>
         </div>
         {/*
         <div className="w-full lg:w-1/2">
