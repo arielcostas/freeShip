@@ -50,7 +50,7 @@ export default async function Dashboard() {
 
         {/* Sección: Explorar Proyectos */}
         <div className="w-1/2 bg-white p-4 rounded-lg shadow-md flex flex-col overflow-hidden">
-          <ExploreProjectsDashboardView />
+          <ExploreProjectsDashboardView userId={user.id} />
         </div>
       </div>
     </div>

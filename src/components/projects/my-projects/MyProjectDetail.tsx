@@ -18,7 +18,7 @@ export default async function MyProjectDetail({
     "use server";
     const supabase = createClient();
     await supabase.auth.signOut();
-    redirect("/auth/login");
+    redirect("/");
   };
 
   if (error || !project) {
