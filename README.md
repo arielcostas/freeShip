@@ -1,29 +1,28 @@
-# ⚡ ShipFree
+# pickall
 
-Hi there! 👋
+## Descripción
 
-ShipFree is a free alternative to ShipFast, designed to simplify and optimize your shipping process. It’s built using modern web technologies like Next.js, Supabase, Stripe, LemonSqueezy, and Mailgun.
+Este proyecto tiene como objetivo facilitar el contacto y la colaboración entre desarrolladores de todas las disciplinas. Su principal misión es crear un espacio donde los miembros puedan compartir conocimientos, aprender unos de otros y trabajar juntos en proyectos que les proporcionen experiencia tanto profesional como personal.
 
-## Features
+La idea es fomentar un ambiente de aprendizaje colaborativo donde todos los participantes, independientemente de su nivel de experiencia, puedan contribuir, compartir ideas y crecer en conjunto.
 
-- SEO Optimisation
-- User authentication with Supabase
-- Stripe and LemonSqueezy integration
-- Email notifications via Mailgun
-- Modern UI built with Next.js and TailwindCSS
+## Características
 
-## Docs
+- **Colaboración abierta:** Los desarrolladores pueden crear, buscar y unirse a proyectos, aportando su conocimiento y habilidades.
+- **Aprendizaje continuo:** Cada proyecto es una oportunidad para aprender nuevas tecnologías, herramientas y prácticas de desarrollo.
+- **Red de contacto profesional:** Establecer relaciones con otros desarrolladores para colaborar en proyectos reales y mejorar las habilidades profesionales.
+  
+## Objetivos
 
-For full documentation, visit: [ShipFree Docs](https://shipfree.idee8.agency/docs)
+- Crear una comunidad para desarrolladores de todos los niveles, pensando especialmente en aquellos menos esperimentados.
+- Facilitar la creación de proyectos colaborativos donde todos aporten, aprendan y se desarrollen profesionalmente.
+- Promover la integración de habilidades diversas (desde el desarrollo front-end hasta el back-end, pasando por la gestión de proyectos y el diseño).
+- Ofrecer una plataforma que sirva tanto como espacio de aprendizaje como de creación.
 
-## Code of Conduct
+## Contacto
 
-Please read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing.
+Para preguntas o sugerencias, por favor contacta a través del siguiente correo electrónico: haroundominique@gmail.com
 
-## Contributing
+## Licencia
 
-For people who want to contribute, please refer to [CONTRIBUTING.md](CONTRIBUTING.md).
-
----
-
-Cooked for you with ❤️ by [Idee8](https://idee8.agency)
+Este proyecto está bajo la Licencia de software privativo. Consulta los detalles en el apartado específico.  
