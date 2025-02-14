@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 
 export default async function MyProjectDetail({
-                                                projectId,
-                                              }: {
+  projectId,
+}: {
   projectId: string;
 }) {
   const supabase = createClient();

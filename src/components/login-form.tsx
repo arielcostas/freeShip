@@ -101,12 +101,6 @@ export default function LoginForm() {
             Sign in with Google
           </Button>
         </div>
-        <p className="text-center text-sm">
-          Don't have an account?{" "}
-          <Link href="/auth/register" className="text-blue-500 hover:underline">
-            Register
-          </Link>
-        </p>
       </div>
     </>
   );

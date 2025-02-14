@@ -28,14 +28,14 @@ export default function Home() {
       <section className="flex justify-center items-center py-12 bg-[#f9f9f9]">
         <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-3xl font-semibold text-center mb-6">
-            {isLogin ? "Welcome back!" : "Create your account"}
+            {isLogin ? "¡Hola!" : "Crea tu cuenta"}
           </h2>
 
           {/* Mostrar formulario dependiendo del estado */}
           {isLogin ? (
             <>
               <p className="text-center mb-4 text-lg">
-                {`Already have an account?`}
+                {`¿Ya tienes una cuenta?`}
               </p>
               <div className="mb-6">
                 <LoginForm />
@@ -44,7 +44,7 @@ export default function Home() {
           ) : (
             <>
               <p className="text-center mb-4 text-lg">
-                {`Sign up to get started!`}
+                {`¡Regístrate para empezar!`}
               </p>
               <div className="mb-6">
                 <RegisterForm />
@@ -55,22 +55,23 @@ export default function Home() {
           {/* Alternar entre Login y Register */}
           <div className="text-center mb-4">
             <span>
-              {isLogin ? "Don't have an account?" : "Already have an account?"}
+              {isLogin ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}
             </span>
             <button
               className="text-blue-500 hover:underline ml-2"
               onClick={() => setIsLogin(!isLogin)} // Cambiar el estado entre login y register
             >
-              {isLogin ? "Sign up" : "Log in"}{" "}
+              {isLogin ? "Regístrate" : "Inicia sesión"}{" "}
               {/* Cambiar texto según el estado */}
             </button>
           </div>
+
+          {/* Botón de Google
 
           <p className="text-center text-sm text-gray-500">
             Or sign in using your Google account
           </p>
 
-          {/* Botón de Google */}
           <div className="flex justify-center mt-4">
             <button
               className="bg-blue-500 text-white px-6 py-2 rounded-full hover:bg-blue-400"
@@ -79,6 +80,7 @@ export default function Home() {
               Sign in with Google
             </button>
           </div>
+          */}
         </div>
       </section>
       {/*

@@ -56,15 +56,6 @@ export default function RegisterForm() {
           Register
         </Button>
       </form>
-
-      {message && <p className="text-center text-sm text-blue-500">{message}</p>}
-
-      <p className="text-center text-sm">
-        ¿Ya tienes una cuenta?{" "}
-        <Link href="/auth/login" className="text-blue-500 hover:underline">
-          Inicia sesión
-        </Link>
-      </p>
     </div>
   );
 }

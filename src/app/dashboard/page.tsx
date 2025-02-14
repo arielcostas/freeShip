@@ -28,7 +28,7 @@ export default async function Dashboard() {
     "use server";
     const supabase = createClient();
     await supabase.auth.signOut();
-    redirect("/auth/login");
+    redirect("/");
   };
 
   return (
