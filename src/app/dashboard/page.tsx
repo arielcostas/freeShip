@@ -2,8 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
-import MyProjects from "@/components/dashboard/MyProjects";
-import ExploreProjects from "@/components/dashboard/ExploreProjects";
+import MyProjectsDashboardView from "@/components/dashboard/MyProjectsDashboardView";
+import ExploreProjectsDashboardView from "@/components/dashboard/ExploreProjectsDashboardView";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -47,12 +47,12 @@ export default async function Dashboard() {
       <div className="flex flex-row gap-6 mt-6">
         {/* Sección: Mis Proyectos */}
         <div className="w-1/2 bg-white p-4 rounded-lg shadow-md">
-          <MyProjects userId={user.id} />
+          <MyProjectsDashboardView userId={user.id} />
         </div>
 
         {/* Sección: Explorar Proyectos */}
         <div className="w-1/2 bg-white p-4 rounded-lg shadow-md">
-          <ExploreProjects />
+          <ExploreProjectsDashboardView />
         </div>
       </div>
     </div>

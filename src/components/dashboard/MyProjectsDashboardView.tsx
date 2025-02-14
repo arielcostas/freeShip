@@ -1,8 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
-import CreateProjectForm from "@/components/dashboard/CreateProjectForm";
-import MyProjectsList from "@/components/dashboard/MyProjectsList";
+import CreateProjectForm from "@/components/projects/my-projects/CreateProjectForm";
+import MyProjectsList from "@/components/projects/my-projects/MyProjectsList";
 
-export default async function MyProjects({ userId }: { userId: string }) {
+export default async function MyProjectsDashboardView({ userId }: { userId: string }) {
   const supabase = createClient();
   // Nota: usamos "author_id" según la tabla creada.
   const { data: projects, error } = await supabase

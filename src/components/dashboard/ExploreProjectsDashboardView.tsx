@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 
-export default async function ExploreProjects() {
+export default async function ExploreProjectsDashboardView() {
   const supabase = createClient();
   const { data: projects, error } = await supabase
     .from("projects")
