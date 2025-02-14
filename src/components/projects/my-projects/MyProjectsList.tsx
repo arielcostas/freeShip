@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
 
 export default async function MyProjectsList({ userId }: { userId: string }) {
@@ -16,9 +17,11 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
       {projects && projects.length > 0 ? (
         <ul className="space-y-2">
           {projects.map((project: any) => (
-            <li key={project.id} className="border p-3 rounded-lg shadow-sm bg-gray-50">
-              <h3 className="font-semibold">{project.title}</h3>
-              <p className="text-sm text-gray-700">{project.description}</p>
+            <li key={project.id} className="border p-3 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 transition">
+              <Link href={`/dashboard/projects/${project.id}`} className="block">
+                <h3 className="font-semibold text-blue-600 hover:underline">{project.title}</h3>
+                <p className="text-sm text-gray-700">{project.description}</p>
+              </Link>
             </li>
           ))}
         </ul>
@@ -28,4 +31,3 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
     </div>
   );
 }
-

@@ -3,8 +3,8 @@ import CreateProjectForm from "@/components/projects/my-projects/CreateProjectFo
 import MyProjectsList from "@/components/projects/my-projects/MyProjectsList";
 
 export default async function MyProjectsDashboardView({
-                                                        userId,
-                                                      }: {
+  userId,
+}: {
   userId: string;
 }) {
   return (
@@ -21,4 +21,3 @@ export default async function MyProjectsDashboardView({
     </div>
   );
 }
-
