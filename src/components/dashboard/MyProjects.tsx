@@ -1,5 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import CreateProjectForm from "@/components/dashboard/CreateProjectForm";
+import MyProjectsList from "@/components/dashboard/MyProjectsList";
 
 export default async function MyProjects({ userId }: { userId: string }) {
   const supabase = createClient();
@@ -19,19 +20,8 @@ export default async function MyProjects({ userId }: { userId: string }) {
 
       {/* Formulario para crear un nuevo proyecto */}
       <CreateProjectForm userId={userId} />
-
-      {projects && projects.length > 0 ? (
-        <ul>
-          {projects.map((project: any) => (
-            <li key={project.id} className="border p-2 mb-2 rounded">
-              <h3 className="font-bold">{project.title}</h3>
-              <p>{project.description}</p>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p>No projects yet. Create one!</p>
-      )}
+      {/* Lista de mis proyectos */}
+      <MyProjectsList userId={userId} />
     </div>
   );
 }

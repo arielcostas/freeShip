@@ -173,9 +173,9 @@ export default function Footer() {
             href="https://pickall.netlify.app/"
             className="text-zinc-400 hover:text-white"
           >
-             pickall
+            pickall
           </a>
-          .  All Rights Reserved.
+          . All Rights Reserved.
         </div>
       </div>
     </footer>
