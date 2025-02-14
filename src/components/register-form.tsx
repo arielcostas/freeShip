@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -11,16 +10,22 @@ import { Label } from "@/components/ui/label";
 export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const router = useRouter();
+  const [message, setMessage] = useState(""); // Nuevo estado para mensajes
   const supabase = createClient();
 
   const handleRegister = async (e: React.FormEvent) => {
     e.preventDefault();
+    setMessage(""); // Reiniciar mensaje
+
     const { error } = await supabase.auth.signUp({ email, password });
+
     if (error) {
       console.error("Error registering:", error.message);
+      setMessage("Error: " + error.message);
     } else {
-      router.push("/dashboard");
+      setMessage(
+        "Se ha enviado un correo de confirmación. Verifica tu email antes de iniciar sesión."
+      );
     }
   };
 
@@ -51,10 +56,13 @@ export default function RegisterForm() {
           Register
         </Button>
       </form>
+
+      {message && <p className="text-center text-sm text-blue-500">{message}</p>}
+
       <p className="text-center text-sm">
-        Already have an account?{" "}
+        ¿Ya tienes una cuenta?{" "}
         <Link href="/auth/login" className="text-blue-500 hover:underline">
-          Login
+          Inicia sesión
         </Link>
       </p>
     </div>
