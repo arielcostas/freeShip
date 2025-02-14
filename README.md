@@ -11,7 +11,7 @@ La idea es fomentar un ambiente de aprendizaje colaborativo donde todos los part
 - **Colaboración abierta:** Los desarrolladores pueden crear, buscar y unirse a proyectos, aportando su conocimiento y habilidades.
 - **Aprendizaje continuo:** Cada proyecto es una oportunidad para aprender nuevas tecnologías, herramientas y prácticas de desarrollo.
 - **Red de contacto profesional:** Establecer relaciones con otros desarrolladores para colaborar en proyectos reales y mejorar las habilidades profesionales.
-  
+
 ## Objetivos
 
 - Crear una comunidad para desarrolladores de todos los niveles, pensando especialmente en aquellos menos esperimentados.
@@ -25,4 +25,4 @@ Para preguntas o sugerencias, por favor contacta a través del siguiente correo 
 
 ## Licencia
 
-Este proyecto está bajo la Licencia de software privativo. Consulta los detalles en el apartado específico.  
+Este proyecto está bajo la Licencia de software privativo. Consulta los detalles en el apartado específico.

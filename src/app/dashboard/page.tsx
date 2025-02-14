@@ -32,26 +32,24 @@ export default async function Dashboard() {
   };
 
   return (
-    <div className="flex flex-col min-h-screen bg-gray-100 p-6">
-      {/*<Navbar /> DEBERIA SUSTITUIR EL HEADER DADO QUE ES UN COMPONENTE ESPECIFICO? PROBABLEMENTE*/}
-
-      {/* Header */}
-      <div className="flex justify-between items-center bg-white p-4 shadow-md rounded-lg">
+    <div className="flex flex-col h-screen bg-gray-100">
+      {/* Header fijo */}
+      <div className="flex justify-between items-center bg-white p-4 shadow-md">
         <h1 className="text-2xl font-bold">pickall</h1>
         <form action={handleSignOut}>
           <Button type="submit">Sign Out</Button>
         </form>
       </div>
 
-      {/* Contenido */}
-      <div className="flex flex-row gap-6 mt-6">
+      {/* Contenido principal que ocupa el 100% restante */}
+      <div className="flex flex-row gap-6 flex-grow overflow-hidden p-6">
         {/* Sección: Mis Proyectos */}
-        <div className="w-1/2 bg-white p-4 rounded-lg shadow-md">
+        <div className="w-1/2 bg-white p-4 rounded-lg shadow-md flex flex-col overflow-hidden">
           <MyProjectsDashboardView userId={user.id} />
         </div>
 
         {/* Sección: Explorar Proyectos */}
-        <div className="w-1/2 bg-white p-4 rounded-lg shadow-md">
+        <div className="w-1/2 bg-white p-4 rounded-lg shadow-md flex flex-col overflow-hidden">
           <ExploreProjectsDashboardView />
         </div>
       </div>

@@ -2,7 +2,6 @@ import { createClient } from "@/lib/supabase/server";
 
 export default async function MyProjectsList({ userId }: { userId: string }) {
   const supabase = createClient();
-  // Nota: usamos "author_id" según la tabla creada.
   const { data: projects, error } = await supabase
     .from("projects")
     .select("*")
@@ -13,19 +12,20 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
   }
 
   return (
-    <div>
+    <div className="h-full overflow-y-auto border border-gray-300 rounded-lg p-2">
       {projects && projects.length > 0 ? (
-        <ul>
+        <ul className="space-y-2">
           {projects.map((project: any) => (
-            <li key={project.id} className="border p-2 mb-2 rounded">
-              <h3 className="font-bold">{project.title}</h3>
-              <p>{project.description}</p>
+            <li key={project.id} className="border p-3 rounded-lg shadow-sm bg-gray-50">
+              <h3 className="font-semibold">{project.title}</h3>
+              <p className="text-sm text-gray-700">{project.description}</p>
             </li>
           ))}
         </ul>
       ) : (
-        <p>No projects yet. Create one!</p>
+        <p className="text-center text-gray-500">No projects yet. Create one!</p>
       )}
     </div>
   );
 }
+

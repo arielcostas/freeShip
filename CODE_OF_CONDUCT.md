@@ -17,5 +17,4 @@ Los miembros de la comunidad son responsables de sus propias acciones y deben as
 
 Los violadores de este código de conducta pueden ser advertidos, excluidos temporalmente de las actividades o, en casos graves, expulsados permanentemente del proyecto. Las medidas serán determinadas de manera justa y proporcional a la infracción.
 
-
 Gracias por contribuir a un ambiente positivo y respetuoso.
