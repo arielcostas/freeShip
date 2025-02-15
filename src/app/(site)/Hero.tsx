@@ -2,8 +2,8 @@ import "../../index.css";
 
 const HeroSection = () => {
   return (
-    <div className="bg-[#1A1A1A] mt-6 min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12">
-      <div className="w-full max-w-7xl flex flex-col items-center text-center gap-4">
+    <div className="bg-[#1A1A1A] min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12">
+
         {/* Nuevo Logo con animación */}
         <svg
           fill="#148211"
@@ -27,7 +27,7 @@ const HeroSection = () => {
 
         {/* Título */}
         <h1 className="text-5xl font-semibold text-white">pickall</h1>
-      </div>
+
     </div>
   );
 };

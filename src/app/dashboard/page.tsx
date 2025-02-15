@@ -1,9 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import { Button } from "@/components/ui/button";
 import type { Metadata } from "next";
 import MyProjectsDashboardView from "@/components/dashboard/MyProjectsDashboardView";
 import ExploreProjectsDashboardView from "@/components/dashboard/ExploreProjectsDashboardView";
+import Navbar from "@/app/(site)/Navbar";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -33,16 +33,13 @@ export default async function Dashboard() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
-      {/* Header fijo */}
-      <div className="flex justify-between items-center bg-white p-4 shadow-md">
-        <h1 className="text-2xl font-bold">Home</h1>
-        <form action={handleSignOut}>
-          <Button type="submit">Sign Out</Button>
-        </form>
+      {/* Navbar a pantalla completa (fuera del contenedor centrado) */}
+      <div className="w-full bg-white shadow-md">
+        <Navbar handleSignOut={handleSignOut} />
       </div>
 
-      {/* Contenido principal que ocupa el 100% restante */}
-      <div className="flex flex-row gap-6 flex-grow overflow-hidden p-6">
+      {/* Contenido principal centrado con padding */}
+      <div className="flex flex-row gap-12 flex-grow overflow-hidden p-24 px-4 sm:px-6 md:px-8 lg:px-12">
         {/* Sección: Mis Proyectos */}
         <div className="w-1/2 bg-white p-4 rounded-lg shadow-md flex flex-col overflow-hidden">
           <MyProjectsDashboardView userId={user.id} />

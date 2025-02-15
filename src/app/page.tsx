@@ -3,7 +3,6 @@
 import { useState } from "react";
 import Footer from "@/app/(site)/Footer";
 import HeroSection from "@/app/(site)/Hero";
-import Navbar from "@/app/(site)/Navbar";
 
 // Importar los formularios de Login y Register
 import LoginForm from "@/components/login-form";
@@ -15,7 +14,6 @@ export default function Home() {
 
   return (
     <div className="bg-[#212121]">
-      <Navbar />
       <HeroSection />
 
       {/* Sección de login o registro */}
