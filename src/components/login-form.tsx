@@ -92,7 +92,7 @@ export default function LoginForm() {
         {message && (
           <p className="text-center text-sm text-red-500">{message}</p>
         )}
-
+        {/*
         <div className="flex flex-col space-y-4">
           <Button
             onClick={handleMagicLink}
@@ -109,6 +109,7 @@ export default function LoginForm() {
             Iniciar sesión con Google
           </Button>
         </div>
+        */}
       </div>
     </>
   );

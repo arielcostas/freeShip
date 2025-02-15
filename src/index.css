@@ -1,15 +1,15 @@
 @keyframes levitate {
-    0% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-15px); /* Eleva ligeramente */
-    }
-    100% {
-        transform: translateY(0);
-    }
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15px); /* Eleva ligeramente */
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .animate-leveitate {
-    animation: levitate 4s ease-in-out infinite;
+  animation: levitate 4s ease-in-out infinite;
 }

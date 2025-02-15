@@ -1,10 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
+import ProjectActions from "@/components/projects/ProjectActions"; // Importamos el nuevo componente
 
 export default async function MyProjectDetail({
-  projectId,
-}: {
+                                                projectId,
+                                              }: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -68,6 +69,9 @@ export default async function MyProjectDetail({
               {project.tech_stack.join(", ")}
             </p>
           )}
+
+          {/* Botones de Editar y Eliminar */}
+          <ProjectActions projectId={projectId} />
         </div>
       </div>
     </div>
