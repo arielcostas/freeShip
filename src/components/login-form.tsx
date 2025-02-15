@@ -94,10 +94,18 @@ export default function LoginForm() {
         )}
 
         <div className="flex flex-col space-y-4">
-          <Button onClick={handleMagicLink} variant="outline" className="w-full">
+          <Button
+            onClick={handleMagicLink}
+            variant="outline"
+            className="w-full"
+          >
             Enviar Magic Link
           </Button>
-          <Button onClick={handleGoogleSignIn} variant="outline" className="w-full">
+          <Button
+            onClick={handleGoogleSignIn}
+            variant="outline"
+            className="w-full"
+          >
             Iniciar sesión con Google
           </Button>
         </div>

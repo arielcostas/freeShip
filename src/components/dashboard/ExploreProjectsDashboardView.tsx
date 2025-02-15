@@ -2,8 +2,8 @@ import { createClient } from "@/lib/supabase/server";
 import OtherProjectsList from "@/components/projects/other-projects/OtherProjectsList";
 
 export default async function ExploreProjectsDashboardView({
-                                                             userId,
-                                                           }: {
+  userId,
+}: {
   userId: string;
 }) {
   const supabase = createClient();

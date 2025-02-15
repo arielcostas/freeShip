@@ -3,8 +3,8 @@ import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 
 export default async function MyProjectDetail({
-                                                projectId,
-                                              }: {
+  projectId,
+}: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -59,12 +59,12 @@ export default async function MyProjectDetail({
           </p>
           {project.type && (
             <p className="mt-2">
-              <strong>Tipo:</strong> {project.type}
+              <strong>Categoría:</strong> {project.type}
             </p>
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack:</strong> {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
             </p>
           )}
         </div>

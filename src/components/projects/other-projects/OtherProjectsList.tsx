@@ -2,7 +2,9 @@ import Link from "next/link";
 
 export default function OtherProjectsList({ projects }: { projects: any[] }) {
   if (!projects || projects.length === 0) {
-    return <p className="text-center text-gray-500">No public projects available.</p>;
+    return (
+      <p className="text-center text-gray-500">No public projects available.</p>
+    );
   }
 
   return (
@@ -22,12 +24,12 @@ export default function OtherProjectsList({ projects }: { projects: any[] }) {
             <p className="text-sm text-gray-700">{project.description}</p>
             {project.type && (
               <p className="text-xs text-gray-500 mt-1">
-                <strong>Type:</strong> {project.type}
+                <strong>Categoría:</strong> {project.type}
               </p>
             )}
             {project.tech_stack && (
               <p className="text-xs text-gray-500">
-                <strong>Stack:</strong> {project.tech_stack.join(", ")}
+                <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
               </p>
             )}
           </Link>

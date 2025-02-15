@@ -31,12 +31,12 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
                 <p className="text-sm text-gray-700">{project.description}</p>
                 {project.type && (
                   <p className="text-xs text-gray-500 mt-1">
-                    <strong>Type:</strong> {project.type}
+                    <strong>Categoría:</strong> {project.type}
                   </p>
                 )}
                 {project.tech_stack && (
                   <p className="text-xs text-gray-500">
-                    <strong>Stack:</strong> {project.tech_stack.join(", ")}
+                    <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
                   </p>
                 )}
               </Link>
