@@ -29,7 +29,8 @@ export default function OtherProjectsList({ projects }: { projects: any[] }) {
             )}
             {project.tech_stack && (
               <p className="text-xs text-gray-500">
-                <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
+                <strong>Stack tecnológico:</strong>{" "}
+                {project.tech_stack.join(", ")}
               </p>
             )}
           </Link>
