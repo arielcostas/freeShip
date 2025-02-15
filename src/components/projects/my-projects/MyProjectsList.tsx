@@ -21,8 +21,10 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
               key={project.id}
               className="border p-3 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 transition"
             >
-              <Link href={`/dashboard/projects/${project.id}`} className="block">
-                <strong className="text-gray-600">By {project.author_id}</strong>
+              <Link
+                href={`/dashboard/projects/${project.id}`}
+                className="block"
+              >
                 <h3 className="font-semibold text-blue-600 hover:underline">
                   {project.title}
                 </h3>

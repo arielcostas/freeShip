@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
@@ -7,7 +9,7 @@ import { Label } from "@/components/ui/label";
 import SEO from "@/utils/seo";
 
 export default function LoginForm() {
-  const [identifier, setIdentifier] = useState(""); // Puede ser username o email
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const router = useRouter();
@@ -17,38 +19,10 @@ export default function LoginForm() {
     e.preventDefault();
     setMessage("");
 
-    let email = identifier;
-
-    // Si el usuario ha introducido un username en lugar de un email
-    if (!identifier.includes("@")) {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("id")
-        .eq("username", identifier)
-        .single();
-
-      if (error || !data) {
-        setMessage("Nombre de usuario no encontrado.");
-        return;
-      }
-
-      // Obtener el email asociado al user id en la tabla auth.users
-      const { data: userData, error: userError } = await supabase
-        .from("auth.users")
-        .select("email")
-        .eq("id", data.id)
-        .single(); // Debemos usar `.single()` para obtener un solo resultado
-
-      if (userError || !userData) {
-        setMessage("Error al obtener los datos del usuario.");
-        return;
-      }
-
-      email = userData.email; // Usamos el email obtenido de auth.users
-    }
-
-    // Intentar iniciar sesión con el email obtenido
-    const { error } = await supabase.auth.signInWithPassword({ email, password });
+    const { error } = await supabase.auth.signInWithPassword({
+      email: email.toLowerCase(),
+      password,
+    });
 
     if (error) {
       setMessage("Credenciales incorrectas.");
@@ -59,11 +33,9 @@ export default function LoginForm() {
 
   const handleMagicLink = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!identifier.includes("@")) {
-      setMessage("Para el Magic Link, introduce un email.");
-      return;
-    }
-    const { error } = await supabase.auth.signInWithOtp({ email: identifier });
+    const { error } = await supabase.auth.signInWithOtp({
+      email: email.toLowerCase(),
+    });
     if (error) {
       setMessage("Error enviando Magic Link.");
     } else {
@@ -93,12 +65,12 @@ export default function LoginForm() {
       <div className="space-y-6">
         <form onSubmit={handleLogin} className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="identifier">Correo electrónico o Nombre de usuario</Label>
+            <Label htmlFor="email">Correo electrónico</Label>
             <Input
-              id="identifier"
-              type="text"
-              value={identifier}
-              onChange={(e) => setIdentifier(e.target.value)}
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
               required
             />
           </div>
@@ -117,7 +89,9 @@ export default function LoginForm() {
           </Button>
         </form>
 
-        {message && <p className="text-center text-sm text-red-500">{message}</p>}
+        {message && (
+          <p className="text-center text-sm text-red-500">{message}</p>
+        )}
 
         <div className="flex flex-col space-y-4">
           <Button onClick={handleMagicLink} variant="outline" className="w-full">

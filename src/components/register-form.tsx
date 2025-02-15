@@ -63,9 +63,9 @@ export default function RegisterForm() {
     }
 
     // Insertar el username en la tabla profiles
-    const { error: profileError } = await supabase.from("profiles").insert([
-      { id: data.user.id, username },
-    ]);
+    const { error: profileError } = await supabase
+      .from("profiles")
+      .insert([{ id: data.user.id, username }]);
 
     if (profileError) {
       console.error("Error inserting profile:", profileError.message);

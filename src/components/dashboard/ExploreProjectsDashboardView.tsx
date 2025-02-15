@@ -1,5 +1,5 @@
-import Link from "next/link";
 import { createClient } from "@/lib/supabase/server";
+import OtherProjectsList from "@/components/projects/other-projects/OtherProjectsList";
 
 export default async function ExploreProjectsDashboardView({
                                                              userId,
@@ -9,9 +9,9 @@ export default async function ExploreProjectsDashboardView({
   const supabase = createClient();
   const { data: projects, error } = await supabase
     .from("projects")
-    .select("*")
-    .neq("author_id", userId) // Excluir proyectos del usuario actual
-    .order("created_at", { ascending: false }); // Ordenar por fecha de creación (más recientes primero)
+    .select("id, title, description, type, tech_stack, author_name") // Incluir author_name
+    .neq("author_id", userId)
+    .order("created_at", { ascending: false });
 
   if (error) {
     return <p className="text-red-500">Error loading projects</p>;
@@ -19,38 +19,7 @@ export default async function ExploreProjectsDashboardView({
 
   return (
     <div className="h-full overflow-y-auto border border-gray-300 rounded-lg p-2">
-      {projects && projects.length > 0 ? (
-        <ul className="space-y-2">
-          {projects.map((project: any) => (
-            <li
-              key={project.id}
-              className="border p-3 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 transition"
-            >
-              <Link href={`/dashboard/projects/${project.id}`} className="block">
-                <strong className="text-gray-600">By {project.author_id}</strong>
-                <h3 className="font-semibold text-blue-600 hover:underline">
-                  {project.title}
-                </h3>
-                <p className="text-sm text-gray-700">{project.description}</p>
-                {project.type && (
-                  <p className="text-xs text-gray-500 mt-1">
-                    <strong>Type:</strong> {project.type}
-                  </p>
-                )}
-                {project.tech_stack && (
-                  <p className="text-xs text-gray-500">
-                    <strong>Stack:</strong> {project.tech_stack.join(", ")}
-                  </p>
-                )}
-              </Link>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        <p className="text-center text-gray-500">
-          No public projects available.
-        </p>
-      )}
+      <OtherProjectsList projects={projects} />
     </div>
   );
 }
