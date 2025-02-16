@@ -14,7 +14,10 @@ export default function OtherProjectsList({ projects }: { projects: any[] }) {
           key={project.id}
           className="border p-3 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100 transition"
         >
-          <Link href={`/dashboard/projects/other/${project.id}`} className="block">
+          <Link
+            href={`/dashboard/projects/other/${project.id}`}
+            className="block"
+          >
             <strong className="text-gray-600">
               Por {project.author_name || "Desconocido"}
             </strong>

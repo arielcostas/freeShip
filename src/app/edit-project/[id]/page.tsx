@@ -123,7 +123,9 @@ export default function EditProject() {
 
           {/* Selector de Tipo de Proyecto */}
           <div>
-            <label className="block text-sm font-medium">Tipo de Proyecto</label>
+            <label className="block text-sm font-medium">
+              Tipo de Proyecto
+            </label>
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
@@ -140,7 +142,9 @@ export default function EditProject() {
 
           {/* Entrada para el Stack Tecnológico */}
           <div>
-            <label className="block text-sm font-medium">Stack Tecnológico</label>
+            <label className="block text-sm font-medium">
+              Stack Tecnológico
+            </label>
             <div className="flex gap-2">
               <input
                 type="text"

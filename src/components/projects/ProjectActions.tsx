@@ -13,10 +13,15 @@ export default function ProjectActions({ projectId }: { projectId: string }) {
   };
 
   const handleDelete = async () => {
-    const confirmDelete = confirm("¿Estás seguro de que deseas eliminar este proyecto?");
+    const confirmDelete = confirm(
+      "¿Estás seguro de que deseas eliminar este proyecto?"
+    );
     if (!confirmDelete) return;
 
-    const { error } = await supabase.from("projects").delete().eq("id", projectId);
+    const { error } = await supabase
+      .from("projects")
+      .delete()
+      .eq("id", projectId);
 
     if (error) {
       alert("Hubo un error al eliminar el proyecto.");

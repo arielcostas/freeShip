@@ -5,8 +5,8 @@ import ProjectActions from "@/components/projects/ProjectActions";
 import Navbar from "@/app/(site)/Navbar"; // Importamos el nuevo componente
 
 export default async function MyProjectDetail({
-                                                projectId,
-                                              }: {
+  projectId,
+}: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -42,7 +42,6 @@ export default async function MyProjectDetail({
   };
 
   return (
-
     <div className="flex flex-col h-screen w-full bg-gray-100">
       {/* Navbar: ocupa todo el ancho */}
       <div className="w-full bg-white shadow-md">

@@ -3,8 +3,8 @@ import { redirect } from "next/navigation";
 import Navbar from "@/app/(site)/Navbar";
 
 export default async function OtherProjectDetail({
-                                                   projectId,
-                                                 }: {
+  projectId,
+}: {
   projectId: string;
 }) {
   const supabase = createClient();

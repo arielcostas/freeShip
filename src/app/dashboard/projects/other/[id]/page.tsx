@@ -1,8 +1,8 @@
 import OtherProjectDetail from "@/components/projects/other-projects/OtherProjectDetail";
 
 export default function OtherProjectDetailPage({
-                                            params,
-                                          }: {
+  params,
+}: {
   params: { id: string };
 }) {
   return (
