@@ -1,7 +1,8 @@
 import { createClient } from "@/lib/supabase/server";
 import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
-import ProjectActions from "@/components/projects/ProjectActions"; // Importamos el nuevo componente
+import ProjectActions from "@/components/projects/ProjectActions";
+import Navbar from "@/app/(site)/Navbar"; // Importamos el nuevo componente
 
 export default async function MyProjectDetail({
                                                 projectId,
@@ -41,17 +42,15 @@ export default async function MyProjectDetail({
   };
 
   return (
+
     <div className="flex flex-col h-screen w-full bg-gray-100">
-      {/* Header fijo */}
-      <div className="flex justify-between items-center bg-white p-4 shadow-md">
-        <h1 className="text-2xl font-bold">Mis proyectos</h1>
-        <form action={handleSignOut}>
-          <Button type="submit">Sign Out</Button>
-        </form>
+      {/* Navbar: ocupa todo el ancho */}
+      <div className="w-full bg-white shadow-md">
+        <Navbar handleSignOut={handleSignOut} />
       </div>
 
       {/* Contenido que ocupa el 100% del espacio restante */}
-      <div className="flex flex-grow overflow-hidden p-6">
+      <div className="flex flex-row gap-12 flex-grow overflow-hidden p-24 px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="w-full bg-white p-6 rounded-lg shadow-md flex flex-col">
           <h2 className="text-2xl font-bold">{project.title}</h2>
           <p className="text-gray-700 mt-2">{project.description}</p>

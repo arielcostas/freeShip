@@ -31,7 +31,7 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
     <nav className="fixed top-0 z-50 w-full bg-[#212121]">
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
-          <Link href="/" className="flex items-center gap-2">
+          <Link href="/dashboard" className="flex items-center gap-2">
             <Zap className="h-10 w-10" fill="#FFBE18" stroke="black" strokeWidth={1.4} />
             <span className="text-lg font-semibold text-white">pickall</span>
           </Link>
