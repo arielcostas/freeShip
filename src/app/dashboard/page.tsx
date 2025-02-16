@@ -2,7 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import MyProjectsDashboardView from "@/components/dashboard/MyProjectsDashboardView";
-import ExploreProjectsDashboardView from "@/components/dashboard/ExploreProjectsDashboardView";
+import OtherProjectsDashboardView from "@/components/dashboard/OtherProjectsDashboardView";
 import Navbar from "@/app/(site)/Navbar";
 
 export const metadata: Metadata = {
@@ -47,7 +47,7 @@ export default async function Dashboard() {
 
         {/* Sección: Explorar Proyectos */}
         <div className="w-1/2 bg-white p-4 rounded-lg shadow-md flex flex-col overflow-hidden">
-          <ExploreProjectsDashboardView userId={user.id} />
+          <OtherProjectsDashboardView userId={user.id} />
         </div>
       </div>
     </div>

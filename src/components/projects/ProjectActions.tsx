@@ -26,7 +26,7 @@ export default function ProjectActions({ projectId }: { projectId: string }) {
     if (error) {
       alert("Hubo un error al eliminar el proyecto.");
     } else {
-      router.push("/projects"); // Redirigir tras eliminar
+      router.push("/dashboard"); // Redirigir tras eliminar
     }
   };
 

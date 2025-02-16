@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
 import OtherProjectsList from "@/components/projects/other-projects/OtherProjectsList";
 
-export default async function ExploreProjectsDashboardView({
+export default async function OtherProjectsDashboardView({
   userId,
 }: {
   userId: string;
@@ -18,8 +18,14 @@ export default async function ExploreProjectsDashboardView({
   }
 
   return (
-    <div className="h-full overflow-y-auto border border-gray-300 rounded-lg p-2">
-      <OtherProjectsList projects={projects} />
+    <div className="flex flex-col h-full overflow-hidden">
+      <div className="flex justify-between items-center mb-7">
+        <h2 className="text-xl font-bold">Proyectos de la comunidad</h2>
+      </div>
+
+      <div className="h-full overflow-y-auto border border-gray-300 rounded-lg p-2">
+        <OtherProjectsList projects={projects} />
+      </div>
     </div>
   );
 }
