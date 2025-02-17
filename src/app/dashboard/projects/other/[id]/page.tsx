@@ -1,4 +1,4 @@
-import OtherProjectDetail from "@/components/projects/other-projects/OtherProjectDetail";
+import OtherProjectDetail from "@/app/dashboard/projects/other/OtherProjectDetail";
 
 export default function OtherProjectDetailPage({
   params,

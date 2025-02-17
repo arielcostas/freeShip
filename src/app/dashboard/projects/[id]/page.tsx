@@ -1,4 +1,4 @@
-import MyProjectDetail from "@/components/projects/my-projects/MyProjectDetail";
+import MyProjectDetail from "@/app/dashboard/projects/my-projects/MyProjectDetail";
 
 export default function ProjectDetailPage({
   params,

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import MyProjectsList from "@/components/projects/my-projects/MyProjectsList";
+import MyProjectsList from "@/app/dashboard/projects/my-projects/MyProjectsList";
 
 export default async function MyProjectsDashboardView({
   userId,

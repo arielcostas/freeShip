@@ -1,6 +1,6 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
-import ProjectActions from "@/components/projects/ProjectActions";
+import ProjectActions from "@/app/dashboard/projects/ProjectActions";
 import Navbar from "@/app/(site)/Navbar";
 
 export default async function MyProjectDetail({

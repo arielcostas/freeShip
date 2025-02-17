@@ -1,5 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
-import OtherProjectsList from "@/components/projects/other-projects/OtherProjectsList";
+import OtherProjectsList from "@/app/dashboard/projects/other/OtherProjectsList";
 
 export default async function OtherProjectsDashboardView({
   userId,
