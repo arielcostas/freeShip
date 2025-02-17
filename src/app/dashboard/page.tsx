@@ -1,9 +1,10 @@
 import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import type { Metadata } from "next";
-import MyProjectsDashboardView from "@/components/dashboard/MyProjectsDashboardView";
-import OtherProjectsDashboardView from "@/components/dashboard/OtherProjectsDashboardView";
 import Navbar from "@/app/(site)/Navbar";
+import { Suspense } from "react";
+import { DashboardTabsContent } from "./DashboardTabsContent"; // Componente que maneja el contenido de los tabs
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -14,7 +15,12 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Dashboard() {
+export default async function Dashboard({
+                                          searchParams,
+                                        }: {
+  searchParams?: { tab?: string };
+}) {
+  const activeTab = searchParams?.tab === "comunidad" ? "comunidad" : "misProyectos";
   const supabase = createClient();
   const {
     data: { user },
@@ -39,16 +45,35 @@ export default async function Dashboard() {
       </div>
 
       {/* Contenido principal centrado con padding */}
-      <div className="flex flex-row gap-12 flex-grow overflow-hidden p-24 px-4 sm:px-6 md:px-8 lg:px-12">
-        {/* Sección: Mis Proyectos */}
-        <div className="w-1/2 bg-white p-4 rounded-lg shadow-md flex flex-col overflow-hidden">
-          <MyProjectsDashboardView userId={user.id} />
+      <div className="w-full max-w-md mx-auto mt-20">
+        {/* Tabs */}
+        <div className="flex border-b">
+          <Link
+            href="?tab=misProyectos"
+            className={`flex-1 py-2 text-center ${
+              activeTab === "misProyectos"
+                ? "border-b-2 border-blue-500 font-bold"
+                : "text-gray-500"
+            }`}
+          >
+            Mis Proyectos
+          </Link>
+          <Link
+            href="?tab=comunidad"
+            className={`flex-1 py-2 text-center ${
+              activeTab === "comunidad"
+                ? "border-b-2 border-blue-500 font-bold"
+                : "text-gray-500"
+            }`}
+          >
+            Comunidad
+          </Link>
         </div>
 
-        {/* Sección: Explorar Proyectos */}
-        <div className="w-1/2 bg-white p-4 rounded-lg shadow-md flex flex-col overflow-hidden">
-          <OtherProjectsDashboardView userId={user.id} />
-        </div>
+        {/* Contenido con Suspense */}
+        <Suspense fallback={<p>Cargando...</p>}>
+          <DashboardTabsContent activeTab={activeTab} userId={user.id} />
+        </Suspense>
       </div>
     </div>
   );
