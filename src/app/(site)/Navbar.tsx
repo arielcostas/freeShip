@@ -38,7 +38,9 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
               stroke="black"
               strokeWidth={1.4}
             />
-            <span className="text-lg font-semibold text-white">bugoverflow</span>
+            <span className="text-lg font-semibold text-white">
+              bugoverflow
+            </span>
           </Link>
         </div>
 

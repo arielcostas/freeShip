@@ -39,13 +39,13 @@ export default async function Dashboard({
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
-      {/* Navbar a pantalla completa (fuera del contenedor centrado) */}
+      {/* Navbar a pantalla completa */}
       <div className="w-full bg-white shadow-md">
         <Navbar handleSignOut={handleSignOut} />
       </div>
 
-      {/* Contenido principal centrado con padding */}
-      <div className="w-full max-w-md mx-auto mt-20">
+      {/* Contenedor principal con 85% de ancho y alto */}
+      <div className="w-5/6 h-5/6 mx-auto flex flex-col mt-20 bg-white shadow-md rounded-lg p-6">
         {/* Tabs */}
         <div className="flex border-b">
           <Link
@@ -53,28 +53,31 @@ export default async function Dashboard({
             className={`flex-1 py-2 text-center ${
               activeTab === "misProyectos"
                 ? "border-b-2 border-blue-500 font-bold"
-                : "text-gray-500"
+                : "text-gray-600 font-bold"
             }`}
           >
-            Mis Proyectos
+            Mis proyectos
           </Link>
           <Link
             href="?tab=comunidad"
             className={`flex-1 py-2 text-center ${
               activeTab === "comunidad"
                 ? "border-b-2 border-blue-500 font-bold"
-                : "text-gray-500"
+                : "text-gray-600 font-bold"
             }`}
           >
-            Comunidad
+            Proyectos de la comunidad
           </Link>
         </div>
 
         {/* Contenido con Suspense */}
-        <Suspense fallback={<p>Cargando...</p>}>
-          <DashboardTabsContent activeTab={activeTab} userId={user.id} />
-        </Suspense>
+        <div className="flex-grow flex h-full w-full">
+          <Suspense fallback={<p>Cargando...</p>}>
+            <DashboardTabsContent activeTab={activeTab} userId={user.id} />
+          </Suspense>
+        </div>
       </div>
     </div>
   );
 }
+

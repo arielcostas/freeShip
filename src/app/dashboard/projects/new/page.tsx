@@ -129,7 +129,10 @@ export default function CreateProjectPage() {
               className="w-full border p-2 rounded"
               placeholder="Ejemplo: Java, React, PostgreSQL"
             />
-            <Button type="button" onClick={() => setTechStack([...techStack, techInput.trim()])}>
+            <Button
+              type="button"
+              onClick={() => setTechStack([...techStack, techInput.trim()])}
+            >
               Añadir
             </Button>
           </div>
@@ -144,7 +147,9 @@ export default function CreateProjectPage() {
                 <button
                   type="button"
                   className="ml-2 text-white font-bold"
-                  onClick={() => setTechStack(techStack.filter((t) => t !== tech))}
+                  onClick={() =>
+                    setTechStack(techStack.filter((t) => t !== tech))
+                  }
                 >
                   ×
                 </button>
@@ -161,7 +166,11 @@ export default function CreateProjectPage() {
           >
             Cancelar
           </Button>
-          <Button type="submit" disabled={loading} className="bg-blue-600 hover:bg-blue-700">
+          <Button
+            type="submit"
+            disabled={loading}
+            className="bg-blue-600 hover:bg-blue-700"
+          >
             {loading ? "Creando..." : "Crear Proyecto"}
           </Button>
         </div>
