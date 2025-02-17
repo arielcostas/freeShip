@@ -1,8 +1,7 @@
 import { createClient } from "@/lib/supabase/server";
-import { Button } from "@/components/ui/button";
 import { redirect } from "next/navigation";
 import ProjectActions from "@/components/projects/ProjectActions";
-import Navbar from "@/app/(site)/Navbar"; // Importamos el nuevo componente
+import Navbar from "@/app/(site)/Navbar";
 
 export default async function MyProjectDetail({
   projectId,
@@ -43,7 +42,6 @@ export default async function MyProjectDetail({
 
   return (
     <div className="flex flex-col h-screen w-full bg-gray-100">
-      {/* Navbar: ocupa todo el ancho */}
       <div className="w-full bg-white shadow-md">
         <Navbar handleSignOut={handleSignOut} />
       </div>
