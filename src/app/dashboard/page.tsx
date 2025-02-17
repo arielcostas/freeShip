@@ -16,11 +16,12 @@ export const metadata: Metadata = {
 };
 
 export default async function Dashboard({
-                                          searchParams,
-                                        }: {
+  searchParams,
+}: {
   searchParams?: { tab?: string };
 }) {
-  const activeTab = searchParams?.tab === "comunidad" ? "comunidad" : "misProyectos";
+  const activeTab =
+    searchParams?.tab === "comunidad" ? "comunidad" : "misProyectos";
   const supabase = createClient();
   const {
     data: { user },
@@ -80,4 +81,3 @@ export default async function Dashboard({
     </div>
   );
 }
-

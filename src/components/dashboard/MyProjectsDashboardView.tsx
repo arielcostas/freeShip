@@ -20,7 +20,7 @@ export default async function MyProjectsDashboardView({
         </div>
       </div>
 
-  {/* Lista de proyectos con scroll interno */}
+      {/* Lista de proyectos con scroll interno */}
       <div className="flex-grow overflow-y-auto">
         <MyProjectsList userId={userId} />
       </div>
