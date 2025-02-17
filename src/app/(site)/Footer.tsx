@@ -170,10 +170,10 @@ export default function Footer() {
         <div className="mt-12 border-t border-zinc-800 pt-8 text-center text-sm text-zinc-500">
           © 2025
           <a
-            href="https://pickall.netlify.app/"
+            href="https://bugoverflow.netlify.app/"
             className="text-zinc-400 hover:text-white"
           >
-            pickall
+            bugoverflow
           </a>
           . All Rights Reserved.
         </div>
