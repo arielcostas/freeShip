@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Dashboard({
-                                          searchParams,
-                                        }: {
+  searchParams,
+}: {
   searchParams?: { tab?: string };
 }) {
   // Espera a que searchParams se resuelva
