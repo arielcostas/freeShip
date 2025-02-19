@@ -1,6 +1,6 @@
 import OtherProjectDetail from "@/app/dashboard/projects/other/OtherProjectDetail";
 
-export default function OtherProjectDetailPage({
+export default function ProjectDetailPage({
   params,
 }: {
   params: { id: string };

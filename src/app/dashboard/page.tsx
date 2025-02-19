@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import type { Metadata } from "next";
 import Navbar from "@/app/(site)/Navbar";
 import { Suspense } from "react";
-import { DashboardTabsContent } from "./DashboardTabsContent"; // Componente que maneja el contenido de los tabs
+import { DashboardTabsContent } from "./DashboardTabsContent";
 import Link from "next/link";
 
 export const metadata: Metadata = {
@@ -16,12 +16,14 @@ export const metadata: Metadata = {
 };
 
 export default async function Dashboard({
-  searchParams,
-}: {
+                                          searchParams,
+                                        }: {
   searchParams?: { tab?: string };
 }) {
-  const activeTab =
-    searchParams?.tab === "comunidad" ? "comunidad" : "misProyectos";
+  // Espera a que searchParams se resuelva
+  const params = await searchParams;
+  const activeTab = params?.tab === "comunidad" ? "comunidad" : "misProyectos";
+
   const supabase = createClient();
   const {
     data: { user },
