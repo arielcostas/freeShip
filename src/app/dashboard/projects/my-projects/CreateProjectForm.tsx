@@ -21,9 +21,9 @@ const PROJECT_TYPES = [
 export default function CreateProjectForm({ userId }: CreateProjectFormProps) {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [type, setType] = useState(""); // Tipo de proyecto (opcional)
-  const [techStack, setTechStack] = useState<string[]>([]); // Stack tecnológico
-  const [techInput, setTechInput] = useState(""); // Entrada para nuevas tecnologías
+  const [type, setType] = useState("");
+  const [techStack, setTechStack] = useState<string[]>([]);
+  const [techInput, setTechInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
@@ -34,14 +34,26 @@ export default function CreateProjectForm({ userId }: CreateProjectFormProps) {
     setLoading(true);
     setError("");
 
-    const { data, error } = await supabase
+    if (title.length > 60) {
+      setError("El título no puede superar los 60 caracteres.");
+      setLoading(false);
+      return;
+    }
+
+    if (description.length > 500) {
+      setError("La descripción no puede superar los 500 caracteres.");
+      setLoading(false);
+      return;
+    }
+
+    const { error } = await supabase
       .from("projects")
       .insert([
         {
-          title: title,
+          title,
           description,
-          type: type || null, // Si no se selecciona, guarda null
-          tech_stack: techStack.length > 0 ? techStack : null, // Si está vacío, guarda null
+          type: type || null,
+          tech_stack: techStack.length > 0 ? techStack : null,
           author_id: userId,
         },
       ])
@@ -62,7 +74,11 @@ export default function CreateProjectForm({ userId }: CreateProjectFormProps) {
   };
 
   const handleAddTech = () => {
-    if (techInput.trim() && !techStack.includes(techInput.trim())) {
+    if (
+      techInput.trim() &&
+      !techStack.includes(techInput.trim()) &&
+      techInput.length <= 30
+    ) {
       setTechStack([...techStack, techInput.trim()]);
       setTechInput("");
     }
@@ -84,8 +100,12 @@ export default function CreateProjectForm({ userId }: CreateProjectFormProps) {
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           className="w-full border p-2 rounded"
+          maxLength={100}
           required
         />
+        <p className="text-xs text-gray-500 text-right">
+          {title.length}/100 caracteres
+        </p>
       </div>
 
       {/* Campo Descripción */}
@@ -96,8 +116,12 @@ export default function CreateProjectForm({ userId }: CreateProjectFormProps) {
           onChange={(e) => setDescription(e.target.value)}
           className="w-full border p-2 rounded"
           rows={3}
+          maxLength={500}
           required
         />
+        <p className="text-xs text-gray-500 text-right">
+          {description.length}/500 caracteres
+        </p>
       </div>
 
       {/* Selector de Tipo de Proyecto */}
@@ -127,11 +151,15 @@ export default function CreateProjectForm({ userId }: CreateProjectFormProps) {
             onChange={(e) => setTechInput(e.target.value)}
             className="w-full border p-2 rounded"
             placeholder="Ejemplo: Java, React, PostgreSQL"
+            maxLength={30}
           />
           <Button type="button" onClick={handleAddTech}>
             Añadir
           </Button>
         </div>
+        <p className="text-xs text-gray-500 text-right">
+          {techInput.length}/30 caracteres
+        </p>
         {/* Lista de Tecnologías Agregadas */}
         <div className="mt-2 flex flex-wrap gap-2">
           {techStack.map((tech) => (
