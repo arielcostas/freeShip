@@ -66,11 +66,17 @@ export default function CreateProjectPage() {
       {
         title,
         description,
-        type: type || null,
-        tech_stack: techStack.length > 0 ? techStack : null,
-        author_id: userId, // Ahora userId siempre tendrá un valor válido
+        type: type || null, // Si no hay un tipo, se asigna null
+        tech_stack: techStack.length > 0 ? techStack : null, // Si el techStack está vacío, se asigna null
+        author_id: userId || null, // Asegúrate de que userId sea válido, o asigna null
       },
     ]);
+
+    if (error) {
+      console.error("Error al insertar el proyecto:", error.message); // Depuración para ver el error
+    } else {
+      console.log("Proyecto insertado correctamente");
+    }
 
     if (error) {
       setError(error.message);

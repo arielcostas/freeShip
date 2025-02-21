@@ -2,6 +2,7 @@ import { createClient } from "@/lib/supabase/server";
 import { redirect } from "next/navigation";
 import ProjectActions from "@/app/dashboard/projects/other/ProjectActions";
 import Navbar from "@/app/(site)/Navbar";
+import ProjectApplicationsList from "@/app/dashboard/projects/my-projects/ProjectApplicationsList";
 
 export default async function MyProjectDetail({
   projectId,
@@ -68,6 +69,10 @@ export default async function MyProjectDetail({
 
           {/* Botones de Editar y Eliminar */}
           <ProjectActions projectId={projectId} />
+          <div className="mt-8">
+            <h3 className="text-xl font-bold mb-4">Solicitudes de aplicación</h3>
+            <ProjectApplicationsList projectId={project.id} />
+          </div>
         </div>
       </div>
     </div>
