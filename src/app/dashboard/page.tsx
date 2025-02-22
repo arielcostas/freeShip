@@ -55,7 +55,7 @@ export default async function Dashboard({
             href="?tab=misProyectos"
             className={`flex-1 py-2 text-center ${
               activeTab === "misProyectos"
-                ? "border-b-2 border-blue-500 font-bold"
+                ? "border-b-2 border-green-600 font-bold"
                 : "text-gray-600 font-bold"
             }`}
           >
@@ -65,7 +65,7 @@ export default async function Dashboard({
             href="?tab=comunidad"
             className={`flex-1 py-2 text-center ${
               activeTab === "comunidad"
-                ? "border-b-2 border-blue-500 font-bold"
+                ? "border-b-2 border-green-600 font-bold"
                 : "text-gray-600 font-bold"
             }`}
           >

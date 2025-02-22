@@ -186,16 +186,16 @@ export default function CreateProjectPage() {
               <Button
                 type="button"
                 onClick={() => router.push("/dashboard")}
-                className="bg-gray-500 hover:bg-gray-600"
+                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
               >
-                Cancelar
+                <strong>Cancelar</strong>
               </Button>
               <Button
                 type="submit"
                 disabled={loading}
-                className="bg-blue-600 hover:bg-blue-700"
+                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
               >
-                {loading ? "Creando..." : "Crear Proyecto"}
+                <strong>{loading ? "Creando..." : "Crear Proyecto"}</strong>
               </Button>
             </div>
           </form>

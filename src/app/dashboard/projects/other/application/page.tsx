@@ -66,7 +66,7 @@ const OtherProjectApplicationPageContent = () => {
 
   return (
     <div className="max-w-lg mx-auto mt-10 p-4 border rounded shadow bg-white">
-      <h2 className="text-lg font-semibold mb-2">Aplicar al Proyecto</h2>
+      <h2 className="text-lg font-semibold mb-2">Solicitud de aplicación</h2>
       {error && <p className="text-red-500">{error}</p>}
       <textarea
         value={message}
@@ -77,11 +77,11 @@ const OtherProjectApplicationPageContent = () => {
         rows={4}
       />
       <div className="flex justify-end gap-2">
-        <Button onClick={() => router.back()} variant="destructive">
-          Cancelar
+        <Button className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition" onClick={handleApply} disabled={loading || !projectId}>
+          <strong>{loading ? "Enviando..." : "Enviar solicitud"}</strong>
         </Button>
-        <Button onClick={handleApply} disabled={loading || !projectId}>
-          {loading ? "Enviando..." : "Enviar solicitud"}
+        <Button onClick={() => router.back()} variant="destructive">
+          <strong>Cancelar</strong>
         </Button>
       </div>
     </div>

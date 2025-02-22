@@ -34,11 +34,11 @@ export default function ProjectActions({ projectId }: { projectId: string }) {
     <div className="flex gap-4 mt-6">
       <Button
         onClick={handleEdit}
-        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+        className="bg-green-600 text-white font-bold px-4 py-2 rounded hover:bg-green-700 transition"
       >
         Editar
       </Button>
-      <Button onClick={handleDelete} className="bg-red-500 hover:bg-red-600">
+      <Button onClick={handleDelete} className="bg-red-500 hover:bg-red-600 font-bold">
         Eliminar
       </Button>
     </div>

@@ -20,7 +20,7 @@ export default async function OtherProjectsDashboardView({
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <div className="flex justify-between items-center mb-7">
-        <h2 className="text-xl font-bold mx-auto">Proyectos de la comunidad</h2>
+        //aquí añadir un filtro para buscar proyectos por categoría o stack tecnológico
       </div>
 
       <div className="h-full overflow-y-auto border border-gray-300 rounded-lg p-2">

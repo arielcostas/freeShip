@@ -73,8 +73,7 @@ export default async function OtherProjectDetail({
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack tecnológico:</strong>{" "}
-              {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
             </p>
           )}
 
@@ -82,8 +81,15 @@ export default async function OtherProjectDetail({
           <div className="mt-6">
             {user ? (
               applicationStatus ? (
-                // Si ya ha aplicado, mostrar el estado de la solicitud
-                <p className="text-blue-600 font-semibold">
+                <p
+                  className={
+                    applicationStatus === "PENDING"
+                      ? "text-blue-600 font-semibold"
+                      : applicationStatus === "ACCEPTED"
+                        ? "text-green-600 font-semibold"
+                        : "text-red-600 font-semibold"
+                  }
+                >
                   {applicationStatus === "PENDING"
                     ? "Tu solicitud está pendiente."
                     : applicationStatus === "ACCEPTED"
@@ -91,10 +97,9 @@ export default async function OtherProjectDetail({
                       : "Tu solicitud ha sido rechazada."}
                 </p>
               ) : (
-                // Si no ha aplicado, mostrar el botón de aplicar
                 <Link
                   href={`/dashboard/projects/other/application?projectId=${project.id}`}
-                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                  className="bg-green-600 text-white font-bold px-4 py-2 rounded hover:bg-green-700 transition"
                 >
                   Aplicar
                 </Link>
