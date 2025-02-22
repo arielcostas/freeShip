@@ -70,7 +70,9 @@ export default async function MyProjectDetail({
           {/* Botones de Editar y Eliminar */}
           <ProjectActions projectId={projectId} />
           <div className="mt-8">
-            <h3 className="text-xl font-bold mb-4">Solicitudes de aplicación</h3>
+            <h3 className="text-xl font-bold mb-4">
+              Solicitudes de aplicación
+            </h3>
             <ProjectApplicationsList projectId={project.id} />
           </div>
         </div>

@@ -21,6 +21,26 @@ export default async function OtherProjectDetail({
     return <p className="text-red-500">Project not found</p>;
   }
 
+  // Obtener el usuario autenticado
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  // Verificar si el usuario ha aplicado a este proyecto
+  let applicationStatus = null;
+  if (user) {
+    const { data: application } = await supabase
+      .from("project_applications")
+      .select("status")
+      .eq("project_id", projectId)
+      .eq("applicant_id", user.id)
+      .single(); // Devuelve solo una solicitud si existe
+
+    if (application) {
+      applicationStatus = application.status;
+    }
+  }
+
   // Se asume que author_name ya está en la tabla projects
   const authorName = project.author_name || "Desconocido";
 
@@ -38,7 +58,7 @@ export default async function OtherProjectDetail({
         <Navbar handleSignOut={handleSignOut} />
       </div>
 
-      {/* Contenido principal centrado con padding */}
+      {/* Contenido principal */}
       <div className="flex flex-grow flex-col p-6 sm:p-8 md:p-12 lg:p-16 max-w-7xl mx-auto w-full">
         <div className="bg-white p-6 rounded-lg shadow-md flex flex-col flex-grow">
           <h2 className="text-2xl font-bold">{project.title}</h2>
@@ -53,18 +73,34 @@ export default async function OtherProjectDetail({
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack tecnológico:</strong>{" "}
-              {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
             </p>
           )}
-          {/* Botón de Aplicar: Redirige a la página de aplicación */}
+
+          {/* Sección de Aplicación */}
           <div className="mt-6">
-            <Link
-              href={`/dashboard/projects/other/application?projectId=${project.id}`}
-              className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
-            >
-              Aplicar
-            </Link>
+            {user ? (
+              applicationStatus ? (
+                // Si ya ha aplicado, mostrar el estado de la solicitud
+                <p className="text-blue-600 font-semibold">
+                  {applicationStatus === "PENDING"
+                    ? "Tu solicitud está pendiente."
+                    : applicationStatus === "ACCEPTED"
+                      ? "Tu solicitud ha sido aceptada. ¡Enhorabuena!"
+                      : "Tu solicitud ha sido rechazada."}
+                </p>
+              ) : (
+                // Si no ha aplicado, mostrar el botón de aplicar
+                <Link
+                  href={`/dashboard/projects/other/application?projectId=${project.id}`}
+                  className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                >
+                  Aplicar
+                </Link>
+              )
+            ) : (
+              <p className="text-gray-500">Inicia sesión para aplicar.</p>
+            )}
           </div>
         </div>
       </div>

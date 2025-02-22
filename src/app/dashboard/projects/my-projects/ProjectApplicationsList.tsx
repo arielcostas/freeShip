@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
-export default function ProjectApplicationsList({ projectId }: { projectId: string }) {
+export default function ProjectApplicationsList({
+  projectId,
+}: {
+  projectId: string;
+}) {
   const supabase = createClient();
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -50,15 +54,28 @@ export default function ProjectApplicationsList({ projectId }: { projectId: stri
     <div className="space-y-4">
       {applications.map((app) => (
         <div key={app.id} className="border p-3 rounded shadow-sm bg-gray-50">
-          <p className="text-sm"><strong>Solicitante:</strong> {app.applicant_id}</p>
-          <p className="text-sm"><strong>Mensaje:</strong> {app.message || "Sin mensaje"}</p>
-          <p className="text-sm"><strong>Estado:</strong> {app.status}</p>
+          <p className="text-sm">
+            <strong>Solicitante:</strong> {app.applicant_id}
+          </p>
+          <p className="text-sm">
+            <strong>Mensaje:</strong> {app.message || "Sin mensaje"}
+          </p>
+          <p className="text-sm">
+            <strong>Estado:</strong> {app.status}
+          </p>
           {app.status === "pending" && (
             <div className="flex gap-2 mt-2">
-              <Button size="sm" onClick={() => handleUpdateStatus(app.id, "accepted")}>
+              <Button
+                size="sm"
+                onClick={() => handleUpdateStatus(app.id, "accepted")}
+              >
                 Aceptar
               </Button>
-              <Button size="sm" variant="secondary" onClick={() => handleUpdateStatus(app.id, "rejected")}>
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => handleUpdateStatus(app.id, "rejected")}
+              >
                 Rechazar
               </Button>
             </div>

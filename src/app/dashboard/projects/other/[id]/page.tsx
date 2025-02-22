@@ -1,10 +1,16 @@
 import OtherProjectDetail from "@/app/dashboard/projects/other/OtherProjectDetail";
 
-export default async function ProjectDetailPage({ params }: { params: { id: string } }) {
+export default async function ProjectDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const projectId = params?.id; // Se asegura de obtener el ID correctamente
 
   if (!projectId) {
-    return <p className="text-red-500">Error: No se encontró el ID del proyecto.</p>;
+    return (
+      <p className="text-red-500">Error: No se encontró el ID del proyecto.</p>
+    );
   }
 
   return (

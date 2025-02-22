@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import Link from "next/link";
 
 export default function OtherProjectApplicationPage() {
   const searchParams = useSearchParams();
@@ -82,12 +83,14 @@ export default function OtherProjectApplicationPage() {
         rows={4}
       />
       <div className="flex justify-end gap-2">
-        <Button onClick={() => router.back()} variant="secondary">
+        <Button onClick={() => router.back()} variant="destructive">
           Cancelar
         </Button>
-        <Button onClick={handleApply} disabled={loading || !projectId}>
-          {loading ? "Aplicando..." : "Confirmar"}
-        </Button>
+        <Link href="/dashboard">
+          <Button onClick={handleApply} disabled={loading || !projectId}>
+            {loading ? "Enviando..." : "Enviar solicitud"}
+          </Button>
+        </Link>
       </div>
     </div>
   );
