@@ -53,7 +53,9 @@ export default async function MyProjectDetail({
           <h2 className="text-2xl font-bold">{project.title}</h2>
           <p className="text-gray-700 mt-2">{project.description}</p>
           <p className="mt-2">
-            <p>Propuesto por  <strong>{authorName}</strong> </p>
+            <p>
+              Propuesto por <strong>{authorName}</strong>{" "}
+            </p>
           </p>
           {project.type && (
             <p className="mt-2">
