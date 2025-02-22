@@ -1,38 +1,33 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
-import Link from "next/link";
 
-export default function OtherProjectApplicationPage() {
+const OtherProjectApplicationPageContent = () => {
   const searchParams = useSearchParams();
   const projectId = searchParams.get("projectId") || "";
   const router = useRouter();
+  const supabase = createClient();
 
-  // Aquí deberías obtener el userId de la sesión (usualmente desde un contexto o similar)
-  // Para este ejemplo, lo dejamos como un string fijo; reemplázalo con la forma correcta:
   const [userId, setUserId] = useState<string | null>(null);
+  const [message, setMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   useEffect(() => {
     const fetchUser = async () => {
       const { data, error } = await supabase.auth.getUser();
       if (data?.user) {
-        setUserId(data.user.id); // Guardamos el UUID correcto
+        setUserId(data.user.id);
       } else {
         setError("No se pudo obtener el usuario.");
       }
     };
 
     fetchUser();
-  }, []);
-
-  const [message, setMessage] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-
-  const supabase = createClient();
+  }, [supabase]);
 
   useEffect(() => {
     if (!projectId) {
@@ -64,7 +59,6 @@ export default function OtherProjectApplicationPage() {
     if (error) {
       setError(error.message);
     } else {
-      // Redirigir al detalle del proyecto o al dashboard, según prefieras
       router.push(`/dashboard/projects/other/${projectId}`);
     }
     setLoading(false);
@@ -86,12 +80,18 @@ export default function OtherProjectApplicationPage() {
         <Button onClick={() => router.back()} variant="destructive">
           Cancelar
         </Button>
-        <Link href="/dashboard">
-          <Button onClick={handleApply} disabled={loading || !projectId}>
-            {loading ? "Enviando..." : "Enviar solicitud"}
-          </Button>
-        </Link>
+        <Button onClick={handleApply} disabled={loading || !projectId}>
+          {loading ? "Enviando..." : "Enviar solicitud"}
+        </Button>
       </div>
     </div>
+  );
+};
+
+export default function OtherProjectApplicationPage() {
+  return (
+    <Suspense fallback={<p>Cargando...</p>}>
+      <OtherProjectApplicationPageContent />
+    </Suspense>
   );
 }
