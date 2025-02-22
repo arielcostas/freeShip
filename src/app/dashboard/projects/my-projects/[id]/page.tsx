@@ -6,7 +6,7 @@ export default function ProjectDetailPage({
   params: { id: string };
 }) {
   return (
-    <div className="h-screen flex justify-center items-center bg-gray-100 p-6">
+    <div className=" flex justify-center items-center bg-gray-100 ">
       <MyProjectDetail projectId={params.id} />
     </div>
   );

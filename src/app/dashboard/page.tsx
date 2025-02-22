@@ -48,7 +48,7 @@ export default async function Dashboard({
       </div>
 
       {/* Contenedor principal con 85% de ancho y alto */}
-      <div className="w-5/6 h-5/6 mx-auto flex flex-col mt-20 bg-white shadow-md rounded-lg p-6">
+      <div className="w-6/6 h-5/6  flex flex-col mt-20 bg-white shadow-md rounded-lg ">
         {/* Tabs */}
         <div className="flex border-b">
           <Link

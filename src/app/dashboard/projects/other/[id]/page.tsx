@@ -14,7 +14,7 @@ export default async function ProjectDetailPage({
   }
 
   return (
-    <div className="h-screen flex justify-center items-center bg-gray-100 p-6">
+    <div className=" flex justify-center items-center bg-gray-100 mt-8">
       <OtherProjectDetail projectId={projectId} />
     </div>
   );

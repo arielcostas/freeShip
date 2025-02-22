@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
-export default function ProjectApplicationsList({ projectId }: { projectId: string }) {
+export default function ProjectApplicationsList({
+  projectId,
+}: {
+  projectId: string;
+}) {
   const supabase = createClient();
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -105,7 +109,10 @@ export default function ProjectApplicationsList({ projectId }: { projectId: stri
           .eq("id", projectId);
 
         if (teamUpdateError) {
-          alert("Error actualizando los miembros del equipo: " + teamUpdateError.message);
+          alert(
+            "Error actualizando los miembros del equipo: " +
+              teamUpdateError.message
+          );
         }
       }
     }
@@ -123,7 +130,7 @@ export default function ProjectApplicationsList({ projectId }: { projectId: stri
       {applications.map((app) => (
         <div key={app.id} className="border p-3 rounded shadow-sm bg-gray-50">
           <p className="text-sm">
-            <strong>Solicitante:</strong> {app.applicant_name}
+            <strong>Aplicante:</strong> {app.applicant_name}
           </p>
           <p className="text-sm">
             <strong>Mensaje:</strong> {app.message || "Sin mensaje"}
@@ -133,10 +140,17 @@ export default function ProjectApplicationsList({ projectId }: { projectId: stri
           </p>
           {app.status === "PENDING" && (
             <div className="flex gap-2 mt-2">
-              <Button size="sm" onClick={() => handleUpdateStatus(app.id, "ACCEPTED")}>
+              <Button
+                size="sm"
+                onClick={() => handleUpdateStatus(app.id, "ACCEPTED")}
+              >
                 Aceptar
               </Button>
-              <Button size="sm" variant="secondary" onClick={() => handleUpdateStatus(app.id, "REJECTED")}>
+              <Button
+                size="sm"
+                variant="secondary"
+                onClick={() => handleUpdateStatus(app.id, "REJECTED")}
+              >
                 Rechazar
               </Button>
             </div>
