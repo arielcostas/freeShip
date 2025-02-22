@@ -4,11 +4,7 @@ import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
-export default function ProjectApplicationsList({
-                                                  projectId,
-                                                }: {
-  projectId: string;
-}) {
+export default function ProjectApplicationsList({ projectId }: { projectId: string }) {
   const supabase = createClient();
   const [applications, setApplications] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -64,15 +60,57 @@ export default function ProjectApplicationsList({
   }, [projectId]);
 
   const handleUpdateStatus = async (appId: string, newStatus: string) => {
-    const { error } = await supabase
+    // Buscar la aplicación en la lista para obtener `applicant_id`
+    const application = applications.find((app) => app.id === appId);
+    if (!application) {
+      alert("Solicitud no encontrada");
+      return;
+    }
+
+    const { applicant_id } = application;
+
+    // Actualizar estado de la solicitud
+    const { error: updateError } = await supabase
       .from("project_applications")
       .update({ status: newStatus })
       .eq("id", appId);
-    if (error) {
-      alert("Error actualizando el estado: " + error.message);
-    } else {
-      fetchApplications();
+
+    if (updateError) {
+      alert("Error actualizando el estado: " + updateError.message);
+      return;
     }
+
+    if (newStatus === "ACCEPTED") {
+      // Obtener los miembros actuales del equipo
+      const { data: project, error: projectError } = await supabase
+        .from("projects")
+        .select("team_members")
+        .eq("id", projectId)
+        .single();
+
+      if (projectError) {
+        alert("Error obteniendo el proyecto: " + projectError.message);
+        return;
+      }
+
+      const currentMembers = project?.team_members || [];
+
+      // Evitar añadir duplicados
+      if (!currentMembers.includes(applicant_id)) {
+        const updatedMembers = [...currentMembers, applicant_id];
+
+        const { error: teamUpdateError } = await supabase
+          .from("projects")
+          .update({ team_members: updatedMembers })
+          .eq("id", projectId);
+
+        if (teamUpdateError) {
+          alert("Error actualizando los miembros del equipo: " + teamUpdateError.message);
+        }
+      }
+    }
+
+    fetchApplications();
   };
 
   if (loading) return <p>Cargando aplicaciones...</p>;
@@ -95,17 +133,10 @@ export default function ProjectApplicationsList({
           </p>
           {app.status === "PENDING" && (
             <div className="flex gap-2 mt-2">
-              <Button
-                size="sm"
-                onClick={() => handleUpdateStatus(app.id, "ACCEPTED")}
-              >
+              <Button size="sm" onClick={() => handleUpdateStatus(app.id, "ACCEPTED")}>
                 Aceptar
               </Button>
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={() => handleUpdateStatus(app.id, "REJECTED")}
-              >
+              <Button size="sm" variant="secondary" onClick={() => handleUpdateStatus(app.id, "REJECTED")}>
                 Rechazar
               </Button>
             </div>
