@@ -162,11 +162,11 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
                 {item.label}
               </Link>
             ))}
-            <div className="hidden items-center gap-2 md:flex">
-              <form action={handleSignOut}>
-                <Button type="submit">Sign Out</Button>
-              </form>
-            </div>
+          </div>
+          <div className="hidden items-center gap-2 md:flex">
+            <form action={handleSignOut}>
+              <Button type="submit">Sign Out</Button>
+            </form>
           </div>
         </div>
       )}
