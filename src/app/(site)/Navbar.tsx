@@ -148,7 +148,10 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
           <div className="space-y-1 px-2 pb-3 pt-2">
             {[
               { href: "/dashboard?tab=misProyectos", label: "Mis proyectos" },
-              { href: "/dashboard?tab=comunidad", label: "Proyectos de la comunidad" },
+              {
+                href: "/dashboard?tab=comunidad",
+                label: "Proyectos de la comunidad",
+              },
             ].map((item) => (
               <Link
                 key={item.href}
@@ -159,6 +162,11 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
                 {item.label}
               </Link>
             ))}
+            <div className="hidden items-center gap-2 md:flex">
+              <form action={handleSignOut}>
+                <Button type="submit">Sign Out</Button>
+              </form>
+            </div>
           </div>
         </div>
       )}
