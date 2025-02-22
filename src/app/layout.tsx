@@ -13,8 +13,7 @@ export const metadata: Metadata = {
   icons: {
     icon: "/favicon.svg",
   },
-  description:
-    "Collaborative Projects Finder",
+  description: "Collaborative Projects Finder",
   keywords: [
     "saas",
     "sofware",

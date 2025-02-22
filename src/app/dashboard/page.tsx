@@ -59,7 +59,7 @@ export default async function Dashboard({
                 : "text-gray-600 font-bold"
             }`}
           >
-            Mis proyectos
+            Tus Proyectos
           </Link>
           <Link
             href="?tab=comunidad"

@@ -32,7 +32,10 @@ export default function ProjectActions({ projectId }: { projectId: string }) {
 
   return (
     <div className="flex gap-4 mt-6">
-      <Button onClick={handleEdit} className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition">
+      <Button
+        onClick={handleEdit}
+        className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+      >
         Editar
       </Button>
       <Button onClick={handleDelete} className="bg-red-500 hover:bg-red-600">

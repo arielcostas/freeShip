@@ -136,7 +136,7 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
         <div className="md:hidden">
           <div className="space-y-1 px-2 pb-3 pt-2">
             {[
-              { href: "/dashboard?tab=misProyectos", label: "Mis proyectos" },
+              { href: "/dashboard?tab=misProyectos", label: "Tus proyectos" },
               {
                 href: "/dashboard?tab=comunidad",
                 label: "Proyectos de la comunidad",
