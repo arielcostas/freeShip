@@ -1,5 +1,5 @@
-import MyProjectsDashboardView from "@/app/dashboard/MyProjectsDashboardView";
-import OtherProjectsDashboardView from "@/app/dashboard/OtherProjectsDashboardView";
+import MyProjectsDashboardView from "@/app/dashboard/projects/my-projects/MyProjectsDashboardView";
+import OtherProjectsDashboardView from "@/app/dashboard/projects/other/OtherProjectsDashboardView";
 
 export function DashboardTabsContent({
   activeTab,

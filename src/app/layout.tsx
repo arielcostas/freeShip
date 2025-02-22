@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
   },
   description:
-    "Open Source Alternative to ShipFast - Launch your startup in days Not in weeks",
+    "Collaborative Projects Finder",
   keywords: [
     "saas",
     "sofware",
