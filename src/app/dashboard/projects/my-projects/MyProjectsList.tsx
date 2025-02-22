@@ -26,7 +26,9 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
           ))}
         </ul>
       ) : (
-        <p className="text-center text-gray-500">No projects yet. Create one!</p>
+        <p className="text-center text-gray-500">
+          No projects yet. Create one!
+        </p>
       )}
     </div>
   );

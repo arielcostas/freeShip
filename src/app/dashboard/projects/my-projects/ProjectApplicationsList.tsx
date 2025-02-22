@@ -5,8 +5,8 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
 export default function ProjectApplicationsList({
-  projectId,
-}: {
+                                                  projectId,
+                                                }: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -16,16 +16,46 @@ export default function ProjectApplicationsList({
 
   const fetchApplications = async () => {
     setLoading(true);
-    const { data, error } = await supabase
+
+    // Obtener aplicaciones
+    const { data: applicationsData, error: applicationsError } = await supabase
       .from("project_applications")
       .select("id, applicant_id, message, status, applied_at")
       .eq("project_id", projectId)
       .order("applied_at", { ascending: false });
-    if (error) {
-      setError(error.message);
-    } else {
-      setApplications(data || []);
+
+    if (applicationsError) {
+      setError(applicationsError.message);
+      setLoading(false);
+      return;
     }
+
+    // Obtener los usernames de los solicitantes
+    const applicantIds = applicationsData.map((app) => app.applicant_id);
+    const { data: profilesData, error: profilesError } = await supabase
+      .from("profiles")
+      .select("id, username")
+      .in("id", applicantIds); // Buscar todos los usernames en una sola consulta
+
+    if (profilesError) {
+      setError(profilesError.message);
+      setLoading(false);
+      return;
+    }
+
+    // Crear un diccionario para búsqueda rápida de usernames
+    const profilesMap = profilesData.reduce((acc, profile) => {
+      acc[profile.id] = profile.username;
+      return acc;
+    }, {});
+
+    // Asignar el nombre de usuario a cada aplicación
+    const applicationsWithNames = applicationsData.map((app) => ({
+      ...app,
+      applicant_name: profilesMap[app.applicant_id] || "Desconocido",
+    }));
+
+    setApplications(applicationsWithNames);
     setLoading(false);
   };
 
@@ -55,7 +85,7 @@ export default function ProjectApplicationsList({
       {applications.map((app) => (
         <div key={app.id} className="border p-3 rounded shadow-sm bg-gray-50">
           <p className="text-sm">
-            <strong>Solicitante:</strong> {app.applicant_id}
+            <strong>Solicitante:</strong> {app.applicant_name}
           </p>
           <p className="text-sm">
             <strong>Mensaje:</strong> {app.message || "Sin mensaje"}
@@ -63,18 +93,18 @@ export default function ProjectApplicationsList({
           <p className="text-sm">
             <strong>Estado:</strong> {app.status}
           </p>
-          {app.status === "pending" && (
+          {app.status === "PENDING" && (
             <div className="flex gap-2 mt-2">
               <Button
                 size="sm"
-                onClick={() => handleUpdateStatus(app.id, "accepted")}
+                onClick={() => handleUpdateStatus(app.id, "ACCEPTED")}
               >
                 Aceptar
               </Button>
               <Button
                 size="sm"
                 variant="secondary"
-                onClick={() => handleUpdateStatus(app.id, "rejected")}
+                onClick={() => handleUpdateStatus(app.id, "REJECTED")}
               >
                 Rechazar
               </Button>

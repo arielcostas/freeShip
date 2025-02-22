@@ -4,8 +4,8 @@ import Navbar from "@/app/(site)/Navbar";
 import Link from "next/link";
 
 export default async function OtherProjectDetail({
-                                                   projectId,
-                                                 }: {
+  projectId,
+}: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -73,7 +73,8 @@ export default async function OtherProjectDetail({
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong>{" "}
+              {project.tech_stack.join(", ")}
             </p>
           )}
 
