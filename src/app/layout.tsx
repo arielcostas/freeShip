@@ -9,20 +9,23 @@ const bricolageGrotesque = Bricolage_Grotesque({
 });
 
 export const metadata: Metadata = {
-  title: "ShipFree",
+  title: "bugoverflow",
+  icons: {
+    icon: "/favicon.svg",
+  },
   description:
     "Open Source Alternative to ShipFast - Launch your startup in days Not in weeks",
   keywords: [
     "saas",
-    "boilerplate",
+    "sofware",
     "open source",
-    "free",
-    "open source shipfast",
-    "shipfree",
-    "idee8",
-    "made by idee8",
-    "free boilerplate",
+    "coding",
+    "bootcamp",
+    "bugoverflow",
+    "stackoverflow",
     "github",
+    "junior",
+    "developer",
   ],
 };
 

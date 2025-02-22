@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { X } from "lucide-react";
-import {  useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 
 interface NavbarProps {
@@ -11,7 +11,6 @@ interface NavbarProps {
 
 export default function Navbar({ handleSignOut }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -138,7 +137,10 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
           <div className="space-y-1 px-2 pb-3 pt-2">
             {[
               { href: "/dashboard?tab=misProyectos", label: "Mis proyectos" },
-              { href: "/dashboard?tab=comunidad", label: "Proyectos de la comunidad" },
+              {
+                href: "/dashboard?tab=comunidad",
+                label: "Proyectos de la comunidad",
+              },
             ].map((item) => (
               <Link
                 key={item.href}
@@ -153,7 +155,9 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
             {/* Sign Out button */}
             <div className="rounded-md px-3 py-2">
               <form action={handleSignOut}>
-                <Button type="submit" className="w-full">Sign Out</Button>
+                <Button type="submit" className="w-full">
+                  Sign Out
+                </Button>
               </form>
             </div>
           </div>
