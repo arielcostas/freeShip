@@ -6,7 +6,11 @@ import OtherProjectsList from "@/app/dashboard/projects/other/OtherProjectsList"
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
-export default function OtherProjectsDashboardView({ userId }: { userId: string }) {
+export default function OtherProjectsDashboardView({
+  userId,
+}: {
+  userId: string;
+}) {
   const [projects, setProjects] = useState<any[]>([]);
   const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
   const [categoryFilter, setCategoryFilter] = useState("");
@@ -67,7 +71,10 @@ export default function OtherProjectsDashboardView({ userId }: { userId: string 
     <div className="flex flex-col md:flex-row h-full">
       {/* Botón para mostrar/ocultar filtro en móvil */}
       <div className="md:hidden w-full p-4 border-b border-gray-300">
-        <Button className="w-full flex justify-between" onClick={() => setIsFilterOpen(!isFilterOpen)}>
+        <Button
+          className="w-full flex justify-between"
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+        >
           Filtros {isFilterOpen ? <ChevronUp /> : <ChevronDown />}
         </Button>
       </div>
@@ -78,11 +85,15 @@ export default function OtherProjectsDashboardView({ userId }: { userId: string 
           isFilterOpen ? "block" : "hidden md:block"
         }`}
       >
-        <h2 className="text-lg font-semibold mb-4 text-center md:text-left">Filtros</h2>
+        <h2 className="text-lg font-semibold mb-4 text-center md:text-left">
+          Filtros
+        </h2>
 
         {/* Filtro por Palabra Clave */}
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Palabra clave</label>
+          <label className="block text-sm font-medium mb-1">
+            Palabra clave
+          </label>
           <input
             type="text"
             placeholder="Ej: Nombre de proyecto..."
