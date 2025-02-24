@@ -73,7 +73,8 @@ export default async function OtherProjectDetail({
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong>{" "}
+              {project.tech_stack.join(", ")}
             </p>
           )}
 

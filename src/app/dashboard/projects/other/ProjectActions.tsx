@@ -38,7 +38,10 @@ export default function ProjectActions({ projectId }: { projectId: string }) {
       >
         Editar
       </Button>
-      <Button onClick={handleDelete} className="bg-red-500 hover:bg-red-600 font-bold">
+      <Button
+        onClick={handleDelete}
+        className="bg-red-500 hover:bg-red-600 font-bold"
+      >
         Eliminar
       </Button>
     </div>
