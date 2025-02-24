@@ -9,7 +9,7 @@ export default function OtherProjectsDashboardView({ userId }: { userId: string 
   const [filteredProjects, setFilteredProjects] = useState<any[]>([]);
   const [categoryFilter, setCategoryFilter] = useState("");
   const [techStackFilter, setTechStackFilter] = useState("");
-  const [keywordFilter, setKeywordFilter] = useState(""); // 🔹 Estado para palabra clave
+  const [keywordFilter, setKeywordFilter] = useState("");
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -18,7 +18,7 @@ export default function OtherProjectsDashboardView({ userId }: { userId: string 
         .from("projects")
         .select("id, title, description, type, tech_stack, author_name")
         .neq("author_id", userId)
-        .eq("visible", true) // Solo proyectos visibles
+        .eq("visible", true)
         .order("created_at", { ascending: false });
 
       if (error) {
@@ -32,7 +32,6 @@ export default function OtherProjectsDashboardView({ userId }: { userId: string 
     fetchProjects();
   }, [userId]);
 
-  // Filtrar proyectos cuando cambian los filtros
   useEffect(() => {
     let filtered = projects;
 
@@ -62,10 +61,10 @@ export default function OtherProjectsDashboardView({ userId }: { userId: string 
   }, [categoryFilter, techStackFilter, keywordFilter, projects]);
 
   return (
-    <div className="flex h-full">
-      {/* Sidebar de filtros */}
-      <div className="w-1/5 p-4 border-r border-gray-300">
-        <h2 className="text-lg font-semibold mb-4">Filtros</h2>
+    <div className="flex flex-col md:flex-row h-full">
+      {/* Filtros: Ocupa toda la parte superior en móvil, columna izquierda en PC */}
+      <div className="w-full md:w-1/5 p-4 border-b md:border-r border-gray-300">
+        <h2 className="text-lg font-semibold mb-4 text-center md:text-left">Filtros</h2>
 
         {/* Filtro por Palabra Clave */}
         <div className="mb-4">
@@ -112,7 +111,7 @@ export default function OtherProjectsDashboardView({ userId }: { userId: string 
       </div>
 
       {/* Lista de proyectos */}
-      <div className="w-4/5 h-full overflow-y-auto p-4">
+      <div className="w-full md:w-4/5 h-full overflow-y-auto p-4">
         <OtherProjectsList projects={filteredProjects} />
       </div>
     </div>
