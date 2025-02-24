@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import { createClient } from "@/lib/supabase/client";
 import OtherProjectsList from "@/app/dashboard/projects/other/OtherProjectsList";
+import { Button } from "@/components/ui/button";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export default function OtherProjectsDashboardView({ userId }: { userId: string }) {
   const [projects, setProjects] = useState<any[]>([]);
@@ -10,6 +12,7 @@ export default function OtherProjectsDashboardView({ userId }: { userId: string 
   const [categoryFilter, setCategoryFilter] = useState("");
   const [techStackFilter, setTechStackFilter] = useState("");
   const [keywordFilter, setKeywordFilter] = useState("");
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
 
   useEffect(() => {
     const fetchProjects = async () => {
@@ -62,8 +65,19 @@ export default function OtherProjectsDashboardView({ userId }: { userId: string 
 
   return (
     <div className="flex flex-col md:flex-row h-full">
-      {/* Filtros: Ocupa toda la parte superior en móvil, columna izquierda en PC */}
-      <div className="w-full md:w-1/5 p-4 border-b md:border-r border-gray-300">
+      {/* Botón para mostrar/ocultar filtro en móvil */}
+      <div className="md:hidden w-full p-4 border-b border-gray-300">
+        <Button className="w-full flex justify-between" onClick={() => setIsFilterOpen(!isFilterOpen)}>
+          Filtros {isFilterOpen ? <ChevronUp /> : <ChevronDown />}
+        </Button>
+      </div>
+
+      {/* Filtros: oculto en móvil si está cerrado, siempre visible en escritorio */}
+      <div
+        className={`w-full md:w-1/5 p-4 border-b md:border-r border-gray-300 ${
+          isFilterOpen ? "block" : "hidden md:block"
+        }`}
+      >
         <h2 className="text-lg font-semibold mb-4 text-center md:text-left">Filtros</h2>
 
         {/* Filtro por Palabra Clave */}
