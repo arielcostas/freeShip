@@ -28,6 +28,7 @@ export default function CreateProjectPage() {
   const [techInput, setTechInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [collaboratorsNumber, setCollaboratorsNumber] = useState(1); // Nuevo estado para el número de colaboradores
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -69,6 +70,7 @@ export default function CreateProjectPage() {
         type: type || null, // Si no hay un tipo, se asigna null
         tech_stack: techStack.length > 0 ? techStack : null, // Si el techStack está vacío, se asigna null
         author_id: userId || null, // Asegúrate de que userId sea válido, o asigna null
+        collaborators_number: collaboratorsNumber, // Campo de número de colaboradores
       },
     ]);
 
@@ -180,6 +182,21 @@ export default function CreateProjectPage() {
                   </span>
                 ))}
               </div>
+            </div>
+
+            {/* Campo para el número de colaboradores */}
+            <div>
+              <label className="block text-sm font-medium">
+                Número de Colaboradores
+              </label>
+              <input
+                type="number"
+                value={collaboratorsNumber}
+                onChange={(e) => setCollaboratorsNumber(Number(e.target.value))}
+                className="w-full border p-2 rounded"
+                min={1}
+                required
+              />
             </div>
 
             <div className="flex justify-between">

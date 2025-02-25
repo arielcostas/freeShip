@@ -26,8 +26,11 @@ export default function EditProject() {
   const [type, setType] = useState("");
   const [techStack, setTechStack] = useState<string[]>([]);
   const [techInput, setTechInput] = useState("");
+  const [collaboratorsNumber, setCollaboratorsNumber] = useState(1); // Estado para el número de colaboradores
+  const [currentMembers, setCurrentMembers] = useState<number>(0); // Miembros actuales
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [showErrorPopup, setShowErrorPopup] = useState(false); // Para mostrar el popup de error
 
   useEffect(() => {
     if (!id) return;
@@ -49,6 +52,8 @@ export default function EditProject() {
         setDescription(data.description);
         setType(data.type || "");
         setTechStack(data.tech_stack || []);
+        setCollaboratorsNumber(data.collaborators_number || 1);
+        setCurrentMembers(data.team_members ? data.team_members.length : 0); // Obtener la cantidad de miembros actuales
       }
     };
 
@@ -60,6 +65,12 @@ export default function EditProject() {
     setLoading(true);
     setError("");
 
+    if (currentMembers > collaboratorsNumber) {
+      setShowErrorPopup(true); // Mostrar popup de advertencia si el número de colaboradores es mayor que los miembros actuales
+      setLoading(false);
+      return;
+    }
+
     const { error } = await supabase
       .from("projects")
       .update({
@@ -67,6 +78,7 @@ export default function EditProject() {
         description,
         type: type || null,
         tech_stack: techStack.length > 0 ? techStack : null,
+        collaborators_number: collaboratorsNumber, // Actualizar el número de colaboradores
       })
       .eq("id", id);
 
@@ -177,10 +189,47 @@ export default function EditProject() {
             </div>
           </div>
 
+          {/* Campo para el Número de Colaboradores */}
+          <div>
+            <label className="block text-sm font-medium">
+              Número de Colaboradores
+            </label>
+            <input
+              type="number"
+              value={collaboratorsNumber}
+              onChange={(e) => setCollaboratorsNumber(Number(e.target.value))}
+              className="w-full border p-2 rounded"
+              min={1}
+              required
+            />
+            <p className="text-sm text-gray-500 mt-2">
+              Miembros actuales: {currentMembers}
+            </p>
+          </div>
+
           <Button type="submit" disabled={loading} className="w-full">
             {loading ? "Guardando..." : "Guardar Cambios"}
           </Button>
         </form>
+
+        {/* Popup de Error si el número de colaboradores es mayor que los miembros actuales */}
+        {showErrorPopup && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-lg font-bold text-red-500">
+                Error: El número de colaboradores no puede superar el número de miembros actuales.
+              </h3>
+              <div className="mt-4 flex justify-end">
+                <Button
+                  onClick={() => setShowErrorPopup(false)}
+                  className="bg-red-500 text-white"
+                >
+                  Cerrar
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
