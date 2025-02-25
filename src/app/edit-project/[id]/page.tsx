@@ -217,7 +217,8 @@ export default function EditProject() {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-lg font-bold text-red-500">
-                Error: El número de colaboradores no puede superar el número de miembros actuales.
+                Error: El número de colaboradores no puede superar el número de
+                miembros actuales.
               </h3>
               <div className="mt-4 flex justify-end">
                 <Button

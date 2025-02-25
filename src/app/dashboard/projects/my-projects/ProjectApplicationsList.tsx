@@ -5,8 +5,8 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
 export default function ProjectApplicationsList({
-  projectId,
-}: {
+                                                  projectId,
+                                                }: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -85,10 +85,10 @@ export default function ProjectApplicationsList({
     }
 
     if (newStatus === "ACCEPTED") {
-      // Obtener los miembros actuales del equipo
+      // Obtener los miembros actuales del equipo y el número máximo de colaboradores
       const { data: project, error: projectError } = await supabase
         .from("projects")
-        .select("team_members")
+        .select("team_members, collaborators_number")
         .eq("id", projectId)
         .single();
 
@@ -98,6 +98,7 @@ export default function ProjectApplicationsList({
       }
 
       const currentMembers = project?.team_members || [];
+      const maxCollaborators = project?.collaborators_number || 0;
 
       // Evitar añadir duplicados
       if (!currentMembers.includes(applicant_id)) {
@@ -111,8 +112,37 @@ export default function ProjectApplicationsList({
         if (teamUpdateError) {
           alert(
             "Error actualizando los miembros del equipo: " +
-              teamUpdateError.message
+            teamUpdateError.message
           );
+        }
+
+        // Verificar si se ha alcanzado el límite de colaboradores
+        if (updatedMembers.length === maxCollaborators) {
+          const { error: visibilityUpdateError } = await supabase
+            .from("projects")
+            .update({ visible: false })
+            .eq("id", projectId);
+
+          if (visibilityUpdateError) {
+            alert(
+              "Error actualizando la visibilidad del proyecto: " +
+              visibilityUpdateError.message
+            );
+          }
+
+          // Rechazar todas las solicitudes pendientes
+          const { error: rejectError } = await supabase
+            .from("project_applications")
+            .update({ status: "REJECTED" })
+            .eq("project_id", projectId)
+            .eq("status", "PENDING");
+
+          if (rejectError) {
+            alert(
+              "Error rechazando las solicitudes pendientes: " +
+              rejectError.message
+            );
+          }
         }
       }
     }
