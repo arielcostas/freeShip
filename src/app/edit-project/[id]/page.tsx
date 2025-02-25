@@ -71,6 +71,13 @@ export default function EditProject() {
       return;
     }
 
+    // Determinar si se necesita cambiar la visibilidad del proyecto
+    let newVisibility = true; // Por defecto, hacerlo visible
+
+    if (collaboratorsNumber <= currentMembers) {
+      newVisibility = false; // Si los colaboradores son menores o iguales a los miembros actuales, el proyecto será invisible
+    }
+
     const { error } = await supabase
       .from("projects")
       .update({
@@ -79,6 +86,7 @@ export default function EditProject() {
         type: type || null,
         tech_stack: techStack.length > 0 ? techStack : null,
         collaborators_number: collaboratorsNumber, // Actualizar el número de colaboradores
+        visible: newVisibility, // Actualizar la visibilidad del proyecto
       })
       .eq("id", id);
 

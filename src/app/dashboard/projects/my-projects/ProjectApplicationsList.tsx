@@ -5,8 +5,8 @@ import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 
 export default function ProjectApplicationsList({
-                                                  projectId,
-                                                }: {
+  projectId,
+}: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -112,7 +112,7 @@ export default function ProjectApplicationsList({
         if (teamUpdateError) {
           alert(
             "Error actualizando los miembros del equipo: " +
-            teamUpdateError.message
+              teamUpdateError.message
           );
         }
 
@@ -126,7 +126,7 @@ export default function ProjectApplicationsList({
           if (visibilityUpdateError) {
             alert(
               "Error actualizando la visibilidad del proyecto: " +
-              visibilityUpdateError.message
+                visibilityUpdateError.message
             );
           }
 
@@ -140,7 +140,7 @@ export default function ProjectApplicationsList({
           if (rejectError) {
             alert(
               "Error rechazando las solicitudes pendientes: " +
-              rejectError.message
+                rejectError.message
             );
           }
         }
