@@ -5,8 +5,8 @@ import Navbar from "@/app/(site)/Navbar";
 import ProjectApplicationsList from "@/app/dashboard/projects/my-projects/ProjectApplicationsList";
 
 export default async function MyProjectDetail({
-  projectId,
-}: {
+                                                projectId,
+                                              }: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -33,6 +33,14 @@ export default async function MyProjectDetail({
   if (!profileError && profile && profile.username) {
     authorName = profile.username;
   }
+
+  // Obtener el número de aplicaciones al proyecto
+  const { data: applications, error: applicationsError } = await supabase
+    .from("project_applications")
+    .select("id")
+    .eq("project_id", projectId);
+
+  const hasApplications = applications && applications.length > 0;
 
   const handleSignOut = async () => {
     "use server";
@@ -71,12 +79,16 @@ export default async function MyProjectDetail({
 
           {/* Botones de Editar y Eliminar */}
           <ProjectActions projectId={projectId} />
-          <div className="mt-8">
-            <h3 className="text-xl font-bold mb-4">
-              Solicitudes de aplicación
-            </h3>
-            <ProjectApplicationsList projectId={project.id} />
-          </div>
+
+          {/* Mostrar la lista de solicitudes solo si hay aplicaciones */}
+          {hasApplications && (
+            <div className="mt-8">
+              <h3 className="text-xl font-bold mb-4">
+                Solicitudes de aplicación
+              </h3>
+              <ProjectApplicationsList projectId={project.id} />
+            </div>
+          )}
         </div>
       </div>
     </div>
