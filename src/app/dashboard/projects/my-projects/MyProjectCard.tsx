@@ -29,7 +29,7 @@ export default function MyProjectCard({
         )}
       </Link>
       {pendingApplications > 0 && (
-        <span className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
+        <span className="absolute top-3 right-2 bg-red-500 text-white font-bold text-xs font-bold px-3.5 py-2 rounded-full">
           {pendingApplications}
         </span>
       )}
