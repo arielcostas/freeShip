@@ -1,14 +1,14 @@
 "use client";
 
 export default function OtherProjectFilter({
-                                        categoryFilter,
-                                        setCategoryFilter,
-                                        techStackFilter,
-                                        setTechStackFilter,
-                                        keywordFilter,
-                                        setKeywordFilter,
-                                        isFilterOpen,
-                                      }: {
+  categoryFilter,
+  setCategoryFilter,
+  techStackFilter,
+  setTechStackFilter,
+  keywordFilter,
+  setKeywordFilter,
+  isFilterOpen,
+}: {
   categoryFilter: string;
   setCategoryFilter: (value: string) => void;
   techStackFilter: string;

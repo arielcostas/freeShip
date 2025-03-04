@@ -2,7 +2,7 @@ import Link from "next/link";
 
 export default function OtherProjectCard({ project }: { project: any }) {
   return (
-    <li className="border p-4 rounded-lg shadow-sm bg-gray-50 hover:bg-blue-50 transition">
+    <li className="relative w-[75%] mx-auto border p-7 rounded-lg shadow-sm bg-gradient-to-r from-gray-50 via-gray-50 via-75% to-blue-200 hover:from-blue-50 hover:via-blue-100 hover:to-blue-200 transition">
       <Link href={`/dashboard/projects/other/${project.id}`} className="block">
         {/* Fila 1: Título y Autor en línea */}
         <div className="flex items-center gap-x-2 mb-2">

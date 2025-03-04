@@ -5,8 +5,8 @@ import Navbar from "@/app/(site)/Navbar";
 import ProjectApplicationsList from "@/app/dashboard/projects/my-projects/ProjectApplicationsList";
 
 export default async function MyProjectDetail({
-                                                projectId,
-                                              }: {
+  projectId,
+}: {
   projectId: string;
 }) {
   const supabase = createClient();

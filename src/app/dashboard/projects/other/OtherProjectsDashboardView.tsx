@@ -8,8 +8,8 @@ import { ChevronDown, ChevronUp } from "lucide-react";
 import OtherProjectFilter from "@/components/OtherProjectFilter";
 
 export default function OtherProjectsDashboardView({
-                                                     userId,
-                                                   }: {
+  userId,
+}: {
   userId: string;
 }) {
   const [projects, setProjects] = useState<any[]>([]);
