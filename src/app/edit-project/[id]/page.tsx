@@ -31,6 +31,7 @@ export default function EditProject() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showErrorPopup, setShowErrorPopup] = useState(false); // Para mostrar el popup de error
+  const [currentMembersName, setCurrentMembersName] = useState<string[]>([]);
 
   useEffect(() => {
     if (!id) return;
@@ -38,7 +39,7 @@ export default function EditProject() {
     const fetchProject = async () => {
       const { data, error } = await supabase
         .from("projects")
-        .select("*")
+        .select("title, description, type, tech_stack, collaborators_number, team_members")
         .eq("id", id)
         .single();
 
@@ -53,7 +54,18 @@ export default function EditProject() {
         setType(data.type || "");
         setTechStack(data.tech_stack || []);
         setCollaboratorsNumber(data.collaborators_number || 1);
-        setCurrentMembers(data.team_members ? data.team_members.length : 0); // Obtener la cantidad de miembros actuales
+
+        if (data.team_members?.length) {
+          setCurrentMembers(data.team_members.length);
+          const { data: membersData, error: membersError } = await supabase
+            .from("profiles")
+            .select("username")
+            .in("id", data.team_members);
+
+          if (!membersError) {
+            setCurrentMembersName(membersData.map((member) => member.username));
+          }
+        }
       }
     };
 
@@ -65,8 +77,9 @@ export default function EditProject() {
     setLoading(true);
     setError("");
 
+    // Si por alguna razón se llega a enviar un valor inválido, se muestra el aviso
     if (currentMembers > collaboratorsNumber) {
-      setShowErrorPopup(true); // Mostrar popup de advertencia si el número de colaboradores es mayor que los miembros actuales
+      setShowErrorPopup(true);
       setLoading(false);
       return;
     }
@@ -143,9 +156,7 @@ export default function EditProject() {
 
           {/* Selector de Tipo de Proyecto */}
           <div>
-            <label className="block text-sm font-medium">
-              Tipo de Proyecto
-            </label>
+            <label className="block text-sm font-medium">Tipo de Proyecto</label>
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
@@ -162,9 +173,7 @@ export default function EditProject() {
 
           {/* Entrada para el Stack Tecnológico */}
           <div>
-            <label className="block text-sm font-medium">
-              Stack Tecnológico
-            </label>
+            <label className="block text-sm font-medium">Stack Tecnológico</label>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -199,20 +208,36 @@ export default function EditProject() {
 
           {/* Campo para el Número de Colaboradores */}
           <div>
-            <label className="block text-sm font-medium">
-              Número de Colaboradores
-            </label>
+            <label className="block text-sm font-medium">Número de Colaboradores</label>
             <input
               type="number"
               value={collaboratorsNumber}
-              onChange={(e) => setCollaboratorsNumber(Number(e.target.value))}
+              onChange={(e) => {
+                const newVal = Number(e.target.value);
+                if (newVal < currentMembers) {
+                  alert("El número de colaboradores no puede ser menor que el número de miembros actuales.");
+                } else {
+                  setCollaboratorsNumber(newVal);
+                }
+              }}
               className="w-full border p-2 rounded"
               min={1}
               required
             />
-            <p className="text-sm text-gray-500 mt-2">
-              Miembros actuales: {currentMembers}
-            </p>
+            <p className="text-sm text-gray-500 mt-2">Miembros actuales: {currentMembers}</p>
+
+            <div>
+              <h3>Miembros colaboradores:</h3>
+              {currentMembersName.length > 0 ? (
+                <ul>
+                  {currentMembersName.map((name, index) => (
+                    <li key={index}>{name}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No hay miembros en este proyecto.</p>
+              )}
+            </div>
           </div>
 
           <Button type="submit" disabled={loading} className="w-full">
@@ -229,10 +254,7 @@ export default function EditProject() {
                 miembros actuales.
               </h3>
               <div className="mt-4 flex justify-end">
-                <Button
-                  onClick={() => setShowErrorPopup(false)}
-                  className="bg-red-500 text-white"
-                >
+                <Button onClick={() => setShowErrorPopup(false)} className="bg-red-500 text-white">
                   Cerrar
                 </Button>
               </div>
