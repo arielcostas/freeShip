@@ -28,10 +28,12 @@ export default function EditProject() {
   const [techInput, setTechInput] = useState("");
   const [collaboratorsNumber, setCollaboratorsNumber] = useState(1); // Estado para el número de colaboradores
   const [currentMembers, setCurrentMembers] = useState<number>(0); // Miembros actuales
+  const [teamMembers, setTeamMembers] = useState<{ id: string; username: string }[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showErrorPopup, setShowErrorPopup] = useState(false); // Para mostrar el popup de error
-  const [currentMembersName, setCurrentMembersName] = useState<string[]>([]);
+  const [memberToExpel, setMemberToExpel] = useState<{ id: string; username: string } | null>(null);
+  const [showExpelPopup, setShowExpelPopup] = useState(false);
 
   useEffect(() => {
     if (!id) return;
@@ -59,11 +61,10 @@ export default function EditProject() {
           setCurrentMembers(data.team_members.length);
           const { data: membersData, error: membersError } = await supabase
             .from("profiles")
-            .select("username")
+            .select("id, username")
             .in("id", data.team_members);
-
-          if (!membersError) {
-            setCurrentMembersName(membersData.map((member) => member.username));
+          if (!membersError && membersData) {
+            setTeamMembers(membersData);
           }
         }
       }
@@ -77,18 +78,15 @@ export default function EditProject() {
     setLoading(true);
     setError("");
 
-    // Si por alguna razón se llega a enviar un valor inválido, se muestra el aviso
     if (currentMembers > collaboratorsNumber) {
       setShowErrorPopup(true);
       setLoading(false);
       return;
     }
 
-    // Determinar si se necesita cambiar la visibilidad del proyecto
-    let newVisibility = true; // Por defecto, hacerlo visible
-
+    let newVisibility = true;
     if (collaboratorsNumber <= currentMembers) {
-      newVisibility = false; // Si los colaboradores son menores o iguales a los miembros actuales, el proyecto será invisible
+      newVisibility = false;
     }
 
     const { error } = await supabase
@@ -98,8 +96,8 @@ export default function EditProject() {
         description,
         type: type || null,
         tech_stack: techStack.length > 0 ? techStack : null,
-        collaborators_number: collaboratorsNumber, // Actualizar el número de colaboradores
-        visible: newVisibility, // Actualizar la visibilidad del proyecto
+        collaborators_number: collaboratorsNumber,
+        visible: newVisibility,
       })
       .eq("id", id);
 
@@ -121,6 +119,29 @@ export default function EditProject() {
 
   const handleRemoveTech = (tech: string) => {
     setTechStack(techStack.filter((t) => t !== tech));
+  };
+
+  const handleExpelMember = async () => {
+    if (!memberToExpel) return;
+
+    const updatedTeamMembers = teamMembers.filter(
+      (member) => member.id !== memberToExpel.id
+    );
+    const updatedIds = updatedTeamMembers.map((member) => member.id);
+
+    const { error } = await supabase
+      .from("projects")
+      .update({ team_members: updatedIds })
+      .eq("id", id);
+
+    if (error) {
+      setError(error.message);
+    } else {
+      setTeamMembers(updatedTeamMembers);
+      setCurrentMembers(updatedTeamMembers.length);
+    }
+    setShowExpelPopup(false);
+    setMemberToExpel(null);
   };
 
   return (
@@ -186,7 +207,6 @@ export default function EditProject() {
                 Añadir
               </Button>
             </div>
-            {/* Lista de Tecnologías Agregadas */}
             <div className="mt-2 flex flex-wrap gap-2">
               {techStack.map((tech) => (
                 <span
@@ -196,7 +216,7 @@ export default function EditProject() {
                   {tech}
                   <button
                     type="button"
-                    className="ml-2 text-white font-bold"
+                    className="ml-2 bg-red-500 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full"
                     onClick={() => handleRemoveTech(tech)}
                   >
                     ×
@@ -224,14 +244,28 @@ export default function EditProject() {
               min={1}
               required
             />
-            <p className="text-sm text-gray-500 mt-2">Miembros actuales: {currentMembers}</p>
+            <p className="text-sm text-gray-500 mt-2">
+              Miembros actuales: {currentMembers}
+            </p>
 
             <div>
               <h3>Miembros colaboradores:</h3>
-              {currentMembersName.length > 0 ? (
-                <ul>
-                  {currentMembersName.map((name, index) => (
-                    <li key={index}>{name}</li>
+              {teamMembers.length > 0 ? (
+                <ul className="mt-2 text-sm text-gray-700">
+                  {teamMembers.map((member) => (
+                    <li key={member.id} className="flex items-center justify-between">
+                      <span>{member.username}</span>
+                      <button
+                        type="button"
+                        className="bg-red-500 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full ml-2"
+                        onClick={() => {
+                          setMemberToExpel(member);
+                          setShowExpelPopup(true);
+                        }}
+                      >
+                        X
+                      </button>
+                    </li>
                   ))}
                 </ul>
               ) : (
@@ -254,8 +288,39 @@ export default function EditProject() {
                 miembros actuales.
               </h3>
               <div className="mt-4 flex justify-end">
-                <Button onClick={() => setShowErrorPopup(false)} className="bg-red-500 text-white">
+                <Button
+                  onClick={() => setShowErrorPopup(false)}
+                  className="bg-red-500 text-white"
+                >
                   Cerrar
+                </Button>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Popup de confirmación para expulsar colaborador */}
+        {showExpelPopup && memberToExpel && (
+          <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+            <div className="bg-white p-6 rounded-lg shadow-md">
+              <h3 className="text-lg font-bold text-red-500">
+                ¿Está seguro de expulsar a {memberToExpel.username}?
+              </h3>
+              <div className="mt-4 flex justify-end gap-2">
+                <Button
+                  onClick={() => {
+                    setShowExpelPopup(false);
+                    setMemberToExpel(null);
+                  }}
+                  className="bg-gray-500 text-white"
+                >
+                  Cancelar
+                </Button>
+                <Button
+                  onClick={handleExpelMember}
+                  className="bg-red-500 text-white"
+                >
+                  Expulsar
                 </Button>
               </div>
             </div>
