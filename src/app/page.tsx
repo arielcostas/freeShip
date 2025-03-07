@@ -21,7 +21,10 @@ export default function Home() {
       <HeroSection loginSectionRef={loginSectionRef} />
 
       {/* Sección de Login o Registro */}
-      <section ref={loginSectionRef} className="flex justify-center items-center py-12 bg-white">
+      <section
+        ref={loginSectionRef}
+        className="flex justify-center items-center py-12 bg-white"
+      >
         <div className="w-full max-w-lg bg-white p-8 rounded-lg shadow-md">
           <h2 className="text-3xl font-semibold text-center mb-6">
             {isLogin ? "¡Hola!" : "Crea tu cuenta"}
@@ -39,7 +42,9 @@ export default function Home() {
 
           {/* Alternar entre Login y Register */}
           <div className="text-center mb-4">
-            <span>{isLogin ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}</span>
+            <span>
+              {isLogin ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}
+            </span>
             <button
               className="text-blue-500 hover:underline ml-2"
               onClick={() => setIsLogin(!isLogin)}

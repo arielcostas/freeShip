@@ -322,8 +322,8 @@ export default function EditProject() {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-lg font-bold text-red-500">
-                ¿Expulsar a {memberToExpel.username}?
-                Ten presente que es una decisión irreversible.
+                ¿Expulsar a {memberToExpel.username}? Ten presente que es una
+                decisión irreversible.
               </h3>
               <div className="mt-4 flex justify-end gap-2">
                 <Button
