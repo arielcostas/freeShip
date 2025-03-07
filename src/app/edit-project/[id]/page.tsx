@@ -28,11 +28,16 @@ export default function EditProject() {
   const [techInput, setTechInput] = useState("");
   const [collaboratorsNumber, setCollaboratorsNumber] = useState(1); // Estado para el número de colaboradores
   const [currentMembers, setCurrentMembers] = useState<number>(0); // Miembros actuales
-  const [teamMembers, setTeamMembers] = useState<{ id: string; username: string }[]>([]);
+  const [teamMembers, setTeamMembers] = useState<
+    { id: string; username: string }[]
+  >([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [showErrorPopup, setShowErrorPopup] = useState(false); // Para mostrar el popup de error
-  const [memberToExpel, setMemberToExpel] = useState<{ id: string; username: string } | null>(null);
+  const [memberToExpel, setMemberToExpel] = useState<{
+    id: string;
+    username: string;
+  } | null>(null);
   const [showExpelPopup, setShowExpelPopup] = useState(false);
 
   useEffect(() => {
@@ -41,7 +46,9 @@ export default function EditProject() {
     const fetchProject = async () => {
       const { data, error } = await supabase
         .from("projects")
-        .select("title, description, type, tech_stack, collaborators_number, team_members")
+        .select(
+          "title, description, type, tech_stack, collaborators_number, team_members"
+        )
         .eq("id", id)
         .single();
 
@@ -177,7 +184,9 @@ export default function EditProject() {
 
           {/* Selector de Tipo de Proyecto */}
           <div>
-            <label className="block text-sm font-medium">Tipo de Proyecto</label>
+            <label className="block text-sm font-medium">
+              Tipo de Proyecto
+            </label>
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
@@ -194,7 +203,9 @@ export default function EditProject() {
 
           {/* Entrada para el Stack Tecnológico */}
           <div>
-            <label className="block text-sm font-medium">Stack Tecnológico</label>
+            <label className="block text-sm font-medium">
+              Stack Tecnológico
+            </label>
             <div className="flex gap-2">
               <input
                 type="text"
@@ -228,14 +239,18 @@ export default function EditProject() {
 
           {/* Campo para el Número de Colaboradores */}
           <div>
-            <label className="block text-sm font-medium">Número de Colaboradores</label>
+            <label className="block text-sm font-medium">
+              Número de Colaboradores
+            </label>
             <input
               type="number"
               value={collaboratorsNumber}
               onChange={(e) => {
                 const newVal = Number(e.target.value);
                 if (newVal < currentMembers) {
-                  alert("El número de colaboradores no puede ser menor que el número de miembros actuales.");
+                  alert(
+                    "El número de colaboradores no puede ser menor que el número de miembros actuales."
+                  );
                 } else {
                   setCollaboratorsNumber(newVal);
                 }
@@ -253,7 +268,10 @@ export default function EditProject() {
               {teamMembers.length > 0 ? (
                 <ul className="mt-2 text-sm text-gray-700">
                   {teamMembers.map((member) => (
-                    <li key={member.id} className="flex items-center justify-between">
+                    <li
+                      key={member.id}
+                      className="flex items-center justify-between"
+                    >
                       <span>{member.username}</span>
                       <button
                         type="button"
@@ -304,7 +322,8 @@ export default function EditProject() {
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
             <div className="bg-white p-6 rounded-lg shadow-md">
               <h3 className="text-lg font-bold text-red-500">
-                ¿Está seguro de expulsar a {memberToExpel.username}?
+                ¿Expulsar a {memberToExpel.username}?
+                Ten presente que es una decisión irreversible.
               </h3>
               <div className="mt-4 flex justify-end gap-2">
                 <Button
