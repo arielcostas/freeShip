@@ -97,11 +97,10 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
           </Link>
         </div>
 
-        <div className="hidden items-center gap-2 md:flex">
-          <form action={handleSignOut}>
-            <Button type="submit">Sign Out</Button>
-          </form>
-        </div>
+        <Button type="submit" className="bg-transparent text-white hover:bg-transparent hover:underline">
+          Sign Out
+        </Button>
+
 
         <div className="flex md:hidden">
           <button
