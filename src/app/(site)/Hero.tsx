@@ -20,10 +20,10 @@ const HeroSection = ({ loginSectionRef }) => {
         preserveAspectRatio="xMidYMid meet"
       >
         <g id="SVGRepo_iconCarrier">
-          <path fill="#077b04" d="M30.47 104.24h13.39v13.39H30.47z"></path>
-          <path fill="#077b04" d="M84.04 104.24h13.39v13.39H84.04z"></path>
-          <path fill="#21c60f" d="M30.48 10.51h13.39V23.9H30.48z"></path>
-          <path fill="#21c60f" d="M84.04 10.51h13.39V23.9H84.04z"></path>
+          <path fill="#acd916" d="M30.47 104.24h13.39v13.39H30.47z"></path>
+          <path fill="#acd916" d="M84.04 104.24h13.39v13.39H84.04z"></path>
+          <path fill="#acd916" d="M30.48 10.51h13.39V23.9H30.48z"></path>
+          <path fill="#acd916" d="M84.04 10.51h13.39V23.9H84.04z"></path>
           <radialGradient
             id="IconifyId17ecdb2904d178eab5528"
             cx="64.344"
@@ -31,10 +31,10 @@ const HeroSection = ({ loginSectionRef }) => {
             r="83.056"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset=".508" stopColor="#21c60f"></stop>
-            <stop offset=".684" stopColor="#279a16"></stop>
-            <stop offset=".878" stopColor="#1f8f22"></stop>
-            <stop offset=".981" stopColor="#077b04"></stop>
+            <stop offset=".508" stopColor="#acd916"></stop>
+            <stop offset=".684" stopColor="#acd916"></stop>
+            <stop offset=".878" stopColor="#acd916"></stop>
+            <stop offset=".981" stopColor="#acd916"></stop>
           </radialGradient>
           <path
             d="M97.46 64.08V37.3H84.04V23.9H70.65v13.4H57.26V23.9H43.87v13.4H30.48v26.78H17.09v13.39h13.39v13.4h13.39v13.38h13.39V90.87h13.39v13.38h13.39V90.87h13.42v-13.4h13.37V64.08H97.46zm-40.21 0H43.86V50.69h13.39v13.39zm26.78 0H70.64V50.69h13.39v13.39z"
@@ -47,10 +47,10 @@ const HeroSection = ({ loginSectionRef }) => {
             r="65.281"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset=".508" stopColor="#21c60f"></stop>
-            <stop offset=".684" stopColor="#279a16"></stop>
-            <stop offset=".878" stopColor="#1f8f22"></stop>
-            <stop offset=".981" stopColor="#077b04"></stop>
+            <stop offset=".508" stopColor="#acd916"></stop>
+            <stop offset=".684" stopColor="#acd916"></stop>
+            <stop offset=".878" stopColor="#acd916"></stop>
+            <stop offset=".981" stopColor="#acd916"></stop>
           </radialGradient>
           <path
             fill="url(#IconifyId17ecdb2904d178eab5529)"
@@ -63,10 +63,10 @@ const HeroSection = ({ loginSectionRef }) => {
             r="75.09"
             gradientUnits="userSpaceOnUse"
           >
-            <stop offset=".508" stopColor="#21c60f"></stop>
-            <stop offset=".684" stopColor="#279a16"></stop>
-            <stop offset=".878" stopColor="#1f8f22"></stop>
-            <stop offset=".981" stopColor="#077b04"></stop>
+            <stop offset=".508" stopColor="#acd916"></stop>
+            <stop offset=".684" stopColor="#acd916"></stop>
+            <stop offset=".878" stopColor="#acd916"></stop>
+            <stop offset=".981" stopColor="#acd916"></stop>
           </radialGradient>
           <path
             fill="url(#IconifyId17ecdb2904d178eab5530)"
@@ -81,7 +81,7 @@ const HeroSection = ({ loginSectionRef }) => {
       {/* Flecha para hacer scroll */}
       <button
         onClick={scrollToLogin}
-        className="absolute top-[75%] transform text-white animate-bounce transition-opacity duration-1000"
+        className="absolute top-[75%] transform text-[#acd916] animate-bounce transition-opacity duration-1000"
       >
         <ChevronDownIcon className="w-12 h-12" />
       </button>

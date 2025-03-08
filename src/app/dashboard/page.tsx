@@ -53,7 +53,7 @@ export default async function Dashboard({
               href={`?tab=${tab}`}
               className={`flex-1 py-2 text-center font-bold ${
                 activeTab === tab
-                  ? "border-b-2 border-green-600"
+                  ? "border-b-2 border-[#acd916]"
                   : "text-gray-600"
               }`}
             >
