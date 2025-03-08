@@ -8,7 +8,7 @@ export default function MyProjectCard({
   pendingApplications: number;
 }) {
   return (
-    <li className="relative w-[75%] mx-auto border p-7 rounded-lg shadow-sm bg-gradient-to-r from-gray-50 via-gray-50 via-75% to-green-200 hover:from-green-50 hover:via-green-100 hover:to-green-200 transition">
+    <li className="relative w-[75%] mx-auto border p-7 rounded-lg shadow-sm bg-gradient-to-r from-gray-50 via-gray-50 via-90% to-green-200 hover:from-gray-50 hover:via-green-50 hover:to-green-200 transition">
       <Link
         href={`/dashboard/projects/my-projects/${project.id}`}
         className="block"
