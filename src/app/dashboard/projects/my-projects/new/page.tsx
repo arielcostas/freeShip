@@ -156,7 +156,7 @@ export default function CreateProjectPage() {
                   placeholder="Ejemplo: Java, React, PostgreSQL"
                 />
                 <Button
-                  type="button"
+                  type="button" className="font-bold"
                   onClick={() => {
                     if (techInput.trim() !== "") {
                       setTechStack([...techStack, techInput.trim()]);
@@ -208,14 +208,14 @@ export default function CreateProjectPage() {
               <Button
                 type="button"
                 onClick={() => router.push("/dashboard")}
-                className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition"
+                className="bg-red-500 text-white font-bold px-4 py-2 rounded hover:bg-red-600 transition"
               >
                 <strong>Cancelar</strong>
               </Button>
               <Button
                 type="submit"
                 disabled={loading}
-                className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+                className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition"
               >
                 <strong>{loading ? "Creando..." : "Crear Proyecto"}</strong>
               </Button>
