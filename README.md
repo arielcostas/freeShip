@@ -25,4 +25,4 @@ Para preguntas o sugerencias, por favor contacta a través del siguiente correo 
 
 ## Licencia
 
-Este proyecto está bajo la Licencia de software privativo. Consulta los detalles en el apartado específico.
+Este proyecto está bajo la Licencia AGPL. Consulta los detalles en el apartado específico.
