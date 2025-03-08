@@ -46,7 +46,7 @@ export default function Home() {
               {isLogin ? "¿No tienes una cuenta?" : "¿Ya tienes una cuenta?"}
             </span>
             <button
-              className="text-blue-500 hover:underline ml-2"
+              className="text-[#88b000] font-bold hover:underline ml-2"
               onClick={() => setIsLogin(!isLogin)}
             >
               {isLogin ? "Regístrate" : "Inicia sesión"}

@@ -12,9 +12,9 @@ export default async function MyProjectsDashboardView({
         <div className="flex justify-start">
           <Link
             href="/dashboard/projects/my-projects/new"
-            className="bg-[#acd916] text-white px-4 font-bold py-2 rounded hover:bg-[#88b000] transition"
+            className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition"
           >
-            Nuevo Proyecto
+            Nuevo proyecto
           </Link>
         </div>
       </div>

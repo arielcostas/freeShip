@@ -84,7 +84,7 @@ export default function LoginForm() {
               required
             />
           </div>
-          <Button type="submit" className="w-full">
+          <Button type="submit" className="w-full font-bold">
             Iniciar sesión
           </Button>
         </form>

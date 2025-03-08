@@ -64,26 +64,14 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
                   fill="#acd916"
                   d="M84.04 104.24h13.39v13.39H84.04z"
                 ></path>
-                <path
-                  fill="#acd916"
-                  d="M30.48 10.51h13.39V23.9H30.48z"
-                ></path>
-                <path
-                  fill="#acd916"
-                  d="M84.04 10.51h13.39V23.9H84.04z"
-                ></path>
+                <path fill="#acd916" d="M30.48 10.51h13.39V23.9H30.48z"></path>
+                <path fill="#acd916" d="M84.04 10.51h13.39V23.9H84.04z"></path>
                 <path
                   fill="#acd916"
                   d="M97.46 64.08V37.3H84.04V23.9H70.65v13.4H57.26V23.9H43.87v13.4H30.48v26.78H17.09v13.39h13.39v13.4h13.39v13.38h13.39V90.87h13.39v13.38h13.39V90.87h13.42v-13.4h13.37V64.08H97.46zm-40.21 0H43.86V50.69h13.39v13.39zm26.78 0H70.64V50.69h13.39v13.39z"
                 ></path>
-                <path
-                  fill="#acd916"
-                  d="M110.82 37.29h13.4v26.8h-13.4z"
-                ></path>
-                <path
-                  fill="#acd916"
-                  d="M3.7 37.28h13.4v26.8H3.7z"
-                ></path>
+                <path fill="#acd916" d="M110.82 37.29h13.4v26.8h-13.4z"></path>
+                <path fill="#acd916" d="M3.7 37.28h13.4v26.8H3.7z"></path>
               </g>
             </svg>
             <span className="text-lg font-semibold text-white">
