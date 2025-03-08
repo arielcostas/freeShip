@@ -85,6 +85,7 @@ export default function RegisterForm() {
           <Label htmlFor="username">Nombre de usuario</Label>
           <Input
             id="username"
+            autoComplete="username"
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
@@ -95,6 +96,7 @@ export default function RegisterForm() {
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
+            autoComplete="email"
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -105,6 +107,7 @@ export default function RegisterForm() {
           <Label htmlFor="password">Contraseña</Label>
           <Input
             id="password"
+            autoComplete="new-password"
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -115,6 +118,7 @@ export default function RegisterForm() {
           <Label htmlFor="confirmPassword">Confirmar Contraseña</Label>
           <Input
             id="confirmPassword"
+            autoComplete="new-password"
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
