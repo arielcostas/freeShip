@@ -157,7 +157,12 @@ export default function CreateProjectPage() {
                 />
                 <Button
                   type="button"
-                  onClick={() => setTechStack([...techStack, techInput.trim()])}
+                  onClick={() => {
+                    if (techInput.trim() !== "") {
+                      setTechStack([...techStack, techInput.trim()]);
+                      setTechInput(""); // Opcional, para limpiar el input después de añadir
+                    }
+                  }}
                 >
                   Añadir
                 </Button>
