@@ -16,8 +16,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Dashboard({
-                                          searchParams,
-                                        }: {
+  searchParams,
+}: {
   searchParams?: { tab?: string };
 }) {
   const params = await searchParams;
@@ -52,10 +52,14 @@ export default async function Dashboard({
               key={tab}
               href={`?tab=${tab}`}
               className={`flex-1 py-2 text-center font-bold ${
-                activeTab === tab ? "border-b-2 border-green-600" : "text-gray-600"
+                activeTab === tab
+                  ? "border-b-2 border-green-600"
+                  : "text-gray-600"
               }`}
             >
-              {tab === "misProyectos" ? "Tus Proyectos" : "Proyectos de la comunidad"}
+              {tab === "misProyectos"
+                ? "Tus Proyectos"
+                : "Proyectos de la comunidad"}
             </Link>
           ))}
         </div>

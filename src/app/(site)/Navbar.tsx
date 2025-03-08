@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { X } from "lucide-react";
-import { useState } from "react";
+import { X, User } from "lucide-react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
 
 interface NavbarProps {
   handleSignOut: () => void;
@@ -11,10 +12,34 @@ interface NavbarProps {
 
 export default function Navbar({ handleSignOut }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [username, setUsername] = useState<string | null>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  useEffect(() => {
+    const fetchUsername = async () => {
+      const supabase = createClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (user) {
+        const { data, error } = await supabase
+          .from("profiles")
+          .select("username")
+          .eq("id", user.id)
+          .single();
+
+        if (!error && data) {
+          setUsername(data.username);
+        }
+      }
+    };
+
+    fetchUsername();
+  }, []);
 
   return (
     <nav className="fixed top-0 z-50 w-full bg-[#212121]">
@@ -97,38 +122,48 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
           </Link>
         </div>
 
-        <Button
-          type="submit"
-          className="bg-transparent text-white hover:bg-transparent hover:underline"
-        >
-          Sign Out
-        </Button>
+        <div className="flex items-center space-x-4">
+          {/* Nombre de usuario con icono en el lado derecho */}
+          {username && (
+            <div className="flex items-center text-white font-medium">
+              <User className="h-5 w-5 mr-2" />
+              <span>{username}</span>
+            </div>
+          )}
 
-        <div className="flex md:hidden">
-          <button
-            type="button"
-            onClick={toggleMenu}
-            className="inline-flex items-center justify-center rounded-md p-2 text-white/90 hover:text-white"
+          <Button
+            onClick={handleSignOut}
+            className="bg-transparent text-white hover:bg-transparent hover:underline"
           >
-            <span className="sr-only">Toggle menu</span>
-            {isMenuOpen ? (
-              <X className="h-6 w-6" />
-            ) : (
-              <svg
-                className="h-6 w-6"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            )}
-          </button>
+            Sign Out
+          </Button>
+
+          <div className="flex md:hidden">
+            <button
+              type="button"
+              onClick={toggleMenu}
+              className="inline-flex items-center justify-center rounded-md p-2 text-white/90 hover:text-white"
+            >
+              <span className="sr-only">Toggle menu</span>
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <svg
+                  className="h-6 w-6"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              )}
+            </button>
+          </div>
         </div>
       </div>
 
