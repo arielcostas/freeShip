@@ -6,7 +6,7 @@ export default function OtherProjectCard({ project }: { project: any }) {
       <Link href={`/dashboard/projects/other/${project.id}`} className="block">
         {/* Fila 1: Título y Autor en línea */}
         <div className="flex items-center gap-x-2 mb-2">
-          <h3 className="font-semibold text-blue-600">{project.title}</h3>
+          <h3 className="font-semibold text-[#6d36bb]">{project.title}</h3>
           <strong className="text-gray-600 text-sm">
             propuesto por {project.author_name || "Desconocido"}
           </strong>

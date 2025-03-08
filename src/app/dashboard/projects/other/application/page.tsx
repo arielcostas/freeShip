@@ -78,13 +78,13 @@ const OtherProjectApplicationPageContent = () => {
       />
       <div className="flex justify-end gap-2">
         <Button
-          className="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+          className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition"
           onClick={handleApply}
           disabled={loading || !projectId}
         >
           <strong>{loading ? "Enviando..." : "Enviar solicitud"}</strong>
         </Button>
-        <Button onClick={() => router.back()} variant="destructive">
+        <Button className="bg-red-500 text-white font-bold px-4 py-2 rounded hover:bg-red-600 transition" onClick={() => router.back()} variant="destructive">
           <strong>Cancelar</strong>
         </Button>
       </div>

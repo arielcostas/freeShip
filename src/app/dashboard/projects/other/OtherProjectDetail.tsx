@@ -87,7 +87,7 @@ export default async function OtherProjectDetail({
                     applicationStatus === "PENDING"
                       ? "text-blue-600 font-semibold"
                       : applicationStatus === "ACCEPTED"
-                        ? "text-green-600 font-semibold"
+                        ? "text-[#acd916] font-semibold"
                         : "text-red-600 font-semibold"
                   }
                 >

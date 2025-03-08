@@ -156,7 +156,8 @@ export default function CreateProjectPage() {
                   placeholder="Ejemplo: Java, React, PostgreSQL"
                 />
                 <Button
-                  type="button" className="font-bold"
+                  type="button"
+                  className="font-bold"
                   onClick={() => {
                     if (techInput.trim() !== "") {
                       setTechStack([...techStack, techInput.trim()]);

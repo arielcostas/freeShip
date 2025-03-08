@@ -13,7 +13,7 @@ export default function MyProjectCard({
         href={`/dashboard/projects/my-projects/${project.id}`}
         className="block"
       >
-        <h3 className="font-semibold text-blue-600 hover:underline">
+        <h3 className="font-semibold text-[#88b000] hover:underline">
           {project.title}
         </h3>
         <p className="text-sm text-gray-700">{project.description}</p>
