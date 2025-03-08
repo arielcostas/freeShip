@@ -1,5 +1,9 @@
-
-import { Client, GatewayIntentBits, ChannelType, TextChannel } from 'discord.js';
+import {
+  Client,
+  GatewayIntentBits,
+  ChannelType,
+  TextChannel,
+} from "discord.js";
 import { createClient } from "@/lib/supabase/client";
 
 // Configurar el cliente de Discord con los permisos necesarios
@@ -21,9 +25,9 @@ const initDiscordClient = async () => {
   if (!client.isReady()) {
     try {
       await client.login(DISCORD_BOT_TOKEN);
-      console.log('Bot de Discord conectado');
+      console.log("Bot de Discord conectado");
     } catch (error) {
-      console.error('Error al conectar con Discord:', error);
+      console.error("Error al conectar con Discord:", error);
     }
   }
   return client;
@@ -44,11 +48,11 @@ export const createProjectChannel = async (
     // Obtener el servidor de Discord
     const guild = client.guilds.cache.get(DISCORD_GUILD_ID);
     if (!guild) {
-      throw new Error('No se pudo encontrar el servidor de Discord');
+      throw new Error("No se pudo encontrar el servidor de Discord");
     }
 
     // Nombre del canal basado en el título del proyecto
-    const channelName = `proyecto-${projectTitle.toLowerCase().replace(/\s+/g, '-')}`;
+    const channelName = `proyecto-${projectTitle.toLowerCase().replace(/\s+/g, "-")}`;
 
     // Crear el canal de texto
     const channel = await guild.channels.create({
@@ -61,14 +65,19 @@ export const createProjectChannel = async (
     // Para esto, primero obtenemos el discordId del usuario desde la base de datos
     const supabase = createClient();
     const { data: profileData, error: profileError } = await supabase
-      .from('profiles')
-      .select('discord_id')
-      .eq('id', authorId)
+      .from("profiles")
+      .select("discord_id")
+      .eq("id", authorId)
       .single();
 
     if (profileError || !profileData?.discord_id) {
-      console.error('Error al obtener el discord_id del usuario:', profileError);
-      await channel.send('Proyecto creado. El autor necesita vincular su cuenta de Discord para ser añadido automáticamente.');
+      console.error(
+        "Error al obtener el discord_id del usuario:",
+        profileError
+      );
+      await channel.send(
+        "Proyecto creado. El autor necesita vincular su cuenta de Discord para ser añadido automáticamente."
+      );
     } else {
       // Añadir al usuario al canal (si tiene su cuenta vinculada)
       try {
@@ -82,23 +91,30 @@ export const createProjectChannel = async (
           ReadMessageHistory: true,
         });
 
-        await channel.send(`¡Bienvenido al canal de proyecto ${projectTitle}! @${member.user.username}`);
+        await channel.send(
+          `¡Bienvenido al canal de proyecto ${projectTitle}! @${member.user.username}`
+        );
       } catch (memberError) {
-        console.error('Error al añadir al usuario al canal:', memberError);
-        await channel.send('No se pudo añadir automáticamente al autor al canal.');
+        console.error("Error al añadir al usuario al canal:", memberError);
+        await channel.send(
+          "No se pudo añadir automáticamente al autor al canal."
+        );
       }
     }
 
     // Guardar la referencia del canal en Supabase
     const { error: updateError } = await supabase
-      .from('projects')
+      .from("projects")
       .update({
         discord_channel_id: channel.id,
       })
-      .eq('id', projectId);
+      .eq("id", projectId);
 
     if (updateError) {
-      console.error('Error al guardar el ID del canal en la base de datos:', updateError);
+      console.error(
+        "Error al guardar el ID del canal en la base de datos:",
+        updateError
+      );
     }
 
     return {
@@ -106,7 +122,7 @@ export const createProjectChannel = async (
       channelUrl: `https://discord.com/channels/${guild.id}/${channel.id}`,
     };
   } catch (error) {
-    console.error('Error al crear el canal de Discord:', error);
+    console.error("Error al crear el canal de Discord:", error);
     throw error;
   }
 };
@@ -126,35 +142,37 @@ export const addUserToProjectChannel = async (
 
     // Obtener el discord_id del usuario
     const { data: userData, error: userError } = await supabase
-      .from('profiles')
-      .select('discord_id')
-      .eq('id', userId)
+      .from("profiles")
+      .select("discord_id")
+      .eq("id", userId)
       .single();
 
     if (userError || !userData?.discord_id) {
-      throw new Error('Usuario no tiene cuenta de Discord vinculada');
+      throw new Error("Usuario no tiene cuenta de Discord vinculada");
     }
 
     // Obtener el discord_channel_id del proyecto
     const { data: projectData, error: projectError } = await supabase
-      .from('projects')
-      .select('discord_channel_id, title')
-      .eq('id', projectId)
+      .from("projects")
+      .select("discord_channel_id, title")
+      .eq("id", projectId)
       .single();
 
     if (projectError || !projectData?.discord_channel_id) {
-      throw new Error('El proyecto no tiene canal de Discord vinculado');
+      throw new Error("El proyecto no tiene canal de Discord vinculado");
     }
 
     // Obtener el servidor y el canal
     const guild = client.guilds.cache.get(DISCORD_GUILD_ID);
     if (!guild) {
-      throw new Error('No se pudo encontrar el servidor de Discord');
+      throw new Error("No se pudo encontrar el servidor de Discord");
     }
 
-    const channel = guild.channels.cache.get(projectData.discord_channel_id) as TextChannel;
+    const channel = guild.channels.cache.get(
+      projectData.discord_channel_id
+    ) as TextChannel;
     if (!channel) {
-      throw new Error('No se pudo encontrar el canal de Discord');
+      throw new Error("No se pudo encontrar el canal de Discord");
     }
 
     // Añadir al usuario al canal
@@ -165,11 +183,13 @@ export const addUserToProjectChannel = async (
       ReadMessageHistory: true,
     });
 
-    await channel.send(`¡Bienvenido al proyecto ${projectData.title}, @${member.user.username}!`);
+    await channel.send(
+      `¡Bienvenido al proyecto ${projectData.title}, @${member.user.username}!`
+    );
 
     return true;
   } catch (error) {
-    console.error('Error al añadir usuario al canal:', error);
+    console.error("Error al añadir usuario al canal:", error);
     return false;
   }
 };

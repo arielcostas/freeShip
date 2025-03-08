@@ -122,7 +122,8 @@ export default function CreateProjectPage() {
           console.error("Error al crear el canal de Discord:", discordError);
           toast({
             title: "Error al crear canal de Discord",
-            description: "El proyecto se creó pero no se pudo crear el canal de Discord",
+            description:
+              "El proyecto se creó pero no se pudo crear el canal de Discord",
             variant: "destructive",
           });
         }
@@ -262,7 +263,10 @@ export default function CreateProjectPage() {
                 onChange={(e) => setDiscordIntegration(e.target.checked)}
                 className="mr-2"
               />
-              <label htmlFor="discordIntegration" className="text-sm font-medium">
+              <label
+                htmlFor="discordIntegration"
+                className="text-sm font-medium"
+              >
                 Crear canal de Discord para el proyecto
               </label>
             </div>
