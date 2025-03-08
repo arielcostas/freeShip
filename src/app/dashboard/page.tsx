@@ -16,11 +16,10 @@ export const metadata: Metadata = {
 };
 
 export default async function Dashboard({
-  searchParams,
-}: {
+                                          searchParams,
+                                        }: {
   searchParams?: { tab?: string };
 }) {
-  // Espera a que searchParams se resuelva
   const params = await searchParams;
   const activeTab = params?.tab === "comunidad" ? "comunidad" : "misProyectos";
 
@@ -42,43 +41,29 @@ export default async function Dashboard({
 
   return (
     <div className="flex flex-col h-screen bg-gray-100">
-      {/* Navbar a pantalla completa */}
-      <div className="w-full bg-white shadow-md">
-        <Navbar handleSignOut={handleSignOut} />
-      </div>
+      <Navbar handleSignOut={handleSignOut} className="bg-white shadow-md" />
 
-      {/* Contenedor principal con 85% de ancho y alto */}
-      <div className="w-6/6 h-5/6  flex flex-col mt-20 bg-white shadow-md rounded-lg ">
+      {/* Contenedor principal */}
+      <div className="flex flex-col flex-grow w-full mt-20 bg-white shadow-md rounded-lg">
         {/* Tabs */}
         <div className="flex border-b">
-          <Link
-            href="?tab=misProyectos"
-            className={`flex-1 py-2 text-center ${
-              activeTab === "misProyectos"
-                ? "border-b-2 border-green-600 font-bold"
-                : "text-gray-600 font-bold"
-            }`}
-          >
-            Tus Proyectos
-          </Link>
-          <Link
-            href="?tab=comunidad"
-            className={`flex-1 py-2 text-center ${
-              activeTab === "comunidad"
-                ? "border-b-2 border-green-600 font-bold"
-                : "text-gray-600 font-bold"
-            }`}
-          >
-            Proyectos de la comunidad
-          </Link>
+          {["misProyectos", "comunidad"].map((tab) => (
+            <Link
+              key={tab}
+              href={`?tab=${tab}`}
+              className={`flex-1 py-2 text-center font-bold ${
+                activeTab === tab ? "border-b-2 border-green-600" : "text-gray-600"
+              }`}
+            >
+              {tab === "misProyectos" ? "Tus Proyectos" : "Proyectos de la comunidad"}
+            </Link>
+          ))}
         </div>
 
         {/* Contenido con Suspense */}
-        <div className="flex-grow flex h-full w-full">
-          <Suspense fallback={<p>Cargando...</p>}>
-            <DashboardTabsContent activeTab={activeTab} userId={user.id} />
-          </Suspense>
-        </div>
+        <Suspense fallback={<p>Cargando...</p>}>
+          <DashboardTabsContent activeTab={activeTab} userId={user.id} />
+        </Suspense>
       </div>
     </div>
   );
