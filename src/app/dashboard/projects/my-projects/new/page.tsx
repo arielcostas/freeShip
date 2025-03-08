@@ -5,6 +5,8 @@ import { redirect, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/app/(site)/Navbar";
+import { createProjectChannel } from "@/lib/discord/client/CreateProjectChannel";
+import { toast } from "react-toastify";
 
 const PROJECT_TYPES = [
   "WEB/DESKTOP",
@@ -28,7 +30,8 @@ export default function CreateProjectPage() {
   const [techInput, setTechInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-  const [collaboratorsNumber, setCollaboratorsNumber] = useState(1); // Nuevo estado para el número de colaboradores
+  const [collaboratorsNumber, setCollaboratorsNumber] = useState(1);
+  const [discordIntegration, setDiscordIntegration] = useState(true); // Nuevo estado para habilitación de Discord
 
   const handleSignOut = async () => {
     const supabase = createClient();
@@ -63,30 +66,75 @@ export default function CreateProjectPage() {
     setLoading(true);
     setError("");
 
-    const { error } = await supabase.from("projects").insert([
-      {
-        title,
-        description,
-        type: type || null, // Si no hay un tipo, se asigna null
-        tech_stack: techStack.length > 0 ? techStack : null, // Si el techStack está vacío, se asigna null
-        author_id: userId || null, // Asegúrate de que userId sea válido, o asigna null
-        collaborators_number: collaboratorsNumber, // Campo de número de colaboradores
-      },
-    ]);
+    try {
+      // 1. Crear el proyecto en la base de datos
+      const { data: projectData, error: projectError } = await supabase
+        .from("projects")
+        .insert([
+          {
+            title,
+            description,
+            type: type || null,
+            tech_stack: techStack.length > 0 ? techStack : null,
+            author_id: userId,
+            collaborators_number: collaboratorsNumber,
+          },
+        ])
+        .select()
+        .single();
 
-    if (error) {
-      console.error("Error al insertar el proyecto:", error.message); // Depuración para ver el error
-    } else {
-      console.log("Proyecto insertado correctamente");
-    }
+      if (projectError) {
+        throw new Error(`Error al crear el proyecto: ${projectError.message}`);
+      }
 
-    if (error) {
+      // 2. Si la integración con Discord está habilitada, crear el canal de Discord
+      if (discordIntegration && projectData) {
+        try {
+          // Llamamos a la API para crear el canal de Discord
+          const response = await fetch("/api/discord", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+              title,
+              projectId: projectData.id,
+              userId,
+            }),
+          });
+
+          const discordChannel = await response.json();
+
+          // Actualizar el proyecto con la información del canal de Discord
+          if (discordChannel) {
+            await supabase
+              .from("projects")
+              .update({
+                discord_channel_id: discordChannel.channelId,
+                discord_channel_url: discordChannel.channelUrl,
+              })
+              .eq("id", projectData.id);
+
+            toast({
+              title: "Canal de Discord creado",
+              description: "Se ha creado un canal de Discord para tu proyecto",
+            });
+          }
+        } catch (discordError) {
+          console.error("Error al crear el canal de Discord:", discordError);
+          toast({
+            title: "Error al crear canal de Discord",
+            description: "El proyecto se creó pero no se pudo crear el canal de Discord",
+            variant: "destructive",
+          });
+        }
+      }
+
+      // Redirigir al dashboard una vez completado todo
+      router.push("/dashboard");
+    } catch (error: any) {
       setError(error.message);
-    } else {
-      router.push("/dashboard"); // Redirigir al dashboard tras crear
+    } finally {
+      setLoading(false);
     }
-
-    setLoading(false);
   };
 
   return (
@@ -161,7 +209,7 @@ export default function CreateProjectPage() {
                   onClick={() => {
                     if (techInput.trim() !== "") {
                       setTechStack([...techStack, techInput.trim()]);
-                      setTechInput(""); // Opcional, para limpiar el input después de añadir
+                      setTechInput("");
                     }
                   }}
                 >
@@ -203,6 +251,20 @@ export default function CreateProjectPage() {
                 min={1}
                 required
               />
+            </div>
+
+            {/* Opción para habilitar integración con Discord */}
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                id="discordIntegration"
+                checked={discordIntegration}
+                onChange={(e) => setDiscordIntegration(e.target.checked)}
+                className="mr-2"
+              />
+              <label htmlFor="discordIntegration" className="text-sm font-medium">
+                Crear canal de Discord para el proyecto
+              </label>
             </div>
 
             <div className="flex justify-between">

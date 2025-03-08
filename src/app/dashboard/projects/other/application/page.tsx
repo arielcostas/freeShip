@@ -84,7 +84,11 @@ const OtherProjectApplicationPageContent = () => {
         >
           <strong>{loading ? "Enviando..." : "Enviar solicitud"}</strong>
         </Button>
-        <Button className="bg-red-500 text-white font-bold px-4 py-2 rounded hover:bg-red-600 transition" onClick={() => router.back()} variant="destructive">
+        <Button
+          className="bg-red-500 text-white font-bold px-4 py-2 rounded hover:bg-red-600 transition"
+          onClick={() => router.back()}
+          variant="destructive"
+        >
           <strong>Cancelar</strong>
         </Button>
       </div>
