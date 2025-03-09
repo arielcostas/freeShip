@@ -19,8 +19,8 @@ export default async function MyProjectsDashboardView({
         </div>
       </div>
 
-      {/* Lista de proyectos con scroll interno */}
-      <div className="flex-grow overflow-y-auto">
+      {/* Lista de proyectos con scroll solo cuando el contenido excede */}
+      <div className="flex-grow overflow-y-auto max-h-[calc(100vh-250px)]">
         <MyProjectsList userId={userId} />
       </div>
     </div>
