@@ -40,7 +40,7 @@ export default async function Dashboard({
   };
 
   return (
-    <div className="flex flex-col h-screen bg-gray-100">
+    <div className="flex flex-col h-screen bg-white">
       <Navbar handleSignOut={handleSignOut} className="bg-white shadow-md" />
 
       {/* Contenedor principal */}
