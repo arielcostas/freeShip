@@ -2,8 +2,8 @@ import Link from "next/link";
 import MyProjectsList from "@/app/dashboard/projects/my-projects/MyProjectsList";
 
 export default async function MyProjectsDashboardView({
-                                                        userId,
-                                                      }: {
+  userId,
+}: {
   userId: string;
 }) {
   return (
