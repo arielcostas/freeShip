@@ -8,12 +8,12 @@ export default function MyProjectCard({
   pendingApplications: number;
 }) {
   return (
-    <li className="relative w-[75%] mx-auto border p-7 rounded-lg shadow-sm bg-gradient-to-r from-gray-50 via-gray-50 via-95% to-[#acd916] hover:from-gray-50 hover:via-gray-100 hover:to-[#acd916]">
+    <li className="relative w-[75%] mx-auto border p-7 rounded-lg shadow-sm bg-gray-50 hover:bg-gray-100">
       <Link
         href={`/dashboard/projects/my-projects/${project.id}`}
         className="block"
       >
-        <h3 className="font-semibold text-[#88b000] hover:underline">
+        <h3 className="font-semibold text-[#88b000]">
           {project.title}
         </h3>
         <p className="text-sm text-gray-700">{project.description}</p>
