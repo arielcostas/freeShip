@@ -23,29 +23,25 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
     return <p className="text-red-500">Error loading projects</p>;
   }
 
-  return (
-    <div className="h-full overflow-y-auto border border-gray-300 rounded-lg p-4">
-      {myProjects.length > 0 || joinedProjects.length > 0 ? (
-        <ul className="space-y-4">
-          {/* Renderizar los proyectos creados por el usuario */}
-          {myProjects.map((project: any) => (
-            <MyProjectCard
-              key={project.id}
-              project={project}
-              pendingApplications={project.project_applications[0]?.count || 0}
-            />
-          ))}
+  return myProjects.length > 0 || joinedProjects.length > 0 ? (
+    <ul className="space-y-2">
+      {/* Renderizar los proyectos creados por el usuario */}
+      {myProjects.map((project: any) => (
+        <MyProjectCard
+          key={project.id}
+          project={project}
+          pendingApplications={project.project_applications[0]?.count || 0}
+        />
+      ))}
 
-          {/* Renderizar los proyectos en los que el usuario es miembro */}
-          {joinedProjects.map((project: any) => (
-            <OtherProjectCard key={project.id} project={project} />
-          ))}
-        </ul>
-      ) : (
-        <p className="text-center text-gray-500">
-          No projects yet. Create or join one!
-        </p>
-      )}
-    </div>
+      {/* Renderizar los proyectos en los que el usuario es miembro */}
+      {joinedProjects.map((project: any) => (
+        <OtherProjectCard key={project.id} project={project} />
+      ))}
+    </ul>
+  ) : (
+    <p className="text-center text-gray-500">
+      No projects yet. Create or join one!
+    </p>
   );
 }
