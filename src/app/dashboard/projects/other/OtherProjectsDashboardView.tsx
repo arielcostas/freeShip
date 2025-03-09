@@ -91,8 +91,8 @@ export default function OtherProjectsDashboardView({
         isFilterOpen={isFilterOpen}
       />
 
-      {/* Lista de proyectos */}
-      <div className="w-full md:w-4/5 h-full overflow-y-auto p-4">
+      {/* Lista de proyectos con scroll solo cuando sea necesario */}
+      <div className="w-full md:w-4/5 h-full overflow-y-auto max-h-[calc(100vh-250px)] p-4">
         <OtherProjectsList projects={filteredProjects} />
       </div>
     </div>
