@@ -85,17 +85,17 @@ export default async function OtherProjectDetail({
                 <p
                   className={
                     applicationStatus === "PENDING"
-                      ? "text-blue-600 font-semibold"
+                      ? "text-[#4752C4] font-semibold"
                       : applicationStatus === "ACCEPTED"
-                        ? "text-[#acd916] font-semibold"
+                        ? "text-[#88b000] font-semibold"
                         : "text-red-600 font-semibold"
                   }
                 >
                   {applicationStatus === "PENDING"
-                    ? "Tu solicitud está pendiente."
+                    ? "Tu solicitud está pendiente... ¡Crucemos los dedos!"
                     : applicationStatus === "ACCEPTED"
                       ? "Tu solicitud ha sido aceptada. ¡Enhorabuena!"
-                      : "Tu solicitud ha sido rechazada."}
+                      : "Tu solicitud ha sido rechazada. ¡Ellos se lo pierden!"}
                 </p>
               ) : (
                 <Link

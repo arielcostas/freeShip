@@ -3,11 +3,18 @@ import Link from "next/link";
 export default function OtherProjectCard({ project }: { project: any }) {
   return (
     <li className="relative w-4/5 mx-auto border border-gray-200 p-6 rounded-2xl shadow-lg bg-white transition-transform transform hover:scale-[1.03] hover:shadow-xl">
-      <Link href={`/dashboard/projects/other/${project.id}`} className="block space-y-3">
+      <Link
+        href={`/dashboard/projects/other/${project.id}`}
+        className="block space-y-3"
+      >
         {/* Fila 1: Título y Autor en línea */}
         <div className="flex items-center gap-x-3 mb-2">
-          <h3 className="text-lg font-bold text-[#4752C4] tracking-wide">{project.title}</h3>
-          <strong className="text-gray-600 text-sm">propuesto por {project.author_name || "Desconocido"}</strong>
+          <h3 className="text-lg font-bold text-[#4752C4] tracking-wide">
+            {project.title}
+          </h3>
+          <strong className="text-gray-600 text-sm">
+            propuesto por {project.author_name || "Desconocido"}
+          </strong>
         </div>
 
         {/* Fila 2: Grid con 2 columnas */}
@@ -16,12 +23,14 @@ export default function OtherProjectCard({ project }: { project: any }) {
           <div className="col-span-1 flex flex-col text-xs text-gray-500">
             {project.type && (
               <p className="mb-1">
-                <strong className="text-gray-700">Categoría:</strong> {project.type}
+                <strong className="text-gray-700">Categoría:</strong>{" "}
+                {project.type}
               </p>
             )}
             {project.tech_stack && (
               <p>
-                <strong className="text-gray-700">Stack:</strong> {project.tech_stack.join(", ")}
+                <strong className="text-gray-700">Stack:</strong>{" "}
+                {project.tech_stack.join(", ")}
               </p>
             )}
           </div>
