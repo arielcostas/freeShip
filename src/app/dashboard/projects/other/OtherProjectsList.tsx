@@ -8,7 +8,7 @@ export default function OtherProjectsList({ projects }: { projects: any[] }) {
   }
 
   return (
-    <ul className="space-y-2">
+    <ul className="space-y-4">
       {projects.map((project) => (
         <OtherProjectCard key={project.id} project={project} />
       ))}

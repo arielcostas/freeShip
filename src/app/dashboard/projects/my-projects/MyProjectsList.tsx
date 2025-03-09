@@ -24,9 +24,9 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
   }
 
   return (
-    <div className="h-full overflow-y-auto border border-gray-300 rounded-lg p-2">
+    <div className="h-full overflow-y-auto border border-gray-300 rounded-lg p-4">
       {myProjects.length > 0 || joinedProjects.length > 0 ? (
-        <ul className="space-y-2">
+        <ul className="space-y-4">
           {/* Renderizar los proyectos creados por el usuario */}
           {myProjects.map((project: any) => (
             <MyProjectCard
