@@ -23,6 +23,7 @@ export default function CreateProjectPage() {
   const supabase = createClient();
 
   const [userId, setUserId] = useState<string | null>(null);
+  const [discordUsername, setDiscordUsername] = useState<string | null>(null); // Estado para Discord Username
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
@@ -31,15 +32,14 @@ export default function CreateProjectPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [collaboratorsNumber, setCollaboratorsNumber] = useState(1);
-  const [discordIntegration, setDiscordIntegration] = useState(true); // Nuevo estado para habilitación de Discord
+  const [discordIntegration, setDiscordIntegration] = useState(true);
 
   const handleSignOut = async () => {
-    const supabase = createClient();
     await supabase.auth.signOut();
     redirect("/");
   };
 
-  // Obtener userId del usuario autenticado
+  // Obtener userId y discordUsername del usuario autenticado
   useEffect(() => {
     const getUser = async () => {
       const {
@@ -48,8 +48,19 @@ export default function CreateProjectPage() {
 
       if (user) {
         setUserId(user.id);
+
+        // Obtener el username de Discord (si está disponible)
+        const { data: profileData, error } = await supabase
+          .from("profiles")
+          .select("discord_username")
+          .eq("id", user.id)
+          .single();
+
+        if (profileData) {
+          setDiscordUsername(profileData.discord_username);
+        }
       } else {
-        router.push("/login"); // Redirige si no hay usuario autenticado
+        router.push("/login");
       }
     };
 
@@ -90,7 +101,7 @@ export default function CreateProjectPage() {
       // 2. Si la integración con Discord está habilitada, crear el canal de Discord
       if (discordIntegration && projectData) {
         try {
-          // Llamamos a la API para crear el canal de Discord
+          // Llamamos a la API para crear el canal de Discord, incluyendo el Discord username
           const response = await fetch("/api/discord", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -98,6 +109,7 @@ export default function CreateProjectPage() {
               title,
               projectId: projectData.id,
               userId,
+              discordUsername, // Incluir el Discord Username aquí
             }),
           });
 
@@ -140,7 +152,6 @@ export default function CreateProjectPage() {
 
   return (
     <div className="flex flex-col min-h-screen bg-gray-100">
-      {/* Navbar a pantalla completa */}
       <div className="w-full bg-white shadow-md">
         <Navbar handleSignOut={handleSignOut} />
       </div>
@@ -239,7 +250,6 @@ export default function CreateProjectPage() {
               </div>
             </div>
 
-            {/* Campo para el número de colaboradores */}
             <div>
               <label className="block text-sm font-medium">
                 Número de Colaboradores
@@ -254,7 +264,6 @@ export default function CreateProjectPage() {
               />
             </div>
 
-            {/* Opción para habilitar integración con Discord */}
             <div className="flex items-center">
               <input
                 type="checkbox"

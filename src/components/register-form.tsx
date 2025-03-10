@@ -11,6 +11,7 @@ export default function RegisterForm() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [discordUsername, setDiscordUsername] = useState(""); // Nuevo campo para el nombre de usuario de Discord
   const [message, setMessage] = useState("");
   const supabase = createClient();
 
@@ -35,7 +36,7 @@ export default function RegisterForm() {
     });
 
     if (error) {
-      console.error("Error registering:", error.message);
+      console.error("Error registrando:", error.message);
       setMessage("Error: " + error.message);
       return;
     }
@@ -52,7 +53,10 @@ export default function RegisterForm() {
       .eq("username", username);
 
     if (userCheckError) {
-      console.error("Error checking username:", userCheckError.message);
+      console.error(
+        "Error al verificar el nombre de usuario:",
+        userCheckError.message
+      );
       setMessage("Error al verificar el nombre de usuario.");
       return;
     }
@@ -62,13 +66,17 @@ export default function RegisterForm() {
       return;
     }
 
-    // Insertar el username en la tabla profiles
-    const { error: profileError } = await supabase
-      .from("profiles")
-      .insert([{ id: data.user.id, username }]);
+    // Insertar el username y el discordUsername en la tabla profiles
+    const { error: profileError } = await supabase.from("profiles").insert([
+      {
+        id: data.user.id,
+        username,
+        discord_username: discordUsername || null, // Si se proporciona, se guarda en discord_username
+      },
+    ]);
 
     if (profileError) {
-      console.error("Error inserting profile:", profileError.message);
+      console.error("Error al crear el perfil:", profileError.message);
       setMessage("Error al crear el perfil.");
       return;
     }
@@ -125,6 +133,21 @@ export default function RegisterForm() {
             required
           />
         </div>
+
+        {/* Campo opcional para el nombre de usuario de Discord */}
+        <div className="space-y-2">
+          <Label htmlFor="discordUsername">
+            Nombre de usuario de Discord (opcional)
+          </Label>
+          <Input
+            id="discordUsername"
+            type="text"
+            value={discordUsername}
+            onChange={(e) => setDiscordUsername(e.target.value)}
+            placeholder="Escribe tu nombre de usuario de Discord (opcional)"
+          />
+        </div>
+
         <Button type="submit" className="w-full">
           Registrarse
         </Button>
