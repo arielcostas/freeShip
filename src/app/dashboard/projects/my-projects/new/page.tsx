@@ -101,14 +101,15 @@ export default function CreateProjectPage() {
       // 2. Si la integración con Discord está habilitada, crear el canal de Discord
       if (discordIntegration && projectData) {
         try {
-
           alert("Enviando solicitud a /api/discord...");
-          alert(JSON.stringify({
-            title,
-            projectId: projectData.id,
-            userId,
-            discordUsername,
-          }));
+          alert(
+            JSON.stringify({
+              title,
+              projectId: projectData.id,
+              userId,
+              discordUsername,
+            })
+          );
 
           // Llamamos a la API para crear el canal de Discord
           const response = await fetch("/api/discord", {

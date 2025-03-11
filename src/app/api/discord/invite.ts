@@ -9,7 +9,10 @@ const client = new Client({
 // Iniciar sesión con el token del bot
 client.login(process.env.DISCORD_BOT_TOKEN!);
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   if (req.method !== "POST") {
     return res.status(405).json({ message: "Método no permitido" });
   }
@@ -23,7 +26,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     const user = await client.users.fetch(userId);
     if (user) {
-      await user.send(`¡Hola! Has creado un nuevo proyecto. Únete a nuestro servidor de Discord con este enlace: ${inviteLink}`);
+      await user.send(
+        `¡Hola! Has creado un nuevo proyecto. Únete a nuestro servidor de Discord con este enlace: ${inviteLink}`
+      );
       console.log(`Invitación enviada a ${user.tag}`);
       return res.status(200).json({ message: "Invitación enviada con éxito" });
     }
