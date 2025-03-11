@@ -40,8 +40,10 @@ export default function LinkDiscordAccount() {
   };
 
   const handleLinkDiscord = () => {
-    // Generar la URL de autorización de Discord OAuth2
     const CLIENT_ID = process.env.NEXT_PUBLIC_DISCORD_CLIENT_ID;
+
+    if (typeof window === "undefined") return; // Evita problemas en SSR
+
     const REDIRECT_URI = encodeURIComponent(
       `${window.location.origin}/api/discord/callback`
     );
@@ -49,7 +51,6 @@ export default function LinkDiscordAccount() {
 
     const authUrl = `https://discord.com/api/oauth2/authorize?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=code&scope=${SCOPES}`;
 
-    // Redirigir al usuario a la página de autorización de Discord
     window.location.href = authUrl;
   };
 

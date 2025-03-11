@@ -1,6 +1,6 @@
 import { NextConfig } from "next";
 
-const nextConfig = {
+const nextConfig: NextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   pageExtensions: ["tsx", "mdx"],
@@ -29,6 +29,8 @@ const nextConfig = {
       },
     ];
   },
-} satisfies NextConfig;
+};
 
 export default nextConfig;
+
+console.log("✅ Cargando configuración de Next.js");

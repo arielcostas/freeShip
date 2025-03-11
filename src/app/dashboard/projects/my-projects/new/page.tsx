@@ -101,7 +101,16 @@ export default function CreateProjectPage() {
       // 2. Si la integración con Discord está habilitada, crear el canal de Discord
       if (discordIntegration && projectData) {
         try {
-          // Llamamos a la API para crear el canal de Discord, incluyendo el Discord username
+
+          alert("Enviando solicitud a /api/discord...");
+          alert(JSON.stringify({
+            title,
+            projectId: projectData.id,
+            userId,
+            discordUsername,
+          }));
+
+          // Llamamos a la API para crear el canal de Discord
           const response = await fetch("/api/discord", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -109,14 +118,15 @@ export default function CreateProjectPage() {
               title,
               projectId: projectData.id,
               userId,
-              discordUsername, // Incluir el Discord Username aquí
+              discordUsername,
             }),
           });
 
           const discordChannel = await response.json();
+          alert("Respuesta de Discord: " + JSON.stringify(discordChannel));
 
-          // Actualizar el proyecto con la información del canal de Discord
           if (discordChannel) {
+            // Actualizar el proyecto con la información del canal de Discord
             await supabase
               .from("projects")
               .update({
@@ -129,13 +139,28 @@ export default function CreateProjectPage() {
               title: "Canal de Discord creado",
               description: "Se ha creado un canal de Discord para tu proyecto",
             });
+
+            // 3. Enviar la invitación de Discord al usuario creador
+            await fetch("/api/discord/invite", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                userId,
+                inviteLink: discordChannel.channelUrl,
+              }),
+            });
+
+            toast({
+              title: "Invitación enviada",
+              description: "Se ha enviado la invitación de Discord al usuario.",
+            });
           }
         } catch (discordError) {
-          console.error("Error al crear el canal de Discord:", discordError);
+          console.error("Error en la integración con Discord:", discordError);
           toast({
-            title: "Error al crear canal de Discord",
+            title: "Error en Discord",
             description:
-              "El proyecto se creó pero no se pudo crear el canal de Discord",
+              "El proyecto se creó pero hubo un problema con la integración en Discord.",
             variant: "destructive",
           });
         }

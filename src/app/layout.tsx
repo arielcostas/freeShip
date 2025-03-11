@@ -39,3 +39,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+console.log("✅ Next.js está ejecutando el layout");
