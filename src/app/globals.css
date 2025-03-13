@@ -78,8 +78,8 @@ body {
 /* Agregar esto a tu archivo global.css o crear un nuevo archivo theme.css e importarlo */
 
 :root {
-  --bg-primary: #212121;
-  --bg-secondary: #3C3C3C;
+  --bg-primary: #ffffff90;
+  --bg-secondary: #e0e0e0;
   --text-primary: #ffffff;
   --text-secondary: #ffffff90;
   --accent-color: #acd916;
@@ -97,7 +97,9 @@ body {
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Estilos para otros componentes comunes */
@@ -111,42 +113,55 @@ body {
 }
 
 :root {
-  /* Tema claro (el que tienes por defecto) */
-  --bg-primary: #ffffff90;
-  --bg-secondary: #ffffff90;
-  --bg-element: #ffffff90;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff90;
-  --accent-color: #acd916;
-  --border-color: #e0e0e0;
-  --card-bg: #e0e0e0;
-  --input-bg: #e0e0e0;
-  --hover-bg: #e0e0e0;
+  /* Tema claro mejorado */
+  --bg-primary: #f8f9fa; /* Un blanco ligeramente grisáceo para menos brillo */
+  --bg-secondary: #e9ecef; /* Un tono más claro pero con algo de separación */
+  --bg-element: #ffffffd9; /* Un blanco con más opacidad para destacar */
+  --text-primary: #333333; /* Un gris oscuro para mejor legibilidad */
+  --text-secondary: #666666; /* Un gris medio para textos secundarios */
+  --accent-color: #88b000; /* Manteniendo el mismo */
+  --border-color: #d1d1d1; /* Un gris neutro para no ser muy fuerte */
+  --card-bg: #f0f0f0; /* Un tono más claro para las tarjetas */
+  --input-bg: #ffffff; /* Blanco puro para inputs, destacándolos */
+  --hover-bg: #dcdcdc; /* Un gris sutil para efecto hover */
 }
 
 .dark-theme {
-  /* Tema oscuro */
-  --bg-primary: #121212;
-  --bg-secondary: #1e1e1e;
-  --bg-element: #1a1a1a;
-  --text-primary: #ffffff;
-  --text-secondary: #e0e0e0;
-  --accent-color: #acd916;
-  --border-color: #333333;
-  --card-bg: #1a1a1a;
-  --input-bg: #252525;
-  --hover-bg: #252525;
+  /* Tema oscuro refinado */
+  --bg-primary: #2e2e33; /* Un gris oscuro pero no negro, más agradable a la vista */
+  --bg-secondary: #3a3a40; /* Un gris más claro para generar separación */
+  --bg-element: #45454d; /* Un gris medio para elementos destacados */
+
+  /* Texto */
+  --text-primary: #ffffff; /* Blanco puro para máxima legibilidad */
+  --text-secondary: #f0f0f0; /* Un gris claro para textos secundarios */
+  --text-muted: #f0f0f0; /* Un gris medio para textos poco importantes */
+  --text-inverted: #f0f0f0; /* Para cuando se necesite un fondo claro con texto oscuro */
+
+  /* Otros colores */
+  --accent-color: #acd916; /* Manteniendo el mismo */
+  --border-color: #55555d; /* Un gris medio para bordes sin ser muy oscuros */
+  --card-bg: #3a3a40; /* Similar a bg-secondary para mantener coherencia */
+  --input-bg: #4c4c55; /* Un gris más claro que el fondo para resaltar inputs */
+  --hover-bg: #5a5a64; /* Un gris más claro para efectos hover */
 }
 
+
+
 /* Aplicar el fondo base a todo el documento */
-html, body {
+html,
+body {
   background-color: var(--bg-primary) !important;
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Navbar específicamente */
-nav, .navbar, [class*="navbar"] {
+nav,
+.navbar,
+[class*="navbar"] {
   background-color: var(--bg-primary) !important;
   border-bottom: 1px solid var(--border-color);
 }
@@ -184,7 +199,9 @@ main,
   background-color: var(--bg-element) !important;
   color: var(--text-primary);
   border-color: var(--border-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Forzar el fondo para elementos específicos */
@@ -227,15 +244,26 @@ button:not(.theme-toggle),
 .button,
 [class*="button"],
 [class*="btn"] {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Textos */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-primary) !important;
 }
 
-p, span, a:not([class*="btn"]), label, li {
+p,
+span,
+a:not([class*="btn"]),
+label,
+li {
   color: var(--text-secondary) !important;
 }
 
@@ -251,37 +279,14 @@ p, span, a:not([class*="btn"]), label, li {
   background-color: var(--bg-element) !important;
 }
 
-:root {
-  /* Tema claro (el que tienes por defecto) */
-  --bg-primary: #212121;
-  --bg-secondary: #3C3C3C;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff90;
-  --accent-color: #acd916;
-  --border-color: #333333;
-  --card-bg: #2a2a2a;
-  --input-bg: #333333;
-  --hover-bg: #3C3C3C;
-}
-
-.dark-theme {
-  /* Tema oscuro */
-  --bg-primary: #121212;
-  --bg-secondary: #1e1e1e;
-  --text-primary: #ffffff;
-  --text-secondary: #e0e0e0;
-  --accent-color: #acd916;
-  --border-color: #333333;
-  --card-bg: #1a1a1a;
-  --input-bg: #252525;
-  --hover-bg: #252525;
-}
 
 /* Estilos base para toda la aplicación */
 body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Navbar */
@@ -299,7 +304,9 @@ nav {
 [class*="card"] {
   background-color: var(--card-bg);
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Inputs y formularios */
@@ -315,7 +322,9 @@ select,
 /* Botones */
 button:not(.theme-toggle),
 .button {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Hover */
@@ -324,11 +333,18 @@ button:not(.theme-toggle),
 }
 
 /* Textos */
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   color: var(--text-primary);
 }
 
-p, span, div {
+p,
+span,
+div {
   color: var(--text-secondary);
 }
 

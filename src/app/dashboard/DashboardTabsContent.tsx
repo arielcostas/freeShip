@@ -2,9 +2,9 @@ import MyProjectsDashboardView from "@/app/dashboard/projects/my-projects/MyProj
 import OtherProjectsDashboardView from "@/app/dashboard/projects/other/OtherProjectsDashboardView";
 
 export function DashboardTabsContent({
-                                       activeTab,
-                                       userId,
-                                     }: {
+  activeTab,
+  userId,
+}: {
   activeTab: string;
   userId: string;
 }) {

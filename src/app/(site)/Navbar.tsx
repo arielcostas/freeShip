@@ -89,7 +89,11 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
             className="p-2 rounded-full text-[#acd916] hover:bg-[#3C3C3C] transition-colors"
             aria-label={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
           >
-            {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+            {theme === "light" ? (
+              <Moon className="h-5 w-5" />
+            ) : (
+              <Sun className="h-5 w-5" />
+            )}
           </button>
 
           {/* Nombre de usuario con icono en el lado derecho */}
