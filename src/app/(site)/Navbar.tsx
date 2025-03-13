@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { X, User } from "lucide-react";
+import { X, User, Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import { useTheme } from "../../app/context/ThemeContext";
 
 interface NavbarProps {
   handleSignOut: () => void;
@@ -13,6 +14,7 @@ interface NavbarProps {
 export default function Navbar({ handleSignOut }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
+  const { theme, toggleTheme } = useTheme();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -42,7 +44,7 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
   }, []);
 
   return (
-    <nav className="fixed top-0 z-50 w-full bg-[#212121]">
+    <nav className={`fixed top-0 z-50 w-full transition-colors duration-300`}>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
           <Link href="/dashboard" className="flex items-center gap-5">
@@ -81,6 +83,15 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
         </div>
 
         <div className="flex items-center space-x-4">
+          {/* Botón de cambio de tema */}
+          <button
+            onClick={toggleTheme}
+            className="p-2 rounded-full text-[#acd916] hover:bg-[#3C3C3C] transition-colors"
+            aria-label={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
+          >
+            {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+          </button>
+
           {/* Nombre de usuario con icono en el lado derecho */}
           {username && (
             <div className="flex items-center text-[#acd916] font-medium">

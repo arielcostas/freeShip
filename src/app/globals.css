@@ -74,3 +74,265 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Agregar esto a tu archivo global.css o crear un nuevo archivo theme.css e importarlo */
+
+:root {
+  --bg-primary: #212121;
+  --bg-secondary: #3C3C3C;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff90;
+  --accent-color: #acd916;
+}
+
+.dark-theme {
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --accent-color: #acd916;
+}
+
+/* Estilos para aplicar en toda la aplicación */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilos para otros componentes comunes */
+.dark-theme .card {
+  background-color: var(--bg-secondary);
+}
+
+.dark-theme button {
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+}
+
+:root {
+  /* Tema claro (el que tienes por defecto) */
+  --bg-primary: #ffffff90;
+  --bg-secondary: #ffffff90;
+  --bg-element: #ffffff90;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff90;
+  --accent-color: #acd916;
+  --border-color: #e0e0e0;
+  --card-bg: #e0e0e0;
+  --input-bg: #e0e0e0;
+  --hover-bg: #e0e0e0;
+}
+
+.dark-theme {
+  /* Tema oscuro */
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --bg-element: #1a1a1a;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --accent-color: #acd916;
+  --border-color: #333333;
+  --card-bg: #1a1a1a;
+  --input-bg: #252525;
+  --hover-bg: #252525;
+}
+
+/* Aplicar el fondo base a todo el documento */
+html, body {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Navbar específicamente */
+nav, .navbar, [class*="navbar"] {
+  background-color: var(--bg-primary) !important;
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Contenedores principales */
+main,
+.main,
+.content,
+.container,
+.wrapper,
+#root,
+#__next,
+.layout-container,
+[class*="container"],
+[class*="wrapper"],
+[class*="layout"],
+[class*="content"] {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary);
+}
+
+/* Tarjetas y elementos con fondo */
+.card,
+.box,
+.panel,
+.sidebar,
+.section,
+.widget,
+[class*="card"],
+[class*="box"],
+[class*="panel"],
+[class*="sidebar"],
+[class*="section"],
+[class*="widget"] {
+  background-color: var(--bg-element) !important;
+  color: var(--text-primary);
+  border-color: var(--border-color);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Forzar el fondo para elementos específicos */
+div[class*="bg-white"],
+div[class*="bg-gray"],
+div[class*="bg-neutral"],
+div[style*="background"],
+section,
+aside,
+article {
+  background-color: var(--bg-primary) !important;
+  color: var(--text-primary) !important;
+}
+
+/* Elementos internos con fondo blanco o gris */
+div[class*="bg-white"] > *,
+div[class*="bg-gray"] > *,
+div[class*="bg-neutral"] > * {
+  background-color: inherit;
+}
+
+/* Inputs y formularios */
+input,
+textarea,
+select,
+.input,
+[type="text"],
+[type="email"],
+[type="password"],
+[type="search"],
+[type="number"],
+[class*="input"] {
+  background-color: var(--input-bg) !important;
+  color: var(--text-primary) !important;
+  border-color: var(--border-color);
+}
+
+/* Botones */
+button:not(.theme-toggle),
+.button,
+[class*="button"],
+[class*="btn"] {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Textos */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary) !important;
+}
+
+p, span, a:not([class*="btn"]), label, li {
+  color: var(--text-secondary) !important;
+}
+
+/* Importante: reset para clases de colores específicas de Tailwind */
+.dark-theme .bg-white,
+.dark-theme .bg-gray-50,
+.dark-theme .bg-gray-100,
+.dark-theme .bg-gray-200,
+.dark-theme .bg-neutral-50,
+.dark-theme .bg-neutral-100,
+.dark-theme .bg-neutral-200 {
+  --tw-bg-opacity: 1 !important;
+  background-color: var(--bg-element) !important;
+}
+
+:root {
+  /* Tema claro (el que tienes por defecto) */
+  --bg-primary: #212121;
+  --bg-secondary: #3C3C3C;
+  --text-primary: #ffffff;
+  --text-secondary: #ffffff90;
+  --accent-color: #acd916;
+  --border-color: #333333;
+  --card-bg: #2a2a2a;
+  --input-bg: #333333;
+  --hover-bg: #3C3C3C;
+}
+
+.dark-theme {
+  /* Tema oscuro */
+  --bg-primary: #121212;
+  --bg-secondary: #1e1e1e;
+  --text-primary: #ffffff;
+  --text-secondary: #e0e0e0;
+  --accent-color: #acd916;
+  --border-color: #333333;
+  --card-bg: #1a1a1a;
+  --input-bg: #252525;
+  --hover-bg: #252525;
+}
+
+/* Estilos base para toda la aplicación */
+body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Navbar */
+nav {
+  background-color: var(--bg-primary);
+  border-bottom: 1px solid var(--border-color);
+}
+
+/* Tarjetas y contenedores */
+.card,
+.container,
+.section,
+.dashboard-container,
+[class*="container"],
+[class*="card"] {
+  background-color: var(--card-bg);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Inputs y formularios */
+input,
+textarea,
+select,
+.input {
+  background-color: var(--input-bg);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+/* Botones */
+button:not(.theme-toggle),
+.button {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Hover */
+.hover-effect:hover {
+  background-color: var(--hover-bg);
+}
+
+/* Textos */
+h1, h2, h3, h4, h5, h6 {
+  color: var(--text-primary);
+}
+
+p, span, div {
+  color: var(--text-secondary);
+}
+
+/* Elementos con fondo fuerte */
+.bg-strong {
+  background-color: var(--bg-secondary);
+}

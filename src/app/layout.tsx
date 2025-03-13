@@ -1,43 +1,22 @@
-import type { Metadata } from "next";
-import { Bricolage_Grotesque } from "next/font/google";
-import "./globals.css";
-import type React from "react"; // Import React
+// Modificar tu archivo layout.tsx (probablemente en app/layout.tsx)
 
-const bricolageGrotesque = Bricolage_Grotesque({
-  subsets: ["latin"],
-  display: "swap",
-});
+"use client";
 
-export const metadata: Metadata = {
-  title: "bugoverflow",
-  icons: {
-    icon: "/favicon.svg",
-  },
-  description: "Collaborative Projects Finder",
-  keywords: [
-    "saas",
-    "sofware",
-    "open source",
-    "coding",
-    "bootcamp",
-    "bugoverflow",
-    "stackoverflow",
-    "github",
-    "junior",
-    "developer",
-  ],
-};
+import { ThemeProvider } from "../app/context/ThemeContext";
+import "../app/globals.css";
 
 export default function RootLayout({
-  children,
-}: Readonly<{
+                                     children,
+                                   }: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
-    <html lang="en" className={bricolageGrotesque.className}>
-      <body className="antialiased">{children}</body>
+    <html lang="en">
+    <body>
+    <ThemeProvider>
+      {children}
+    </ThemeProvider>
+    </body>
     </html>
   );
 }
-
-console.log("✅ Next.js está ejecutando el layout");
