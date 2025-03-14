@@ -41,7 +41,7 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
     </ul>
   ) : (
     <p className="text-center text-gray-500">
-      No projects yet. Create or join one!
+      Todavía no tienes proyectos. ¡Crea o únete a uno!
     </p>
   );
 }

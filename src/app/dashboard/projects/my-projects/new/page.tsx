@@ -317,7 +317,7 @@ export default function CreateProjectPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition"
+                className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition ml-4 mt-4"
               >
                 <strong>{loading ? "Creando..." : "Crear Proyecto"}</strong>
               </Button>
