@@ -131,7 +131,6 @@ body {
   --input-bg: #ffffff; /* Fondo blanco para inputs */
   --hover-bg: #cccccc; /* Un gris más oscuro para efectos hover */
 
-
   --input-bg-light: #ffffff;
   --input-bg-dark: #1f2937;
   --border-light: #d1d5db;
@@ -169,7 +168,9 @@ select {
   appearance: none;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
 }
 
 /* Modo claro */

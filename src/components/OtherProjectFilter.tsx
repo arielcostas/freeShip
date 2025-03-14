@@ -52,7 +52,9 @@ export default function OtherProjectFilter({
           <option value="MOBILE">Desarrollo móvil</option>
           <option value="EMBEDDED">Código embebido</option>
           <option value="VIDEOGAME">Videojuego</option>
-          <option value="BD/IA/ML">Big Data | Inteligencia Artificial | Machine Learning</option>
+          <option value="BD/IA/ML">
+            Big Data | Inteligencia Artificial | Machine Learning
+          </option>
           <option value="CYBERSECURITY">Ciberseguridad</option>
           <option value="SCRIPTING/SCRAPING">Scripting</option>
         </select>
