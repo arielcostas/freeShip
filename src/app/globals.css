@@ -113,19 +113,25 @@ body {
 }
 
 :root {
-  /* Tema claro mejorado */
-  --bg-primary: #f8f9fa; /* Un blanco ligeramente grisáceo para menos brillo */
-  --bg-secondary: #e9ecef; /* Un tono más claro pero con algo de separación */
-  --bg-element: #ffffffd9; /* Un blanco con más opacidad para destacar */
-  --text-primary: #333333; /* Un gris oscuro para mejor legibilidad */
-  --text-secondary: #666666; /* Un gris medio para textos secundarios */
-  --accent-text: #88b000;
-  --accent-color: #88b000; /* Manteniendo el mismo */
-  --border-color: #d1d1d1; /* Un gris neutro para no ser muy fuerte */
-  --card-bg: #f0f0f0; /* Un tono más claro para las tarjetas */
-  --input-bg: #ffffff; /* Blanco puro para inputs, destacándolos */
-  --hover-bg: #dcdcdc; /* Un gris sutil para efecto hover */
+  --bg-primary: #f5f5f5; /* Gris claro en lugar de blanco puro */
+  --bg-secondary: #eeeeee; /* Un gris neutro */
+  --bg-element: #e0e0e0; /* Un tono más oscuro para elementos destacados */
+
+  /* Texto */
+  --text-primary: #222222; /* Un gris más oscuro para mejorar el contraste */
+  --text-secondary: #444444; /* Gris medio para textos secundarios */
+  --text-muted: #666666; /* Para textos de menor importancia */
+  --text-inverted: #111111; /* Para elementos con fondo claro */
+  --accent-text: #88b000; /* Color de énfasis */
+
+  /* Otros colores */
+  --accent-color: #88b000;
+  --border-color: #bbbbbb; /* Un gris intermedio */
+  --card-bg: #f5f5f5; /* Un fondo ligeramente grisáceo */
+  --input-bg: #ffffff; /* Fondo blanco para inputs */
+  --hover-bg: #cccccc; /* Un gris más oscuro para efectos hover */
 }
+
 
 .dark-theme {
   /* Tema oscuro refinado */
