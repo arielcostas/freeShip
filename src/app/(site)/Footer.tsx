@@ -2,7 +2,6 @@ export default function Footer() {
   return (
     <footer className="bg-[var(--bg-primary)] px-4 py-12 md:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
-
         {/* Links principales */}
         {/**
          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -76,7 +75,10 @@ export default function Footer() {
         {/* Copyright */}
         <div className="mt-12 text-center text-sm text-[var(--text-tertiary)]">
           © 2025&nbsp;
-          <a href="https://bugoverflow.netlify.app/" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
+          <a
+            href="https://bugoverflow.netlify.app/"
+            className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
+          >
             bugoverflow
           </a>
           . Todos los derechos reservados.
