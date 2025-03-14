@@ -8,8 +8,10 @@ const HeroSection = ({ loginSectionRef }) => {
     }
   };
   return (
-    <div className="bg-[#1A1A1A] min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12">
-      {/* Nuevo Logo */}
+    <div
+      className="min-h-screen flex flex-col items-center justify-center px-4 sm:px-6 md:px-8 lg:px-12"
+      style={{ backgroundColor: "var(--bg-primary)" }}
+    >
       <svg
         viewBox="0 0 128 128"
         xmlns="http://www.w3.org/2000/svg"
@@ -76,14 +78,20 @@ const HeroSection = ({ loginSectionRef }) => {
       </svg>
 
       {/* Título */}
-      <h1 className="text-5xl font-semibold text-white mt-4">bugoverflow</h1>
+      <h1
+        className="text-5xl font-semibold mt-4"
+        style={{ color: "var(--text-primary)" }}
+      >
+        bugoverflow
+      </h1>
 
       {/* Flecha para hacer scroll */}
       <button
         onClick={scrollToLogin}
-        className="absolute top-[75%] transform text-[#acd916] animate-bounce transition-opacity duration-1000"
+        className="absolute top-[75%] animate-bounce transition-opacity duration-1000"
+        style={{ backgroundColor: "transparent" }} // Aquí se asegura de que no haya fondo visible
       >
-        <ChevronDownIcon className="w-12 h-12" />
+        <ChevronDownIcon className="w-12 h-12 text-[var(--accent-color)]" />
       </button>
     </div>
   );

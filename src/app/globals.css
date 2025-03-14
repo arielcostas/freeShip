@@ -132,7 +132,6 @@ body {
   --hover-bg: #cccccc; /* Un gris más oscuro para efectos hover */
 }
 
-
 .dark-theme {
   /* Tema oscuro refinado */
   --bg-primary: #2e2e33; /* Un gris oscuro pero no negro, más agradable a la vista */
