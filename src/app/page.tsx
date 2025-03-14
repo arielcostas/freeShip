@@ -47,7 +47,10 @@ export default function Home() {
             </span>
             <button
               className="font-bold hover:underline ml-2"
-              style={{ color: "var(--accent-text)", backgroundColor: "transparent" }}
+              style={{
+                color: "var(--accent-text)",
+                backgroundColor: "transparent",
+              }}
               onClick={() => setIsLogin(!isLogin)}
             >
               {isLogin ? "Regístrate" : "Inicia sesión"}

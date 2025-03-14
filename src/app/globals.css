@@ -130,6 +130,18 @@ body {
   --card-bg: #f5f5f5; /* Un fondo ligeramente grisáceo */
   --input-bg: #ffffff; /* Fondo blanco para inputs */
   --hover-bg: #cccccc; /* Un gris más oscuro para efectos hover */
+
+
+  --input-bg-light: #ffffff;
+  --input-bg-dark: #1f2937;
+  --border-light: #d1d5db;
+  --border-dark: #374151;
+  --text-light: #111827;
+  --text-dark: #f9fafb;
+  --hover-light: #f3f4f6;
+  --hover-dark: #374151;
+  --accent-light: #4f46e5;
+  --accent-dark: #818cf8;
 }
 
 .dark-theme {
@@ -151,6 +163,60 @@ body {
   --card-bg: #3a3a40; /* Similar a bg-secondary para mantener coherencia */
   --input-bg: #4c4c55; /* Un gris más claro que el fondo para resaltar inputs */
   --hover-bg: #5a5a64; /* Un gris más claro para efectos hover */
+}
+
+select {
+  appearance: none;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+/* Modo claro */
+@media (prefers-color-scheme: light) {
+  select {
+    background-color: var(--input-bg-light);
+    border: 1px solid var(--border-light);
+    color: var(--text-light);
+  }
+
+  select:hover {
+    background-color: var(--hover-light);
+  }
+
+  select:focus {
+    border: 2px solid #7da4ec;
+  }
+}
+
+/* Modo oscuro */
+@media (prefers-color-scheme: dark) {
+  select {
+    background-color: var(--input-bg-dark);
+    border: 1px solid var(--border-dark);
+    color: var(--text-dark);
+  }
+
+  select:hover {
+    background-color: var(--hover-dark);
+  }
+
+  select:focus {
+    border-color: #7da4ec;
+  }
+}
+
+/* Flecha personalizada */
+select::-ms-expand {
+  display: none;
+}
+
+select {
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23666666'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+  padding-right: 2.5rem;
 }
 
 /* Aplicar el fondo base a todo el documento */

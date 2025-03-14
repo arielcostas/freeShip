@@ -43,18 +43,18 @@ export default function OtherProjectFilter({
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Categoría</label>
         <select
-          className="w-full border rounded px-3 py-2"
+          className="w-full border border-gray-300 bg-white dark:bg-gray-800 dark:border-gray-600 text-gray-900 dark:text-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 transition-all"
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
         >
           <option value="">Todas</option>
-          <option value="WEB/DESKTOP">Web/Desktop</option>
-          <option value="MOBILE">Mobile</option>
-          <option value="EMBEDDED">Embedded</option>
+          <option value="WEB/DESKTOP">Desarrollo web o escritorio</option>
+          <option value="MOBILE">Desarrollo móvil</option>
+          <option value="EMBEDDED">Código embebido</option>
           <option value="VIDEOGAME">Videojuego</option>
-          <option value="BD/IA/ML">BD/IA/ML</option>
+          <option value="BD/IA/ML">Big Data | Inteligencia Artificial | Machine Learning</option>
           <option value="CYBERSECURITY">Ciberseguridad</option>
-          <option value="SCRIPTING/SCRAPING">Scripting/Scraping</option>
+          <option value="SCRIPTING/SCRAPING">Scripting</option>
         </select>
       </div>
 

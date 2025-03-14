@@ -148,7 +148,7 @@ export default function RegisterForm() {
           />
         </div>
 
-        <Button type="submit" className="w-full" >
+        <Button type="submit" className="w-full">
           Registrarse
         </Button>
       </form>
