@@ -1,9 +1,9 @@
 import Link from "next/link";
 
 export default function MyProjectCard({
-                                        project,
-                                        pendingApplications,
-                                      }: {
+  project,
+  pendingApplications,
+}: {
   project: any;
   pendingApplications: number;
 }) {
@@ -51,9 +51,7 @@ export default function MyProjectCard({
             )}
             {project.tech_stack && (
               <p>
-                <strong style={{ color: "var(--text-primary)" }}>
-                  Stack:
-                </strong>{" "}
+                <strong style={{ color: "var(--text-primary)" }}>Stack:</strong>{" "}
                 {project.tech_stack.join(", ")}
               </p>
             )}
@@ -62,9 +60,7 @@ export default function MyProjectCard({
       </Link>
       {/* Indicador de solicitudes pendientes */}
       {pendingApplications > 0 && (
-        <span
-          className="absolute top-3 right-3 bg-red-600 text-white font-semibold text-xs px-3 py-1.5 rounded-full shadow-lg ring-2 ring-white"
-        >
+        <span className="absolute top-3 right-3 bg-red-600 text-white font-semibold text-xs px-3 py-1.5 rounded-full shadow-lg ring-2 ring-white">
           {pendingApplications}
         </span>
       )}
