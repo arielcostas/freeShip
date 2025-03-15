@@ -111,11 +111,11 @@ body {
   --text-dark: #f9fafb;
   --hover-light: #f3f4f6;
   --hover-dark: #374151;
-  --accent-light: #5865F2;
+  --accent-light: #5865f2;
   --accent-dark: #818cf8;
 
   .otherprojecttitle {
-    color: #5865F2 !important;
+    color: #5865f2 !important;
     font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
     font-weight: bold; /* font-bold */
     letter-spacing: 0.025em; /* tracking-wide */
@@ -371,5 +371,3 @@ li {
   background-color: #88b000 !important;
   color: #ffffff !important;
 }
-
-

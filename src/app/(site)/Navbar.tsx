@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { X, User, Moon, Sun } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
 import { useTheme } from "../../app/context/ThemeContext";
@@ -13,12 +13,29 @@ interface NavbarProps {
 
 export default function Navbar({ handleSignOut }: NavbarProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [username, setUsername] = useState<string | null>(null);
   const { theme, toggleTheme } = useTheme();
+  const dropdownRef = useRef<HTMLDivElement | null>(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
+
+  const toggleDropdown = () => {
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
+  // Cierra el dropdown si se hace clic fuera
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   useEffect(() => {
     const fetchUsername = async () => {
@@ -44,28 +61,21 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
   }, []);
 
   return (
-    <nav className={`fixed top-0 z-50 w-full transition-colors duration-300`}>
+    <nav className={`fixed top-0 z-50 w-full transition-colors duration-300 ${theme === "light" ? "bg-white text-black" : "bg-gray-900 text-white"}`}>
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
           <Link href="/dashboard" className="flex items-center gap-5">
             <svg
               viewBox="0 0 128 128"
               xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
               aria-hidden="true"
               role="img"
               className="w-[50px] h-[50px]"
               preserveAspectRatio="xMidYMid meet"
             >
               <g id="SVGRepo_iconCarrier">
-                <path
-                  fill="#acd916"
-                  d="M30.47 104.24h13.39v13.39H30.47z"
-                ></path>
-                <path
-                  fill="#acd916"
-                  d="M84.04 104.24h13.39v13.39H84.04z"
-                ></path>
+                <path fill="#acd916" d="M30.47 104.24h13.39v13.39H30.47z"></path>
+                <path fill="#acd916" d="M84.04 104.24h13.39v13.39H84.04z"></path>
                 <path fill="#acd916" d="M30.48 10.51h13.39V23.9H30.48z"></path>
                 <path fill="#acd916" d="M84.04 10.51h13.39V23.9H84.04z"></path>
                 <path
@@ -76,9 +86,7 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
                 <path fill="#acd916" d="M3.7 37.28h13.4v26.8H3.7z"></path>
               </g>
             </svg>
-            <span className="text-lg font-semibold text-white">
-              bugoverflow
-            </span>
+            <span className="text-lg font-semibold">bugoverflow</span>
           </Link>
         </div>
 
@@ -86,90 +94,55 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
           {/* Botón de cambio de tema */}
           <button
             onClick={toggleTheme}
-            className="p-2 rounded-full text-[#acd916] hover:bg-[#3C3C3C] transition-colors"
+            className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             aria-label={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
           >
-            {theme === "light" ? (
-              <Moon className="h-5 w-5" />
-            ) : (
-              <Sun className="h-5 w-5" />
-            )}
+            {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
           </button>
 
-          {/* Nombre de usuario con icono en el lado derecho */}
-          {username && (
-            <div className="flex items-center text-[#acd916] font-medium">
-              <User className="h-5 w-5 mr-2" />
+          {/* Dropdown del usuario */}
+          <div className="relative" ref={dropdownRef}>
+            <button onClick={toggleDropdown} className="flex items-center gap-2 font-medium hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-md transition">
+              <User className="h-5 w-5" />
               <span>{username}</span>
-            </div>
-          )}
+            </button>
 
-          <Button
-            onClick={handleSignOut}
-            className="bg-transparent text-[#acd916] font-bold hover:bg-transparent hover:underline"
-          >
-            Sign Out
-          </Button>
+            {/* Menú desplegable */}
+            {isDropdownOpen && (
+              <div className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg ${theme === "light" ? "bg-white text-black" : "bg-gray-800 text-white"} p-2`}>
+                <Link href="/profile" className="block px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+                  Perfil
+                </Link>
+                <button onClick={handleSignOut} className="block w-full text-left px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+                  Cerrar sesión
+                </button>
+              </div>
+            )}
+          </div>
 
+          {/* Botón de menú móvil */}
           <div className="flex md:hidden">
-            <button
-              type="button"
-              onClick={toggleMenu}
-              className="inline-flex items-center justify-center rounded-md p-2 text-white/90 hover:text-white"
-            >
-              <span className="sr-only">Toggle menu</span>
-              {isMenuOpen ? (
-                <X className="h-6 w-6" />
-              ) : (
-                <svg
-                  className="h-6 w-6"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth="1.5"
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                  />
-                </svg>
-              )}
+            <button type="button" onClick={toggleMenu} className="p-2 rounded-md hover:text-gray-600 dark:hover:text-gray-300">
+              {isMenuOpen ? <X className="h-6 w-6" /> : <svg className="h-6 w-6" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+              </svg>}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Mobile menu */}
+      {/* Menú móvil */}
       {isMenuOpen && (
-        <div className="md:hidden">
-          <div className="space-y-1 px-2 pb-3 pt-2">
-            {[
-              { href: "/dashboard?tab=misProyectos", label: "Tus proyectos" },
-              {
-                href: "/dashboard?tab=comunidad",
-                label: "Proyectos de la comunidad",
-              },
-            ].map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="block rounded-md px-3 py-2 text-base font-medium text-white/90 hover:bg-[#3C3C3C] hover:text-white"
-                onClick={toggleMenu}
-              >
-                {item.label}
-              </Link>
-            ))}
-
-            {/* Sign Out button */}
-            <div className="rounded-md px-3 py-2">
-              <form action={handleSignOut}>
-                <Button type="submit" className="w-full">
-                  Sign Out
-                </Button>
-              </form>
-            </div>
-          </div>
+        <div className={`md:hidden p-2 ${theme === "light" ? "bg-white text-black" : "bg-gray-800 text-white"}`}>
+          <Link href="/dashboard?tab=misProyectos" className="block px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+            Tus proyectos
+          </Link>
+          <Link href="/dashboard?tab=comunidad" className="block px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+            Comunidad
+          </Link>
+          <button onClick={handleSignOut} className="block w-full text-left px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+            Cerrar sesión
+          </button>
         </div>
       )}
     </nav>
