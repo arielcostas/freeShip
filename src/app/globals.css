@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 html {
   scroll-behavior: smooth;
 }
@@ -11,6 +12,10 @@ body {
     color: #000000;
   }
 }
+
+/* --------------------- */
+/*  Variables Base y Dark */
+/* --------------------- */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -66,6 +71,7 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
+
 @layer base {
   * {
     @apply border-border;
@@ -75,61 +81,27 @@ body {
   }
 }
 
-/* Agregar esto a tu archivo global.css o crear un nuevo archivo theme.css e importarlo */
-/*
-:root {
-  --bg-primary: #ffffff90;
-  --bg-secondary: #e0e0e0;
-  --text-primary: #ffffff;
-  --text-secondary: #ffffff90;
-  --accent-color: #acd916;
-}
-
-.dark-theme {
-  --bg-primary: #121212;
-  --bg-secondary: #1e1e1e;
-  --text-primary: #ffffff;
-  --text-secondary: #e0e0e0;
-  --accent-color: #acd916;
-}
-*/
-/* Estilos para aplicar en toda la aplicación */
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-}
-
-/* Estilos para otros componentes comunes */
-.dark-theme .card {
-  background-color: var(--bg-secondary);
-}
-
-.dark-theme button {
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-}
-
+/* --------------------- */
+/*   Tema Personalizado  */
+/* --------------------- */
 :root {
   --bg-primary: #f5f5f5; /* Gris claro en lugar de blanco puro */
   --bg-secondary: #eeeeee; /* Un gris neutro */
-  --bg-element: #e0e0e0; /* Un tono más oscuro para elementos destacados */
+  --bg-element: #e0e0e0; /* Fondo para elementos destacados */
 
   /* Texto */
-  --text-primary: #222222; /* Un gris más oscuro para mejorar el contraste */
+  --text-primary: #222222; /* Gris oscuro para buen contraste */
   --text-secondary: #444444; /* Gris medio para textos secundarios */
-  --text-muted: #666666; /* Para textos de menor importancia */
-  --text-inverted: #111111; /* Para elementos con fondo claro */
-  --accent-text: #88b000; /* Color de énfasis */
+  --text-muted: #666666;
+  --text-inverted: #111111;
+  --accent-text: #88b000;
 
   /* Otros colores */
   --accent-color: #88b000;
-  --border-color: #bbbbbb; /* Un gris intermedio */
-  --card-bg: #f5f5f5; /* Un fondo ligeramente grisáceo */
-  --input-bg: #ffffff; /* Fondo blanco para inputs */
-  --hover-bg: #cccccc; /* Un gris más oscuro para efectos hover */
+  --border-color: #bbbbbb;
+  --card-bg: #f5f5f5;
+  --input-bg: #ffffff;
+  --hover-bg: #cccccc;
 
   --input-bg-light: #ffffff;
   --input-bg-dark: #1f2937;
@@ -144,75 +116,31 @@ body {
 }
 
 .dark-theme {
-  /* Tema oscuro refinado */
-  --bg-primary: #2e2e33; /* Un gris oscuro pero no negro, más agradable a la vista */
-  --bg-secondary: #3a3a40; /* Un gris más claro para generar separación */
-  --bg-element: #45454d; /* Un gris medio para elementos destacados */
+  --bg-primary: #2e2e33;
+  --bg-secondary: #3a3a40;
+  --bg-element: #45454d;
 
-  /* Texto */
-  --text-primary: #ffffff; /* Blanco puro para máxima legibilidad */
-  --text-secondary: #f0f0f0; /* Un gris claro para textos secundarios */
-  --text-muted: #f0f0f0; /* Un gris medio para textos poco importantes */
-  --text-inverted: #f0f0f0; /* Para cuando se necesite un fondo claro con texto oscuro */
+  --text-primary: #ffffff;
+  --text-secondary: #f0f0f0;
+  --text-muted: #f0f0f0;
+  --text-inverted: #f0f0f0;
   --accent-text: #acd916;
 
-  /* Otros colores */
-  --accent-color: #acd916; /* Manteniendo el mismo */
-  --border-color: #55555d; /* Un gris medio para bordes sin ser muy oscuros */
-  --card-bg: #3a3a40; /* Similar a bg-secondary para mantener coherencia */
-  --input-bg: #4c4c55; /* Un gris más claro que el fondo para resaltar inputs */
-  --hover-bg: #5a5a64; /* Un gris más claro para efectos hover */
+  --accent-color: #acd916;
+  --border-color: #55555d;
+  --card-bg: #3a3a40;
+  --input-bg: #4c4c55;
+  --hover-bg: #5a5a64;
 }
 
+/* --------------------- */
+/*   Estilos para Select   */
+/* --------------------- */
 select {
   appearance: none;
   font-size: 1rem;
   cursor: pointer;
-  transition:
-    background-color 0.2s ease,
-    border-color 0.2s ease;
-}
-
-/* Modo claro */
-@media (prefers-color-scheme: light) {
-  select {
-    background-color: var(--input-bg-light);
-    border: 1px solid var(--border-light);
-    color: var(--text-light);
-  }
-
-  select:hover {
-    background-color: var(--hover-light);
-  }
-
-  select:focus {
-    border: 2px solid #7da4ec;
-  }
-}
-
-/* Modo oscuro */
-@media (prefers-color-scheme: dark) {
-  select {
-    background-color: var(--input-bg-dark);
-    border: 1px solid var(--border-dark);
-    color: var(--text-dark);
-  }
-
-  select:hover {
-    background-color: var(--hover-dark);
-  }
-
-  select:focus {
-    border-color: #7da4ec;
-  }
-}
-
-/* Flecha personalizada */
-select::-ms-expand {
-  display: none;
-}
-
-select {
+  transition: background-color 0.2s ease, border-color 0.2s ease;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23666666'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
@@ -220,17 +148,48 @@ select {
   padding-right: 2.5rem;
 }
 
-/* Aplicar el fondo base a todo el documento */
+@media (prefers-color-scheme: light) {
+  select {
+    background-color: var(--input-bg-light);
+    border: 1px solid var(--border-light);
+    color: var(--text-light);
+  }
+  select:hover {
+    background-color: var(--hover-light);
+  }
+  select:focus {
+    border: 2px solid #7da4ec;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  select {
+    background-color: var(--input-bg-dark);
+    border: 1px solid var(--border-dark);
+    color: var(--text-dark);
+  }
+  select:hover {
+    background-color: var(--hover-dark);
+  }
+  select:focus {
+    border-color: #7da4ec;
+  }
+}
+
+select::-ms-expand {
+  display: none;
+}
+
+/* --------------------- */
+/*  Estilos Globales Base  */
+/* --------------------- */
 html,
 body {
   background-color: var(--bg-primary) !important;
   color: var(--text-primary);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Navbar específicamente */
 nav,
 .navbar,
 [class*="navbar"] {
@@ -238,7 +197,6 @@ nav,
   border-bottom: 1px solid var(--border-color);
 }
 
-/* Contenedores principales */
 main,
 .main,
 .content,
@@ -256,27 +214,28 @@ main,
 }
 
 /* Tarjetas y elementos con fondo */
+/* Se combinan selectores para que .card, .container, .section y similares usen el fondo adecuado */
 .card,
 .box,
 .panel,
 .sidebar,
 .section,
 .widget,
+.dashboard-container,
+.container,
 [class*="card"],
 [class*="box"],
 [class*="panel"],
 [class*="sidebar"],
 [class*="section"],
 [class*="widget"] {
-  background-color: var(--bg-element) !important;
+  background-color: var(--card-bg) !important;
   color: var(--text-primary);
   border-color: var(--border-color);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Forzar el fondo para elementos específicos */
+/* Forzar fondo para elementos específicos */
 div[class*="bg-white"],
 div[class*="bg-gray"],
 div[class*="bg-neutral"],
@@ -288,7 +247,6 @@ article {
   color: var(--text-primary) !important;
 }
 
-/* Elementos internos con fondo blanco o gris */
 div[class*="bg-white"] > *,
 div[class*="bg-gray"] > *,
 div[class*="bg-neutral"] > * {
@@ -316,9 +274,7 @@ button:not(.theme-toggle),
 .button,
 [class*="button"],
 [class*="btn"] {
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Textos */
@@ -339,7 +295,7 @@ li {
   color: var(--text-secondary) !important;
 }
 
-/* Importante: reset para clases de colores específicas de Tailwind */
+/* Reset para clases de colores específicas de Tailwind */
 .dark-theme .bg-white,
 .dark-theme .bg-gray-50,
 .dark-theme .bg-gray-100,
@@ -351,72 +307,9 @@ li {
   background-color: var(--bg-element) !important;
 }
 
-/* Estilos base para toda la aplicación */
-body {
-  background-color: var(--bg-primary);
-  color: var(--text-primary);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-}
-
-/* Navbar */
-nav {
-  background-color: var(--bg-primary);
-  border-bottom: 1px solid var(--border-color);
-}
-
-/* Tarjetas y contenedores */
-.card,
-.container,
-.section,
-.dashboard-container,
-[class*="container"],
-[class*="card"] {
-  background-color: var(--card-bg);
-  color: var(--text-primary);
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-}
-
-/* Inputs y formularios */
-input,
-textarea,
-select,
-.input {
-  background-color: var(--input-bg);
-  color: var(--text-primary);
-  border-color: var(--border-color);
-}
-
-/* Botones */
-button:not(.theme-toggle),
-.button {
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease;
-}
-
-/* Hover */
+/* Hover effect */
 .hover-effect:hover {
   background-color: var(--hover-bg);
-}
-
-/* Textos */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  color: var(--text-primary);
-}
-
-p,
-span,
-div {
-  color: var(--text-secondary);
 }
 
 /* Elementos con fondo fuerte */
