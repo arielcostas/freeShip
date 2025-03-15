@@ -385,7 +385,7 @@ export default function EditProject() {
           <div className="flex justify-start">
             <Button
               onClick={handleDeleteProject}
-              className="w-auto px-6 py-2 bg-red-600 text-white"
+              className="bg-red-500 text-white font-bold px-4 py-2 rounded hover:bg-red-600 transition"
               disabled={loading}
             >
               {loading ? "Eliminando..." : "Eliminar Proyecto"}
