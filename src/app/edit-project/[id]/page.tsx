@@ -320,7 +320,9 @@ export default function EditProject() {
           </div>
 
           <div>
-            <label className="block text-sm font-medium">Repositorio de GitHub</label>
+            <label className="block text-sm font-medium">
+              Repositorio de GitHub
+            </label>
             <input
               type="text"
               value={githubRepository}
