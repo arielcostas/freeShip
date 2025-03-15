@@ -43,7 +43,7 @@ export default function OtherProjectFilter({
       <div className="mb-4">
         <label className="block text-sm font-medium mb-1">Categoría</label>
         <select
-          className="w-full border border-gray-300 bg-white dark:bg-gray-800 dark:border-gray-600 text-gray-900 dark:text-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-gray-400 dark:focus:ring-gray-500 transition-all"
+          className="w-full border border-gray-300 bg-white dark:bg-gray-800 dark:border-gray-600 text-gray-900 dark:text-gray-200 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 transition-all"
           value={categoryFilter}
           onChange={(e) => setCategoryFilter(e.target.value)}
         >
