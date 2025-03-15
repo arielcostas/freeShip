@@ -6,10 +6,11 @@ import OtherProjectsList from "@/app/dashboard/projects/other/OtherProjectsList"
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import OtherProjectFilter from "@/components/OtherProjectFilter";
+import Spinner from "../../../../components/ui/spinner"
 
 export default function OtherProjectsDashboardView({
-  userId,
-}: {
+                                                     userId,
+                                                   }: {
   userId: string;
 }) {
   const [projects, setProjects] = useState<any[]>([]);
@@ -18,9 +19,11 @@ export default function OtherProjectsDashboardView({
   const [techStackFilter, setTechStackFilter] = useState("");
   const [keywordFilter, setKeywordFilter] = useState("");
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProjects = async () => {
+      setLoading(true);
       const supabase = createClient();
       const { data, error } = await supabase
         .from("projects")
@@ -35,6 +38,7 @@ export default function OtherProjectsDashboardView({
         setProjects(data);
         setFilteredProjects(data);
       }
+      setLoading(false);
     };
 
     fetchProjects();
@@ -93,7 +97,7 @@ export default function OtherProjectsDashboardView({
 
       {/* Lista de proyectos con scroll solo cuando sea necesario */}
       <div className="w-full md:w-4/5 h-full overflow-y-auto max-h-[calc(100vh-250px)] p-4">
-        <OtherProjectsList projects={filteredProjects} />
+        {loading ? <Spinner /> : <OtherProjectsList projects={filteredProjects} />}
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import Navbar from "@/app/(site)/Navbar";
 import { Suspense } from "react";
 import { DashboardTabsContent } from "./DashboardTabsContent";
 import Link from "next/link";
+import Spinner from "../../components/ui/spinner";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -16,8 +17,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Dashboard({
-  searchParams,
-}: {
+                                          searchParams,
+                                        }: {
   searchParams?: { tab?: string };
 }) {
   const params = await searchParams;
@@ -66,8 +67,8 @@ export default async function Dashboard({
           ))}
         </div>
 
-        {/* Contenido con Suspense */}
-        <Suspense fallback={<p>Cargando...</p>}>
+        {/* Contenido con Suspense, usando Spinner como fallback */}
+        <Suspense fallback={<Spinner />}>
           <DashboardTabsContent activeTab={activeTab} userId={user.id} />
         </Suspense>
       </div>

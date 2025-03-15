@@ -81,8 +81,14 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
               preserveAspectRatio="xMidYMid meet"
             >
               <g id="SVGRepo_iconCarrier">
-                <path fill="#acd916" d="M30.47 104.24h13.39v13.39H30.47z"></path>
-                <path fill="#acd916" d="M84.04 104.24h13.39v13.39H84.04z"></path>
+                <path
+                  fill="#acd916"
+                  d="M30.47 104.24h13.39v13.39H30.47z"
+                ></path>
+                <path
+                  fill="#acd916"
+                  d="M84.04 104.24h13.39v13.39H84.04z"
+                ></path>
                 <path fill="#acd916" d="M30.48 10.51h13.39V23.9H30.48z"></path>
                 <path fill="#acd916" d="M84.04 10.51h13.39V23.9H84.04z"></path>
                 <path
@@ -127,7 +133,9 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
             {isDropdownOpen && (
               <div
                 className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg ${
-                  theme === "light" ? "bg-white text-black" : "bg-gray-800 text-white"
+                  theme === "light"
+                    ? "bg-white text-black"
+                    : "bg-gray-800 text-white"
                 } p-2`}
               >
                 <Link

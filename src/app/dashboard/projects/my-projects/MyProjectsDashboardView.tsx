@@ -1,9 +1,11 @@
 import Link from "next/link";
 import MyProjectsList from "@/app/dashboard/projects/my-projects/MyProjectsList";
+import { Suspense } from "react";
+import Spinner from "../../../../components/ui/spinner"
 
 export default async function MyProjectsDashboardView({
-  userId,
-}: {
+                                                        userId,
+                                                      }: {
   userId: string;
 }) {
   return (
@@ -21,7 +23,9 @@ export default async function MyProjectsDashboardView({
 
       {/* Lista de proyectos con scroll solo cuando el contenido excede */}
       <div className="flex-grow overflow-y-auto max-h-[calc(100vh-250px)]">
-        <MyProjectsList userId={userId} />
+        <Suspense fallback={<Spinner />}>
+          <MyProjectsList userId={userId} />
+        </Suspense>
       </div>
     </div>
   );
