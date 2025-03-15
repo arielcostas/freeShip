@@ -1,5 +1,15 @@
 import Link from "next/link";
 
+const CATEGORY_LABELS: Record<string, string> = {
+  "WEB/DESKTOP": "Desarrollo web o escritorio",
+  MOBILE: "Desarrollo móvil",
+  EMBEDDED: "Código embebido",
+  VIDEOGAME: "Videojuego",
+  "BD/IA/ML": "Big Data | Inteligencia Artificial | Machine Learning",
+  CYBERSECURITY: "Ciberseguridad",
+  "SCRIPTING/SCRAPING": "Scripting",
+};
+
 export default function OtherProjectCard({ project }: { project: any }) {
   return (
     <li
@@ -41,7 +51,7 @@ export default function OtherProjectCard({ project }: { project: any }) {
                 <strong style={{ color: "var(--text-primary)" }}>
                   Categoría:
                 </strong>{" "}
-                {project.type}
+                {CATEGORY_LABELS[project.type] || "Otra"}
               </p>
             )}
             {project.tech_stack && (

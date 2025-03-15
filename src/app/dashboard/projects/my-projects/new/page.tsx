@@ -14,7 +14,10 @@ const PROJECT_TYPES = [
   { value: "MOBILE", label: "Desarrollo móvil" },
   { value: "EMBEDDED", label: "Código embebido" },
   { value: "VIDEOGAME", label: "Videojuego" },
-  { value: "BD/IA/ML", label: "Big Data | Inteligencia Artificial | Machine Learning" },
+  {
+    value: "BD/IA/ML",
+    label: "Big Data | Inteligencia Artificial | Machine Learning",
+  },
   { value: "CYBERSECURITY", label: "Ciberseguridad" },
   { value: "SCRIPTING/SCRAPING", label: "Scripting" },
 ];
@@ -285,9 +288,7 @@ export default function CreateProjectPage() {
               <input
                 type="number"
                 value={collaboratorsNumber}
-                onChange={(e) =>
-                  setCollaboratorsNumber(Number(e.target.value))
-                }
+                onChange={(e) => setCollaboratorsNumber(Number(e.target.value))}
                 className="w-full border p-2 rounded"
                 min={1}
                 required

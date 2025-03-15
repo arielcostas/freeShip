@@ -314,7 +314,11 @@ export default function EditProject() {
 
           {/* Botón Guardar Cambios - ancho ajustado */}
           <div className="flex justify-start">
-            <Button type="submit" disabled={loading} className="w-auto px-6 py-2">
+            <Button
+              type="submit"
+              disabled={loading}
+              className="w-auto px-6 py-2"
+            >
               {loading ? "Guardando..." : "Guardar Cambios"}
             </Button>
           </div>
