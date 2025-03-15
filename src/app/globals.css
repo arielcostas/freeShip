@@ -111,8 +111,22 @@ body {
   --text-dark: #f9fafb;
   --hover-light: #f3f4f6;
   --hover-dark: #374151;
-  --accent-light: #4f46e5;
+  --accent-light: #5865F2;
   --accent-dark: #818cf8;
+
+  .otherprojecttitle {
+    color: #5865F2 !important;
+    font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
+    font-weight: bold; /* font-bold */
+    letter-spacing: 0.025em; /* tracking-wide */
+  }
+
+  .myprojecttitle {
+    color: #88b000 !important;
+    font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
+    font-weight: bold; /* font-bold */
+    letter-spacing: 0.025em; /* tracking-wide */
+  }
 }
 
 .dark-theme {
@@ -131,6 +145,20 @@ body {
   --card-bg: #3a3a40;
   --input-bg: #4c4c55;
   --hover-bg: #5a5a64;
+
+  .otherprojecttitle {
+    color: #818cf8 !important;
+    font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
+    font-weight: bold; /* font-bold */
+    letter-spacing: 0.025em; /* tracking-wide */
+  }
+
+  .myprojecttitle {
+    color: #88b000 !important;
+    font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
+    font-weight: bold; /* font-bold */
+    letter-spacing: 0.025em; /* tracking-wide */
+  }
 }
 
 /* --------------------- */
@@ -343,3 +371,5 @@ li {
   background-color: #88b000 !important;
   color: #ffffff !important;
 }
+
+

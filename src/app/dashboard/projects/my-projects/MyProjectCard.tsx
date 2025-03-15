@@ -30,10 +30,7 @@ export default function MyProjectCard({
         className="block space-y-3"
       >
         {/* Fila 1: Título */}
-        <h3
-          className="text-lg font-bold tracking-wide"
-          style={{ color: "var(--accent-text)" }}
-        >
+        <h3 className="myprojecttitle">
           {project.title}
         </h3>
 
