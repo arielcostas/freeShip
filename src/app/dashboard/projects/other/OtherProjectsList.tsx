@@ -3,7 +3,7 @@ import OtherProjectCard from "./OtherProjectCard";
 export default function OtherProjectsList({ projects }: { projects: any[] }) {
   if (!projects || projects.length === 0) {
     return (
-      <p className="text-center text-gray-500">No public projects available.</p>
+      <p className="text-center">Ninguna coincidencia con los criterios de búsqueda</p>
     );
   }
 
