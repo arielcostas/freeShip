@@ -140,7 +140,9 @@ select {
   appearance: none;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease;
   background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23666666'%3E%3Cpath fill-rule='evenodd' d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z' clip-rule='evenodd'/%3E%3C/svg%3E");
   background-repeat: no-repeat;
   background-position: right 1rem center;
@@ -187,7 +189,9 @@ html,
 body {
   background-color: var(--bg-primary) !important;
   color: var(--text-primary);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 nav,
@@ -232,7 +236,9 @@ main,
   background-color: var(--card-bg) !important;
   color: var(--text-primary);
   border-color: var(--border-color);
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Forzar fondo para elementos específicos */
@@ -274,7 +280,9 @@ button:not(.theme-toggle),
 .button,
 [class*="button"],
 [class*="btn"] {
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 /* Textos */
@@ -316,3 +324,21 @@ li {
 .bg-strong {
   background-color: var(--bg-secondary);
 }
+
+/* global.css */
+.custom-btn {
+  background-color: #acd916 !important;
+  color: #4a4a4a !important; /* gris oscuro, igual que text-gray-700 */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  font-weight: bold;
+  border-radius: 0.375rem; /* rounded */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  margin-left: 1rem; /* ml-4 */
+  text-decoration: none; /* Para que no tenga subrayado */
+}
+
+.custom-btn:hover {
+  background-color: #88b000 !important;
+  color: #ffffff !important;
+}
+
