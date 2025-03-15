@@ -39,6 +39,7 @@ export default function EditProject() {
     username: string;
   } | null>(null);
   const [showExpelPopup, setShowExpelPopup] = useState(false);
+  const [githubRepository, setGithubRepository] = useState("");
 
   useEffect(() => {
     if (!id) return;
@@ -47,7 +48,7 @@ export default function EditProject() {
       const { data, error } = await supabase
         .from("projects")
         .select(
-          "title, description, type, tech_stack, collaborators_number, team_members"
+          "title, description, type, tech_stack, collaborators_number, team_members, github_repository"
         )
         .eq("id", id)
         .single();
@@ -63,6 +64,7 @@ export default function EditProject() {
         setType(data.type || "");
         setTechStack(data.tech_stack || []);
         setCollaboratorsNumber(data.collaborators_number || 1);
+        setGithubRepository(data.github_repository || "");
 
         if (data.team_members?.length) {
           setCurrentMembers(data.team_members.length);
@@ -74,6 +76,10 @@ export default function EditProject() {
             setTeamMembers(membersData);
           }
         }
+      }
+
+      if (data.github_repository) {
+        setGithubRepository(data.github_repository);
       }
     };
 
@@ -125,6 +131,7 @@ export default function EditProject() {
         tech_stack: techStack.length > 0 ? techStack : null,
         collaborators_number: collaboratorsNumber,
         visible: newVisibility,
+        github_repository: githubRepository || null,
       })
       .eq("id", id);
 
@@ -310,6 +317,17 @@ export default function EditProject() {
                 <p>No hay miembros en este proyecto.</p>
               )}
             </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium">Repositorio de GitHub</label>
+            <input
+              type="text"
+              value={githubRepository}
+              onChange={(e) => setGithubRepository(e.target.value)}
+              className="w-full border p-2 rounded"
+              placeholder="Ejemplo: https://github.com/usuario/repo"
+            />
           </div>
 
           {/* Botón Guardar Cambios - ancho ajustado */}

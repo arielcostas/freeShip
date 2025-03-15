@@ -74,7 +74,6 @@ export default function MyProfile() {
       );
       if (githubIdentity) {
         setGithubConnected(true);
-        // Se asume que en identity_data viene la propiedad "login"
         setGithubUsername(githubIdentity.identity_data?.login || "GitHub User");
       }
 
@@ -137,17 +136,20 @@ export default function MyProfile() {
           />
         </div>
 
-        <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">
-            Discord Username
-          </label>
-          <input
-            type="text"
-            value={profile.discord_username}
-            readOnly
-            className="w-full border rounded-md px-3 py-2"
-          />
-        </div>
+        {/* Solo se muestra si discord_username tiene valor */}
+        {profile.discord_username && (
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-1">
+              Discord Username
+            </label>
+            <input
+              type="text"
+              value={profile.discord_username}
+              readOnly
+              className="w-full border rounded-md px-3 py-2"
+            />
+          </div>
+        )}
 
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Email</label>
@@ -168,7 +170,7 @@ export default function MyProfile() {
                 Conectado como <strong>{githubUsername}</strong>
               </span>
               <button
-                className="bg-green-500 text-white px-3 py-1 rounded"
+                className="bg-[#acd916] text-gray-700 px-3 py-1 rounded"
                 disabled
               >
                 Conectado
@@ -177,7 +179,7 @@ export default function MyProfile() {
           ) : (
             <button
               onClick={handleConnectGithub}
-              className="bg-blue-500 text-white px-3 py-1 rounded"
+              className="bg-[#5865F2] text-white px-3 py-1 rounded"
             >
               Conectar cuenta de GitHub
             </button>

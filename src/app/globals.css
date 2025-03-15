@@ -154,7 +154,7 @@ body {
   }
 
   .myprojecttitle {
-    color: #88b000 !important;
+    color: #acd916 !important;
     font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
     font-weight: bold; /* font-bold */
     letter-spacing: 0.025em; /* tracking-wide */

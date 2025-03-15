@@ -77,6 +77,20 @@ export default async function MyProjectDetail({
             </p>
           )}
 
+          {project.github_repository && (
+            <p className="mt-2">
+              <strong>Repositorio de GitHub:</strong>{" "}
+              <a
+                href={project.github_repository}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#5865f2] underline"
+              >
+                {project.github_repository}
+              </a>
+            </p>
+          )}
+
           {/* Botones de Editar y Eliminar */}
           <ProjectActions projectId={projectId} />
 
