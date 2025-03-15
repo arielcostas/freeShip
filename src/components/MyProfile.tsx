@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/app/(site)/Navbar";
+
 interface ProfileData {
   username: string;
   discord_username: string;
@@ -44,6 +45,8 @@ export default function MyProfile() {
     email: "",
   });
   const [loading, setLoading] = useState(true);
+  const [githubConnected, setGithubConnected] = useState(false);
+  const [githubUsername, setGithubUsername] = useState("");
   const supabase = createClient();
 
   useEffect(() => {
@@ -61,8 +64,19 @@ export default function MyProfile() {
         return;
       }
 
-      // Se extrae el email de la sesión
+      // Extraemos el email
       const email = user.email;
+
+      // Revisamos si el usuario tiene vinculada una identidad de GitHub
+      const identities = user.identities || [];
+      const githubIdentity = identities.find(
+        (identity: any) => identity.provider === "github"
+      );
+      if (githubIdentity) {
+        setGithubConnected(true);
+        // Se asume que en identity_data viene la propiedad "login"
+        setGithubUsername(githubIdentity.identity_data?.login || "GitHub User");
+      }
 
       // Consultamos la tabla profiles para obtener username y discord_username
       const { data, error } = await supabase
@@ -86,13 +100,30 @@ export default function MyProfile() {
     fetchProfile();
   }, [supabase]);
 
+  // Función para iniciar el flujo de OAuth con GitHub
+  const handleConnectGithub = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: "github",
+      options: {
+        redirectTo: window.location.href,
+      },
+    });
+    if (error) {
+      console.error("Error al conectar con GitHub:", error);
+    }
+  };
+
   if (loading) {
     return <Spinner />;
   }
 
   return (
     <>
-      <Navbar handleSignOut={() => { /* Implementa la función de sign out */ }} />
+      <Navbar
+        handleSignOut={() => {
+          /* Implementa la función de sign out */
+        }}
+      />
       <div className="p-4 max-w-md mx-auto mt-20">
         <h1 className="text-2xl font-bold mb-4">Mis Datos de Perfil</h1>
 
@@ -126,6 +157,31 @@ export default function MyProfile() {
             readOnly
             className="w-full border rounded-md px-3 py-2"
           />
+        </div>
+
+        {/* Sección para vincular la cuenta de GitHub */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">GitHub</label>
+          {githubConnected ? (
+            <div className="flex items-center">
+              <span className="mr-2">
+                Conectado como <strong>{githubUsername}</strong>
+              </span>
+              <button
+                className="bg-green-500 text-white px-3 py-1 rounded"
+                disabled
+              >
+                Conectado
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={handleConnectGithub}
+              className="bg-blue-500 text-white px-3 py-1 rounded"
+            >
+              Conectar cuenta de GitHub
+            </button>
+          )}
         </div>
       </div>
     </>

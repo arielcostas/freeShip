@@ -1,11 +1,11 @@
 import Link from "next/link";
 import MyProjectsList from "@/app/dashboard/projects/my-projects/MyProjectsList";
 import { Suspense } from "react";
-import Spinner from "../../../../components/ui/spinner"
+import Spinner from "../../../../components/ui/spinner";
 
 export default async function MyProjectsDashboardView({
-                                                        userId,
-                                                      }: {
+  userId,
+}: {
   userId: string;
 }) {
   return (

@@ -6,11 +6,11 @@ import OtherProjectsList from "@/app/dashboard/projects/other/OtherProjectsList"
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import OtherProjectFilter from "@/components/OtherProjectFilter";
-import Spinner from "../../../../components/ui/spinner"
+import Spinner from "../../../../components/ui/spinner";
 
 export default function OtherProjectsDashboardView({
-                                                     userId,
-                                                   }: {
+  userId,
+}: {
   userId: string;
 }) {
   const [projects, setProjects] = useState<any[]>([]);
@@ -97,7 +97,11 @@ export default function OtherProjectsDashboardView({
 
       {/* Lista de proyectos con scroll solo cuando sea necesario */}
       <div className="w-full md:w-4/5 h-full overflow-y-auto max-h-[calc(100vh-250px)] p-4">
-        {loading ? <Spinner /> : <OtherProjectsList projects={filteredProjects} />}
+        {loading ? (
+          <Spinner />
+        ) : (
+          <OtherProjectsList projects={filteredProjects} />
+        )}
       </div>
     </div>
   );

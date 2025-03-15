@@ -1,12 +1,12 @@
 import { Suspense } from "react";
 import MyProjectsDashboardView from "@/app/dashboard/projects/my-projects/MyProjectsDashboardView";
 import OtherProjectsDashboardView from "@/app/dashboard/projects/other/OtherProjectsDashboardView";
-import Spinner from "../../components/ui/spinner"
+import Spinner from "../../components/ui/spinner";
 
 export function DashboardTabsContent({
-                                       activeTab,
-                                       userId,
-                                     }: {
+  activeTab,
+  userId,
+}: {
   activeTab: string;
   userId: string;
 }) {
