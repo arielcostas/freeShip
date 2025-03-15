@@ -8,14 +8,15 @@ import Navbar from "@/app/(site)/Navbar";
 import { createProjectChannel } from "@/lib/discord/client/CreateProjectChannel";
 import { toast } from "react-toastify";
 
+// Se define el array de tipos de proyecto con su valor y label amigable
 const PROJECT_TYPES = [
-  "WEB/DESKTOP",
-  "MOBILE",
-  "EMBEDDED",
-  "VIDEOGAME",
-  "BD/IA/ML",
-  "CYBERSECURITY",
-  "SCRIPTING/SCRAPING",
+  { value: "WEB/DESKTOP", label: "Desarrollo web o escritorio" },
+  { value: "MOBILE", label: "Desarrollo móvil" },
+  { value: "EMBEDDED", label: "Código embebido" },
+  { value: "VIDEOGAME", label: "Videojuego" },
+  { value: "BD/IA/ML", label: "Big Data | Inteligencia Artificial | Machine Learning" },
+  { value: "CYBERSECURITY", label: "Ciberseguridad" },
+  { value: "SCRIPTING/SCRAPING", label: "Scripting" },
 ];
 
 export default function CreateProjectPage() {
@@ -32,7 +33,8 @@ export default function CreateProjectPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [collaboratorsNumber, setCollaboratorsNumber] = useState(1);
-  const [discordIntegration, setDiscordIntegration] = useState(true);
+  // Por defecto, la integración con Discord se muestra desmarcada
+  const [discordIntegration, setDiscordIntegration] = useState(false);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -220,10 +222,10 @@ export default function CreateProjectPage() {
                 onChange={(e) => setType(e.target.value)}
                 className="w-full border p-2 rounded"
               >
-                <option value="">Selecciona un tipo...</option>
+                <option value="">Todavía no lo he decidido...</option>
                 {PROJECT_TYPES.map((option) => (
-                  <option key={option} value={option}>
-                    {option}
+                  <option key={option.value} value={option.value}>
+                    {option.label}
                   </option>
                 ))}
               </select>
@@ -283,7 +285,9 @@ export default function CreateProjectPage() {
               <input
                 type="number"
                 value={collaboratorsNumber}
-                onChange={(e) => setCollaboratorsNumber(Number(e.target.value))}
+                onChange={(e) =>
+                  setCollaboratorsNumber(Number(e.target.value))
+                }
                 className="w-full border p-2 rounded"
                 min={1}
                 required
@@ -306,7 +310,7 @@ export default function CreateProjectPage() {
               </label>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex justify-between items-center">
               <Button
                 type="button"
                 onClick={() => router.push("/dashboard")}
@@ -317,7 +321,7 @@ export default function CreateProjectPage() {
               <Button
                 type="submit"
                 disabled={loading}
-                className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition ml-4 mt-4"
+                className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition ml-4"
               >
                 <strong>{loading ? "Creando..." : "Crear Proyecto"}</strong>
               </Button>

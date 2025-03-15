@@ -80,6 +80,26 @@ export default function EditProject() {
     fetchProject();
   }, [id, supabase]);
 
+  const handleDeleteProject = async () => {
+    if (
+      !confirm(
+        "¿Seguro que quieres eliminar este proyecto? Esta acción no se puede deshacer."
+      )
+    ) {
+      return;
+    }
+
+    setLoading(true);
+    const { error } = await supabase.from("projects").delete().eq("id", id);
+
+    if (error) {
+      setError("Error al eliminar el proyecto.");
+    } else {
+      router.push("/dashboard");
+    }
+    setLoading(false);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -292,9 +312,12 @@ export default function EditProject() {
             </div>
           </div>
 
-          <Button type="submit" disabled={loading} className="w-full">
-            {loading ? "Guardando..." : "Guardar Cambios"}
-          </Button>
+          {/* Botón Guardar Cambios - ancho ajustado */}
+          <div className="flex justify-start">
+            <Button type="submit" disabled={loading} className="w-auto px-6 py-2">
+              {loading ? "Guardando..." : "Guardar Cambios"}
+            </Button>
+          </div>
         </form>
 
         {/* Popup de Error si el número de colaboradores es mayor que los miembros actuales */}
@@ -345,6 +368,26 @@ export default function EditProject() {
             </div>
           </div>
         )}
+
+        {/* Sección de eliminar proyecto, separada visualmente */}
+        <div className="border-t mt-8 pt-4">
+          <h3 className="text-lg font-bold text-red-500 mb-2">
+            Eliminar Proyecto
+          </h3>
+          <p className="text-sm text-gray-600 mb-4">
+            Esta acción es irreversible. El proyecto y toda su información se
+            eliminarán permanentemente.
+          </p>
+          <div className="flex justify-start">
+            <Button
+              onClick={handleDeleteProject}
+              className="w-auto px-6 py-2 bg-red-600 text-white"
+              disabled={loading}
+            >
+              {loading ? "Eliminando..." : "Eliminar Proyecto"}
+            </Button>
+          </div>
+        </div>
       </div>
     </div>
   );
