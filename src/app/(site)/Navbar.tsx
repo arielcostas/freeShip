@@ -146,7 +146,7 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
             )}
           </div>
 
-          {/* Botón de menú móvil */}
+          {/* Botón de menú móvil
           <div className="flex md:hidden">
             <button
               type="button"
@@ -171,6 +171,7 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
               )}
             </button>
           </div>
+          */}
         </div>
       </div>
 
