@@ -317,7 +317,7 @@ export default function EditProject() {
             <Button
               type="submit"
               disabled={loading}
-              className="w-auto px-6 py-2"
+              className="bg-[#acd916] text-gray-700 font-bold rounded hover:bg-[#88b000] hover:text-white transition"
             >
               {loading ? "Guardando..." : "Guardar Cambios"}
             </Button>
