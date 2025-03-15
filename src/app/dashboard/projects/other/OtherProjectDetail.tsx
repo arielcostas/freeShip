@@ -100,7 +100,7 @@ export default async function OtherProjectDetail({
               ) : (
                 <Link
                   href={`/dashboard/projects/other/application?projectId=${project.id}`}
-                  className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition"
+                  className="custom-btn"
                 >
                   Aplicar
                 </Link>
