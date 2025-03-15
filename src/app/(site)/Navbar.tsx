@@ -29,7 +29,10 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
   // Cierra el dropdown si se hace clic fuera
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         setIsDropdownOpen(false);
       }
     }
@@ -61,7 +64,9 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
   }, []);
 
   return (
-    <nav className={`fixed top-0 z-50 w-full transition-colors duration-300 ${theme === "light" ? "bg-white text-black" : "bg-gray-900 text-white"}`}>
+    <nav
+      className={`fixed top-0 z-50 w-full transition-colors duration-300 ${theme === "light" ? "bg-white text-black" : "bg-gray-900 text-white"}`}
+    >
       <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center">
           <Link href="/dashboard" className="flex items-center gap-5">
@@ -74,8 +79,14 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
               preserveAspectRatio="xMidYMid meet"
             >
               <g id="SVGRepo_iconCarrier">
-                <path fill="#acd916" d="M30.47 104.24h13.39v13.39H30.47z"></path>
-                <path fill="#acd916" d="M84.04 104.24h13.39v13.39H84.04z"></path>
+                <path
+                  fill="#acd916"
+                  d="M30.47 104.24h13.39v13.39H30.47z"
+                ></path>
+                <path
+                  fill="#acd916"
+                  d="M84.04 104.24h13.39v13.39H84.04z"
+                ></path>
                 <path fill="#acd916" d="M30.48 10.51h13.39V23.9H30.48z"></path>
                 <path fill="#acd916" d="M84.04 10.51h13.39V23.9H84.04z"></path>
                 <path
@@ -97,23 +108,38 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
             className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors"
             aria-label={`Cambiar a modo ${theme === "light" ? "oscuro" : "claro"}`}
           >
-            {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+            {theme === "light" ? (
+              <Moon className="h-5 w-5" />
+            ) : (
+              <Sun className="h-5 w-5" />
+            )}
           </button>
 
           {/* Dropdown del usuario */}
           <div className="relative" ref={dropdownRef}>
-            <button onClick={toggleDropdown} className="flex items-center gap-2 font-medium hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-md transition">
+            <button
+              onClick={toggleDropdown}
+              className="flex items-center gap-2 font-medium hover:bg-gray-200 dark:hover:bg-gray-700 p-2 rounded-md transition"
+            >
               <User className="h-5 w-5" />
               <span>{username}</span>
             </button>
 
             {/* Menú desplegable */}
             {isDropdownOpen && (
-              <div className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg ${theme === "light" ? "bg-white text-black" : "bg-gray-800 text-white"} p-2`}>
-                <Link href="/profile" className="block px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+              <div
+                className={`absolute right-0 mt-2 w-48 rounded-md shadow-lg ${theme === "light" ? "bg-white text-black" : "bg-gray-800 text-white"} p-2`}
+              >
+                <Link
+                  href="/profile"
+                  className="block px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md"
+                >
                   Perfil
                 </Link>
-                <button onClick={handleSignOut} className="block w-full text-left px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+                <button
+                  onClick={handleSignOut}
+                  className="block w-full text-left px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md"
+                >
                   Cerrar sesión
                 </button>
               </div>
@@ -122,29 +148,58 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
 
           {/* Botón de menú móvil */}
           <div className="flex md:hidden">
-            <button type="button" onClick={toggleMenu} className="p-2 rounded-md hover:text-gray-600 dark:hover:text-gray-300">
-              {isMenuOpen ? <X className="h-6 w-6" /> : <svg className="h-6 w-6" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-              </svg>}
+            <button
+              type="button"
+              onClick={toggleMenu}
+              className="p-2 rounded-md hover:text-gray-600 dark:hover:text-gray-300"
+            >
+              {isMenuOpen ? (
+                <X className="h-6 w-6" />
+              ) : (
+                <svg
+                  className="h-6 w-6"
+                  viewBox="0 0 24 24"
+                  strokeWidth="1.5"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
+                  />
+                </svg>
+              )}
             </button>
           </div>
         </div>
       </div>
 
-      {/* Menú móvil */}
+      {/* Menú móvil
       {isMenuOpen && (
-        <div className={`md:hidden p-2 ${theme === "light" ? "bg-white text-black" : "bg-gray-800 text-white"}`}>
-          <Link href="/dashboard?tab=misProyectos" className="block px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+        <div
+          className={`md:hidden p-2 ${theme === "light" ? "bg-white text-black" : "bg-gray-800 text-white"}`}
+        >
+          <Link
+            href="/dashboard?tab=misProyectos"
+            className="block px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md"
+          >
             Tus proyectos
           </Link>
-          <Link href="/dashboard?tab=comunidad" className="block px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+          <Link
+            href="/dashboard?tab=comunidad"
+            className="block px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md"
+          >
             Comunidad
           </Link>
-          <button onClick={handleSignOut} className="block w-full text-left px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md">
+          <button
+            onClick={handleSignOut}
+            className="block w-full text-left px-4 py-2 hover:bg-gray-300 dark:hover:bg-gray-600 rounded-md"
+          >
             Cerrar sesión
           </button>
         </div>
       )}
+      */}
     </nav>
   );
 }
