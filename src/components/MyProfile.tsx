@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/app/(site)/Navbar";
 import { FaGithub } from "react-icons/fa";
+import { redirect } from "next/navigation";
 
 interface ProfileData {
   username: string;
@@ -134,6 +135,12 @@ export default function MyProfile() {
     }
   };
 
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    redirect("/");
+  };
+
   // Función para guardar la descripción
   const handleSaveDescription = async () => {
     setSaving(true);
@@ -164,9 +171,7 @@ export default function MyProfile() {
   return (
     <>
       <Navbar
-        handleSignOut={() => {
-          /* Implementa la función de sign out */
-        }}
+        handleSignOut={handleSignOut} className="bg-white shadow-md"
       />
       <div className="p-4 max-w-md mx-auto mt-20">
         <h1 className="text-2xl font-bold mb-4">Mis datos de perfil</h1>
