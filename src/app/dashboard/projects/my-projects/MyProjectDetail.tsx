@@ -97,7 +97,8 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong>{" "}
+              {project.tech_stack.join(", ")}
             </p>
           )}
 
@@ -121,7 +122,9 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
           {/* Mostrar la lista de solicitudes solo si hay aplicaciones */}
           {hasApplications && (
             <div className="mt-8">
-              <h3 className="text-xl font-bold mb-4">Solicitudes de aplicación</h3>
+              <h3 className="text-xl font-bold mb-4">
+                Solicitudes de aplicación
+              </h3>
               <ProjectApplicationsList projectId={project.id} />
             </div>
           )}

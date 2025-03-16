@@ -378,3 +378,21 @@ li {
   background-color: #88b000 !important;
   color: #ffffff !important;
 }
+
+.other-custom-btn {
+  background-color: #818cf8 !important;
+  color: white !important; /* gris oscuro, igual que text-gray-700 */
+  padding: 0.5rem 1rem; /* px-4 py-2 */
+  font-weight: bold;
+  border-radius: 0.375rem; /* rounded */
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+  margin-left: 1rem; /* ml-4 */
+  text-decoration: none; /* Para que no tenga subrayado */
+}
+
+.other-custom-btn:hover {
+  background-color: #5865f2 !important;
+  color: #ffffff !important;
+}

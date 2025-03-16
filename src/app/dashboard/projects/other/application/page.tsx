@@ -92,7 +92,7 @@ const OtherProjectApplicationPageContent = () => {
         />
         <div className="flex justify-end gap-2">
           <Button
-            className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition"
+            className="other-custom-btn"
             onClick={handleApply}
             disabled={loading || !projectId}
           >

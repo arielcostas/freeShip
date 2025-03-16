@@ -7,14 +7,20 @@ import Navbar from "@/app/(site)/Navbar";
 import Link from "next/link";
 import Spinner from "@/components/ui/spinner";
 
-export default function OtherProjectDetail({ projectId }: { projectId: string }) {
+export default function OtherProjectDetail({
+  projectId,
+}: {
+  projectId: string;
+}) {
   const supabase = createClient();
   const router = useRouter();
 
   const [project, setProject] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [user, setUser] = useState<any>(null);
-  const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
+  const [applicationStatus, setApplicationStatus] = useState<string | null>(
+    null
+  );
   const [isMember, setIsMember] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -35,7 +41,8 @@ export default function OtherProjectDetail({ projectId }: { projectId: string })
       setProject(proj);
 
       // Obtener el usuario autenticado
-      const { data: userData, error: userError } = await supabase.auth.getUser();
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
       if (!userError && userData?.user) {
         setUser(userData.user);
 
@@ -103,7 +110,8 @@ export default function OtherProjectDetail({ projectId }: { projectId: string })
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong>{" "}
+              {project.tech_stack.join(", ")}
             </p>
           )}
 
@@ -144,7 +152,7 @@ export default function OtherProjectDetail({ projectId }: { projectId: string })
               ) : (
                 <Link
                   href={`/dashboard/projects/other/application?projectId=${project.id}`}
-                  className="custom-btn"
+                  className="other-custom-btn"
                 >
                   Aplicar
                 </Link>
