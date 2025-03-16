@@ -1,6 +1,4 @@
-"use client";
-
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/app/(site)/Navbar";
 import { FaGithub } from "react-icons/fa";
@@ -9,6 +7,7 @@ interface ProfileData {
   username: string;
   discord_username: string;
   email: string;
+  about_me: string;
 }
 
 // Componente Spinner sencillo
@@ -44,11 +43,25 @@ export default function MyProfile() {
     username: "",
     discord_username: "",
     email: "",
+    about_me: "",
   });
   const [loading, setLoading] = useState(true);
   const [githubConnected, setGithubConnected] = useState(false);
   const [githubUsername, setGithubUsername] = useState("");
+  const [saving, setSaving] = useState(false);
+  const [editingAboutMe, setEditingAboutMe] = useState(false);
   const supabase = createClient();
+
+  // Ref para el textarea y auto ajuste de altura
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setProfile({ ...profile, about_me: e.target.value });
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + "px";
+    }
+  };
 
   useEffect(() => {
     const fetchProfile = async () => {
@@ -65,7 +78,6 @@ export default function MyProfile() {
         return;
       }
 
-      // Extraemos el email
       const email = user.email;
 
       // Revisamos si el usuario tiene vinculada una identidad de GitHub
@@ -75,13 +87,15 @@ export default function MyProfile() {
       );
       if (githubIdentity) {
         setGithubConnected(true);
-        setGithubUsername(githubIdentity.identity_data?.login || "GitHub User");
+        setGithubUsername(
+          githubIdentity.identity_data?.login || "GitHub User"
+        );
       }
 
-      // Consultamos la tabla profiles para obtener username y discord_username
+      // Obtenemos datos de la tabla profiles
       const { data, error } = await supabase
         .from("profiles")
-        .select("username, discord_username")
+        .select("username, discord_username, about_me")
         .eq("id", user.id)
         .single();
 
@@ -92,6 +106,7 @@ export default function MyProfile() {
           username: data.username,
           discord_username: data.discord_username || "",
           email,
+          about_me: data.about_me || "",
         });
       }
       setLoading(false);
@@ -100,7 +115,15 @@ export default function MyProfile() {
     fetchProfile();
   }, [supabase]);
 
-  // Función para iniciar el flujo de OAuth con GitHub
+  useEffect(() => {
+    if (editingAboutMe && textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + "px";
+    }
+  }, [editingAboutMe, profile.about_me]);
+
+  // Función para conectar GitHub
   const handleConnectGithub = async () => {
     const { error } = await supabase.auth.signInWithOAuth({
       provider: "github",
@@ -111,6 +134,29 @@ export default function MyProfile() {
     if (error) {
       console.error("Error al conectar con GitHub:", error);
     }
+  };
+
+  // Función para guardar la descripción
+  const handleSaveDescription = async () => {
+    setSaving(true);
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    if (!user) {
+      console.error("No hay usuario logueado");
+      setSaving(false);
+      return;
+    }
+    const { error } = await supabase
+      .from("profiles")
+      .update({ about_me: profile.about_me })
+      .eq("id", user.id);
+    if (error) {
+      console.error("Error al actualizar la descripción:", error);
+    } else {
+      setEditingAboutMe(false);
+    }
+    setSaving(false);
   };
 
   if (loading) {
@@ -125,7 +171,7 @@ export default function MyProfile() {
         }}
       />
       <div className="p-4 max-w-md mx-auto mt-20">
-        <h1 className="text-2xl font-bold mb-4">Mis Datos de Perfil</h1>
+        <h1 className="text-2xl font-bold mb-4">Mis datos de perfil</h1>
 
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Username</label>
@@ -137,7 +183,6 @@ export default function MyProfile() {
           />
         </div>
 
-        {/* Solo se muestra si discord_username tiene valor */}
         {profile.discord_username && (
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1">
@@ -162,6 +207,50 @@ export default function MyProfile() {
           />
         </div>
 
+        {/* Sección para describirse */}
+        <div className="mb-4">
+          <label className="block text-sm font-medium mb-1">Acerca de mí</label>
+          {editingAboutMe ? (
+            <>
+              <textarea
+                ref={textareaRef}
+                value={profile.about_me}
+                onChange={handleTextareaChange}
+                placeholder="Experiencia, conocimientos, intereses, expectativas..."
+                maxLength={1000}
+                rows={1} // Comenzamos con 1 fila y se ajusta automáticamente
+                className="w-full border rounded-md px-3 py-2 resize-none overflow-hidden"
+              />
+              <p className="text-xs text-gray-500 text-right">
+                {profile.about_me.length}/1000
+              </p>
+              <button
+                onClick={handleSaveDescription}
+                disabled={saving}
+                className="custom-btn mt-2"
+              >
+                {saving ? "Guardando..." : "Guardar descripción"}
+              </button>
+            </>
+          ) : (
+            <>
+              {profile.about_me ? (
+                <div className="w-full border rounded-md px-3 py-2">
+                  <p>{profile.about_me}</p>
+                </div>
+              ) : (
+                <p className="text-gray-500">No has escrito nada sobre ti.</p>
+              )}
+              <button
+                onClick={() => setEditingAboutMe(true)}
+                className="custom-btn mt-2"
+              >
+                {profile.about_me ? "Editar descripción" : "Escribir sobre mí"}
+              </button>
+            </>
+          )}
+        </div>
+
         {/* Sección para vincular la cuenta de GitHub */}
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">GitHub</label>
@@ -170,12 +259,10 @@ export default function MyProfile() {
               <span className="mr-2">
                 Conectado como <strong>{githubUsername}</strong>
               </span>
-              <button
-                className="bg-[#acd916] text-gray-700 px-3 py-1 rounded"
-                disabled
-              >
-                Conectado
-              </button>
+              <span
+                className="w-3 h-3 bg-[#acd916] rounded-full"
+                title="Conectado"
+              ></span>
             </div>
           ) : (
             <button
