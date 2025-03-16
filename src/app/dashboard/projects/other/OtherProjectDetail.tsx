@@ -1,62 +1,85 @@
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client"; // Importa el cliente para el lado del cliente
+import { useRouter } from "next/navigation";
 import Navbar from "@/app/(site)/Navbar";
 import Link from "next/link";
+import Spinner from "@/components/ui/spinner";
 
-export default async function OtherProjectDetail({
-  projectId,
-}: {
-  projectId: string;
-}) {
+export default function OtherProjectDetail({ projectId }: { projectId: string }) {
   const supabase = createClient();
+  const router = useRouter();
 
-  // Obtener el proyecto
-  const { data: project, error } = await supabase
-    .from("projects")
-    .select("*")
-    .eq("id", projectId)
-    .single();
+  const [project, setProject] = useState<any>(null);
+  const [errorMsg, setErrorMsg] = useState("");
+  const [user, setUser] = useState<any>(null);
+  const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
+  const [isMember, setIsMember] = useState(false);
+  const [loading, setLoading] = useState(true);
 
-  if (error || !project) {
-    return <p className="text-red-500">Project not found</p>;
+  useEffect(() => {
+    async function fetchData() {
+      // Obtener el proyecto
+      const { data: proj, error: projectError } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("id", projectId)
+        .single();
+
+      if (projectError || !proj) {
+        setErrorMsg("Project not found");
+        setLoading(false);
+        return;
+      }
+      setProject(proj);
+
+      // Obtener el usuario autenticado
+      const { data: userData, error: userError } = await supabase.auth.getUser();
+      if (!userError && userData?.user) {
+        setUser(userData.user);
+
+        // Comprobar si el usuario ya ha aplicado
+        const { data: application } = await supabase
+          .from("project_applications")
+          .select("status")
+          .eq("project_id", projectId)
+          .eq("applicant_id", userData.user.id)
+          .single();
+
+        if (application) {
+          setApplicationStatus(application.status);
+        }
+
+        // Verificar si el usuario es miembro del equipo (si project.team_members es un array)
+        if (proj.team_members && Array.isArray(proj.team_members)) {
+          setIsMember(proj.team_members.includes(userData.user.id));
+        }
+      }
+
+      setLoading(false);
+    }
+    fetchData();
+  }, [projectId, supabase]);
+
+  const handleSignOut = async () => {
+    await supabase.auth.signOut();
+    router.push("/");
+  };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner color="#5865f2" />
+      </div>
+    );
   }
 
-  // Obtener el usuario autenticado
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  // Verificar si el usuario ha aplicado a este proyecto
-  let applicationStatus = null;
-  let isMember = false;
-
-  if (user) {
-    // Comprobar si el usuario ya ha aplicado
-    const { data: application } = await supabase
-      .from("project_applications")
-      .select("status")
-      .eq("project_id", projectId)
-      .eq("applicant_id", user.id)
-      .single();
-
-    if (application) {
-      applicationStatus = application.status;
-    }
-
-    // Verificar si el usuario es miembro del equipo desde `team_members`
-    if (project.team_members && Array.isArray(project.team_members)) {
-      isMember = project.team_members.includes(user.id);
-    }
+  if (errorMsg) {
+    return <p className="text-red-500">{errorMsg}</p>;
   }
 
   const authorName = project.author_name || "Desconocido";
-
-  const handleSignOut = async () => {
-    "use server";
-    const supabase = createClient();
-    await supabase.auth.signOut();
-    redirect("/");
-  };
 
   return (
     <div className="flex flex-col h-screen w-full bg-gray-100">
@@ -80,8 +103,7 @@ export default async function OtherProjectDetail({
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack tecnológico:</strong>{" "}
-              {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
             </p>
           )}
 

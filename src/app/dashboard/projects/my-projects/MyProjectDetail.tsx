@@ -1,53 +1,78 @@
-import { createClient } from "@/lib/supabase/server";
-import { redirect } from "next/navigation";
+"use client";
+
+import { useEffect, useState } from "react";
+import { createClient } from "@/lib/supabase/client"; // Asegúrate de usar el cliente para el lado del cliente
+import { useRouter } from "next/navigation";
 import ProjectActions from "@/app/dashboard/projects/other/ProjectActions";
 import Navbar from "@/app/(site)/Navbar";
 import ProjectApplicationsList from "@/app/dashboard/projects/my-projects/ProjectApplicationsList";
+import Spinner from "@/components/ui/spinner";
 
-export default async function MyProjectDetail({
-  projectId,
-}: {
-  projectId: string;
-}) {
+export default function MyProjectDetail({ projectId }: { projectId: string }) {
   const supabase = createClient();
+  const router = useRouter();
 
-  // Obtener el proyecto
-  const { data: project, error } = await supabase
-    .from("projects")
-    .select("*")
-    .eq("id", projectId)
-    .single();
+  const [project, setProject] = useState<any>(null);
+  const [authorName, setAuthorName] = useState("Desconocido");
+  const [hasApplications, setHasApplications] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [errorMsg, setErrorMsg] = useState("");
 
-  if (error || !project) {
-    return <p className="text-red-500">Project not found</p>;
-  }
+  useEffect(() => {
+    async function fetchData() {
+      // Obtener el proyecto
+      const { data: proj, error } = await supabase
+        .from("projects")
+        .select("*")
+        .eq("id", projectId)
+        .single();
 
-  // Obtener el nombre de usuario del autor desde la tabla profiles
-  const { data: profile, error: profileError } = await supabase
-    .from("profiles")
-    .select("username")
-    .eq("id", project.author_id)
-    .single();
+      if (error || !proj) {
+        setErrorMsg("Project not found");
+        setLoading(false);
+        return;
+      }
+      setProject(proj);
 
-  let authorName = "Desconocido";
-  if (!profileError && profile && profile.username) {
-    authorName = profile.username;
-  }
+      // Obtener el nombre de usuario del autor
+      const { data: profile } = await supabase
+        .from("profiles")
+        .select("username")
+        .eq("id", proj.author_id)
+        .single();
 
-  // Obtener el número de aplicaciones al proyecto
-  const { data: applications, error: applicationsError } = await supabase
-    .from("project_applications")
-    .select("id")
-    .eq("project_id", projectId);
+      if (profile && profile.username) {
+        setAuthorName(profile.username);
+      }
 
-  const hasApplications = applications && applications.length > 0;
+      // Obtener el número de solicitudes al proyecto
+      const { data: applications } = await supabase
+        .from("project_applications")
+        .select("id")
+        .eq("project_id", projectId);
+
+      setHasApplications(applications && applications.length > 0);
+      setLoading(false);
+    }
+    fetchData();
+  }, [projectId, supabase]);
 
   const handleSignOut = async () => {
-    "use server";
-    const supabase = createClient();
     await supabase.auth.signOut();
-    redirect("/");
+    router.push("/");
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <Spinner />
+      </div>
+    );
+  }
+
+  if (errorMsg) {
+    return <p className="text-red-500">{errorMsg}</p>;
+  }
 
   return (
     <div className="flex flex-col h-screen w-full bg-gray-100">
@@ -62,7 +87,7 @@ export default async function MyProjectDetail({
           <p className="text-gray-700 mt-2">{project.description}</p>
 
           <p className="mt-2">
-            Propuesto por <strong>{authorName}</strong>{" "}
+            Propuesto por <strong>{authorName}</strong>
           </p>
 
           {project.type && (
@@ -72,8 +97,7 @@ export default async function MyProjectDetail({
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack tecnológico:</strong>{" "}
-              {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
             </p>
           )}
 
@@ -97,9 +121,7 @@ export default async function MyProjectDetail({
           {/* Mostrar la lista de solicitudes solo si hay aplicaciones */}
           {hasApplications && (
             <div className="mt-8">
-              <h3 className="text-xl font-bold mb-4">
-                Solicitudes de aplicación
-              </h3>
+              <h3 className="text-xl font-bold mb-4">Solicitudes de aplicación</h3>
               <ProjectApplicationsList projectId={project.id} />
             </div>
           )}

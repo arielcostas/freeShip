@@ -1,11 +1,15 @@
-// components/Spinner.tsx
 "use client";
 
-export default function Spinner() {
+interface SpinnerProps {
+  color?: string;
+}
+
+export default function Spinner({ color = "#acd916" }: SpinnerProps) {
   return (
     <div className="flex justify-center items-center h-full">
       <svg
-        className="animate-spin h-8 w-8 text-[#acd916]"
+        style={{ color }} // se aplica el color recibido
+        className="animate-spin h-8 w-8"
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
