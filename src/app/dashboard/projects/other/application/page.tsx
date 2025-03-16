@@ -90,16 +90,16 @@ const OtherProjectApplicationPageContent = () => {
           maxLength={1000}
           rows={4}
         />
-        <div className="flex justify-end gap-2">
+        <div className="flex justify-between w-full gap-2">
           <Button
-            className="other-custom-btn"
+            className="other-custom-btn ml-0"
             onClick={handleApply}
             disabled={loading || !projectId}
           >
             <strong>{loading ? "Enviando..." : "Enviar solicitud"}</strong>
           </Button>
           <Button
-            className="bg-red-500 text-white font-bold px-4 py-2 rounded hover:bg-red-600 transition"
+            className="bg-red-500 text-white font-bold rounded hover:bg-red-600 transition"
             onClick={() => router.back()}
             variant="destructive"
           >

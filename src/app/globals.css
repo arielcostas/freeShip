@@ -388,7 +388,6 @@ li {
   transition:
     background-color 0.3s ease,
     color 0.3s ease;
-  margin-left: 1rem; /* ml-4 */
   text-decoration: none; /* Para que no tenga subrayado */
 }
 

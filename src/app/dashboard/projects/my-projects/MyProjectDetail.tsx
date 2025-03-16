@@ -75,13 +75,13 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
   }
 
   return (
-    <div className="flex flex-col h-screen w-full bg-gray-100">
+    <div className="flex flex-col min-h-screen w-full bg-gray-100">
       <div className="w-full bg-white shadow-md">
         <Navbar handleSignOut={handleSignOut} />
       </div>
 
-      {/* Contenido que ocupa el 100% del espacio restante */}
-      <div className="flex flex-row gap-12 flex-grow overflow-hidden p-24 px-4 sm:px-6 md:px-8 lg:px-12">
+      {/* Contenido principal */}
+      <div className="flex flex-row gap-12 w-full p-20 px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="w-full bg-white p-6 rounded-lg shadow-md flex flex-col">
           <h2 className="text-2xl font-bold">{project.title}</h2>
           <p className="text-gray-700 mt-2">{project.description}</p>
@@ -97,8 +97,7 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
           )}
           {project.tech_stack && (
             <p className="mt-2">
-              <strong>Stack tecnológico:</strong>{" "}
-              {project.tech_stack.join(", ")}
+              <strong>Stack tecnológico:</strong> {project.tech_stack.join(", ")}
             </p>
           )}
 
@@ -119,12 +118,10 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
           {/* Botones de Editar y Eliminar */}
           <ProjectActions projectId={projectId} />
 
-          {/* Mostrar la lista de solicitudes solo si hay aplicaciones */}
+          {/* Mostrar la lista de solicitudes (colaboradores) */}
           {hasApplications && (
             <div className="mt-8">
-              <h3 className="text-xl font-bold mb-4">
-                Solicitudes de aplicación
-              </h3>
+              <h3 className="text-xl font-bold mb-4">Solicitudes de aplicación</h3>
               <ProjectApplicationsList projectId={project.id} />
             </div>
           )}
