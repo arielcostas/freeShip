@@ -4,8 +4,8 @@ import Navbar from "@/app/(site)/Navbar";
 import Link from "next/link";
 
 export default async function OtherProjectDetail({
-  projectId,
-}: {
+                                                   projectId,
+                                                 }: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -28,20 +28,27 @@ export default async function OtherProjectDetail({
 
   // Verificar si el usuario ha aplicado a este proyecto
   let applicationStatus = null;
+  let isMember = false;
+
   if (user) {
+    // Comprobar si el usuario ya ha aplicado
     const { data: application } = await supabase
       .from("project_applications")
       .select("status")
       .eq("project_id", projectId)
       .eq("applicant_id", user.id)
-      .single(); // Devuelve solo una solicitud si existe
+      .single();
 
     if (application) {
       applicationStatus = application.status;
     }
+
+    // Verificar si el usuario es miembro del equipo desde `team_members`
+    if (project.team_members && Array.isArray(project.team_members)) {
+      isMember = project.team_members.includes(user.id);
+    }
   }
 
-  // Se asume que author_name ya está en la tabla projects
   const authorName = project.author_name || "Desconocido";
 
   const handleSignOut = async () => {
@@ -75,6 +82,21 @@ export default async function OtherProjectDetail({
             <p className="mt-2">
               <strong>Stack tecnológico:</strong>{" "}
               {project.tech_stack.join(", ")}
+            </p>
+          )}
+
+          {/* Mostrar el repositorio de GitHub solo si el usuario es miembro */}
+          {isMember && project.github_repository && (
+            <p className="mt-2">
+              <strong>Repositorio de GitHub:</strong>{" "}
+              <a
+                href={project.github_repository}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#5865f2] underline"
+              >
+                {project.github_repository}
+              </a>
             </p>
           )}
 

@@ -192,7 +192,9 @@ export default function EditProject() {
         <Navbar handleSignOut={handleSignOut} />
       </div>
       <div className="bg-white p-6 lg:p-20 rounded-lg shadow-md">
-        <h2 className="text-2xl font-bold mb-4 my-project-edit-title">Editar Proyecto</h2>
+        <h2 className="text-2xl font-bold mb-4 my-project-edit-title">
+          Editar Proyecto
+        </h2>
         {error && <p className="text-red-500">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
