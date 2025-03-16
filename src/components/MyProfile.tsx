@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Navbar from "@/app/(site)/Navbar";
+import { FaGithub } from "react-icons/fa";
 
 interface ProfileData {
   username: string;
@@ -179,9 +180,10 @@ export default function MyProfile() {
           ) : (
             <button
               onClick={handleConnectGithub}
-              className="bg-[#5865F2] text-white px-3 py-1 rounded"
+              className="bg-[#5865F2] text-white px-3 py-1 rounded flex items-center gap-2"
             >
-              Conectar cuenta de GitHub
+              Vincular cuenta de GitHub
+              <FaGithub size={20} />
             </button>
           )}
         </div>

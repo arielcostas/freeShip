@@ -4,8 +4,8 @@ import Navbar from "@/app/(site)/Navbar";
 import Link from "next/link";
 
 export default async function OtherProjectDetail({
-                                                   projectId,
-                                                 }: {
+  projectId,
+}: {
   projectId: string;
 }) {
   const supabase = createClient();
