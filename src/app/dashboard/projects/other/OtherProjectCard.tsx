@@ -25,7 +25,7 @@ export default function OtherProjectCard({ project }: { project: any }) {
       >
         {/* Fila 1: Título y Autor en línea */}
         <div className="flex items-center gap-x-3 mb-2">
-          <h3 className="otherprojecttitle">{project.title}</h3>
+          <h3 className="other-project-title">{project.title}</h3>
           <strong
             className="text-sm"
             style={{ color: "var(--text-secondary)" }}

@@ -30,7 +30,7 @@ export default function MyProjectCard({
         className="block space-y-3"
       >
         {/* Fila 1: Título */}
-        <h3 className="myprojecttitle">{project.title}</h3>
+        <h3 className="my-project-title">{project.title}</h3>
 
         {/* Fila 2: Descripción */}
         <p

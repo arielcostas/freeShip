@@ -1,9 +1,10 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams, useRouter, redirect } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/client";
+import Navbar from "@/app/(site)/Navbar";
 
 const OtherProjectApplicationPageContent = () => {
   const searchParams = useSearchParams();
@@ -64,35 +65,49 @@ const OtherProjectApplicationPageContent = () => {
     setLoading(false);
   };
 
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    redirect("/");
+  };
+
   return (
-    <div className="max-w-lg mx-auto mt-10 p-4 border rounded shadow bg-white">
-      <h2 className="text-lg font-semibold mb-2">Solicitud de aplicación</h2>
-      {error && <p className="text-red-500">{error}</p>}
-      <textarea
-        value={message}
-        onChange={(e) => setMessage(e.target.value)}
-        className="w-full border p-2 rounded mb-2"
-        placeholder="Escribe un mensaje opcional (máx. 1000 caracteres)"
-        maxLength={1000}
-        rows={4}
-      />
-      <div className="flex justify-end gap-2">
-        <Button
-          className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition"
-          onClick={handleApply}
-          disabled={loading || !projectId}
-        >
-          <strong>{loading ? "Enviando..." : "Enviar solicitud"}</strong>
-        </Button>
-        <Button
-          className="bg-red-500 text-white font-bold px-4 py-2 rounded hover:bg-red-600 transition"
-          onClick={() => router.back()}
-          variant="destructive"
-        >
-          <strong>Cancelar</strong>
-        </Button>
+    <>
+      {/* Navbar ocupa todo el ancho */}
+      <div className="w-full bg-white shadow-md">
+        <Navbar handleSignOut={handleSignOut} />
       </div>
-    </div>
+
+      {/* Contenedor centrado */}
+      <div className="max-w-xl mx-auto mt-20 p-6 border rounded-lg shadow bg-white">
+        <h2 className="text-lg font-semibold mb-2">Solicitud de aplicación</h2>
+        {error && <p className="text-red-500">{error}</p>}
+        <textarea
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          className="w-full border p-2 rounded mb-2"
+          placeholder="Escribe un mensaje opcional (máx. 1000 caracteres)"
+          maxLength={1000}
+          rows={4}
+        />
+        <div className="flex justify-end gap-2">
+          <Button
+            className="bg-[#acd916] text-gray-700 px-4 font-bold py-2 rounded hover:bg-[#88b000] hover:text-white transition"
+            onClick={handleApply}
+            disabled={loading || !projectId}
+          >
+            <strong>{loading ? "Enviando..." : "Enviar solicitud"}</strong>
+          </Button>
+          <Button
+            className="bg-red-500 text-white font-bold px-4 py-2 rounded hover:bg-red-600 transition"
+            onClick={() => router.back()}
+            variant="destructive"
+          >
+            <strong>Cancelar</strong>
+          </Button>
+        </div>
+      </div>
+    </>
   );
 };
 

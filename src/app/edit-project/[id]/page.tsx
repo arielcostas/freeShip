@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { redirect, useParams, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
+import Navbar from "@/app/(site)/Navbar";
 
 const PROJECT_TYPES = [
   "WEB/DESKTOP",
@@ -178,10 +179,20 @@ export default function EditProject() {
     setMemberToExpel(null);
   };
 
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    redirect("/");
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-6">
-      <div className="bg-white p-6 rounded-lg shadow-md w-full max-w-2xl">
-        <h2 className="text-2xl font-bold mb-4">Editar Proyecto</h2>
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      {/* Navbar ocupa todo el ancho */}
+      <div className="w-full bg-white shadow-md">
+        <Navbar handleSignOut={handleSignOut} />
+      </div>
+      <div className="bg-white p-6 lg:p-20 rounded-lg shadow-md">
+        <h2 className="text-2xl font-bold mb-4 my-project-edit-title">Editar Proyecto</h2>
         {error && <p className="text-red-500">{error}</p>}
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -293,7 +304,7 @@ export default function EditProject() {
             <div>
               <h3>Miembros colaboradores:</h3>
               {teamMembers.length > 0 ? (
-                <ul className="mt-2 text-sm text-gray-700">
+                <ul className="mt-2 text-sm text-gray-700 space-y-2">
                   {teamMembers.map((member) => (
                     <li
                       key={member.id}
@@ -308,7 +319,7 @@ export default function EditProject() {
                           setShowExpelPopup(true);
                         }}
                       >
-                        X
+                        ×
                       </button>
                     </li>
                   ))}

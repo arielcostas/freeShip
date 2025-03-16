@@ -114,18 +114,22 @@ body {
   --accent-light: #5865f2;
   --accent-dark: #818cf8;
 
-  .otherprojecttitle {
+  .other-project-title {
     color: #5865f2 !important;
     font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
     font-weight: bold; /* font-bold */
     letter-spacing: 0.025em; /* tracking-wide */
   }
 
-  .myprojecttitle {
+  .my-project-title {
     color: #88b000 !important;
     font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
     font-weight: bold; /* font-bold */
     letter-spacing: 0.025em; /* tracking-wide */
+  }
+
+  .my-project-edit-title {
+    color: #88b000 !important;
   }
 }
 
@@ -146,18 +150,22 @@ body {
   --input-bg: #4c4c55;
   --hover-bg: #5a5a64;
 
-  .otherprojecttitle {
+  .other-project-title {
     color: #818cf8 !important;
     font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
     font-weight: bold; /* font-bold */
     letter-spacing: 0.025em; /* tracking-wide */
   }
 
-  .myprojecttitle {
+  .my-project-title {
     color: #acd916 !important;
     font-size: 1.125rem; /* text-lg en Tailwind (equivale a 18px) */
     font-weight: bold; /* font-bold */
     letter-spacing: 0.025em; /* tracking-wide */
+  }
+
+  .my-project-edit-title {
+    color: #acd916 !important;
   }
 }
 
@@ -353,7 +361,6 @@ li {
   background-color: var(--bg-secondary);
 }
 
-/* global.css */
 .custom-btn {
   background-color: #acd916 !important;
   color: #4a4a4a !important; /* gris oscuro, igual que text-gray-700 */
