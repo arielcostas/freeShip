@@ -87,9 +87,7 @@ export default function MyProfile() {
       );
       if (githubIdentity) {
         setGithubConnected(true);
-        setGithubUsername(
-          githubIdentity.identity_data?.login || "GitHub User"
-        );
+        setGithubUsername(githubIdentity.identity_data?.login || "GitHub User");
       }
 
       // Obtenemos datos de la tabla profiles
