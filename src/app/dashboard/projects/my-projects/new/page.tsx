@@ -190,7 +190,9 @@ export default function CreateProjectPage() {
 
       <div className="flex-grow flex items-center justify-center p-20 px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="w-5/6 mx-auto max-w-5xl p-10 bg-white shadow-lg rounded-lg">
-          <h2 className="text-2xl font-bold mb-4 my-project-edit-title">Crear Nuevo Proyecto</h2>
+          <h2 className="text-2xl font-bold mb-4 my-project-edit-title">
+            Crear Nuevo Proyecto
+          </h2>
 
           {error && <p className="text-red-500">{error}</p>}
 

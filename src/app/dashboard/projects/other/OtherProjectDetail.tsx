@@ -137,16 +137,16 @@ export default function OtherProjectDetail({
                 <p
                   className={
                     applicationStatus === "PENDING"
-                      ? "text-[#4752C4] font-semibold"
+                      ? "text-[#4752C4] font-semibold !important"
                       : applicationStatus === "ACCEPTED"
                         ? "text-[#88b000] font-semibold"
-                        : "text-red-600 font-semibold"
+                        : "text-red-600 font-semibold !important"
                   }
                 >
                   {applicationStatus === "PENDING"
                     ? "Tu solicitud está pendiente... ¡Crucemos los dedos!"
                     : applicationStatus === "ACCEPTED"
-                      ? "Tu solicitud ha sido aceptada. ¡Enhorabuena!"
+                      ? ""
                       : "Tu solicitud ha sido rechazada. ¡Ellos se lo pierden!"}
                 </p>
               ) : (
