@@ -38,6 +38,7 @@ export default function CreateProjectPage() {
   const [collaboratorsNumber, setCollaboratorsNumber] = useState(1);
   // Por defecto, la integración con Discord se muestra desmarcada
   const [discordIntegration, setDiscordIntegration] = useState(false);
+  const [githubRepository, setGithubRepository] = useState("");
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -187,7 +188,7 @@ export default function CreateProjectPage() {
         <Navbar handleSignOut={handleSignOut} />
       </div>
 
-      <div className="flex-grow flex items-center justify-center">
+      <div className="flex-grow flex items-center justify-center p-20 px-4 sm:px-6 md:px-8 lg:px-12">
         <div className="w-5/6 mx-auto max-w-5xl p-10 bg-white shadow-lg rounded-lg">
           <h2 className="text-2xl font-bold mb-4">Crear Nuevo Proyecto</h2>
 
@@ -289,12 +290,27 @@ export default function CreateProjectPage() {
                 type="number"
                 value={collaboratorsNumber}
                 onChange={(e) => setCollaboratorsNumber(Number(e.target.value))}
-                className="w-full border p-2 rounded"
+                className="w-20 border p-2 rounded"
                 min={1}
+                max={10}
                 required
               />
             </div>
 
+            <div>
+              <label className="block text-sm font-medium">
+                Repositorio (sólo visible para los miembros del proyecto)
+              </label>
+              <input
+                type="text"
+                value={githubRepository}
+                onChange={(e) => setGithubRepository(e.target.value)}
+                className="w-full border p-2 rounded"
+                placeholder="Ejemplo: https://github.com/usuario/repositorio"
+              />
+            </div>
+
+            {/*
             <div className="flex items-center">
               <input
                 type="checkbox"
@@ -310,6 +326,7 @@ export default function CreateProjectPage() {
                 Crear canal de Discord para el proyecto
               </label>
             </div>
+            */}
 
             <div className="flex justify-between items-center">
               <Button

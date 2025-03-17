@@ -170,9 +170,7 @@ export default function MyProfile() {
 
   return (
     <>
-      <Navbar
-        handleSignOut={handleSignOut} className="bg-white shadow-md"
-      />
+      <Navbar handleSignOut={handleSignOut} className="bg-white shadow-md" />
       <div className="p-4 max-w-md mx-auto mt-20">
         <h1 className="text-2xl font-bold mb-4">Mis datos de perfil</h1>
 
@@ -254,7 +252,7 @@ export default function MyProfile() {
           )}
         </div>
 
-        {/* Sección para vincular la cuenta de GitHub */}
+        {/* Sección para vincular la cuenta de GitHub
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">GitHub</label>
           {githubConnected ? (
@@ -277,6 +275,7 @@ export default function MyProfile() {
             </button>
           )}
         </div>
+        */}
       </div>
     </>
   );

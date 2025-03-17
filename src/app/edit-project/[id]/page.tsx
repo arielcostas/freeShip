@@ -191,7 +191,7 @@ export default function EditProject() {
       <div className="w-full bg-white shadow-md">
         <Navbar handleSignOut={handleSignOut} />
       </div>
-      <div className="bg-white p-6 lg:p-20 rounded-lg shadow-md">
+      <div className="bg-white p-6 lg:p-20 rounded-lg shadow-md mt-4">
         <h2 className="text-2xl font-bold mb-4 my-project-edit-title">
           Editar Proyecto
         </h2>
@@ -291,17 +291,19 @@ export default function EditProject() {
                   alert(
                     "El número de colaboradores no puede ser menor que el número de miembros actuales."
                   );
+                } else if (newVal < 1) {
+                  setCollaboratorsNumber(1);
+                } else if (newVal > 10) {
+                  setCollaboratorsNumber(10);
                 } else {
                   setCollaboratorsNumber(newVal);
                 }
               }}
-              className="w-full border p-2 rounded"
+              className="w-20 border p-2 rounded"
               min={1}
+              max={10}
               required
             />
-            <p className="text-sm text-gray-500 mt-2">
-              Miembros actuales: {currentMembers}
-            </p>
 
             <div>
               <h3>Miembros colaboradores:</h3>
