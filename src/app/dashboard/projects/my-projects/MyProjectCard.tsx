@@ -80,7 +80,6 @@ export default function MyProjectCard({
             ))}
           </div>
         )}
-
       </Link>
       {/* Indicador de solicitudes pendientes */}
       {pendingApplications > 0 && (

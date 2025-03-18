@@ -7,6 +7,7 @@ import ProjectActions from "@/app/dashboard/projects/other/ProjectActions";
 import Navbar from "@/app/(site)/Navbar";
 import ProjectApplicationsList from "@/app/dashboard/projects/my-projects/ProjectApplicationsList";
 import Spinner from "@/components/ui/spinner";
+import { FaStar } from "react-icons/fa";
 
 export default function MyProjectDetail({ projectId }: { projectId: string }) {
   const supabase = createClient();
@@ -113,6 +114,27 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
               >
                 {project.github_repository}
               </a>
+            </p>
+          )}
+
+          {/* Sección de estrellas estáticas para mostrar la puntuación */}
+          <div className="mt-6">
+            <div className="flex mt-2">
+              {[1, 2, 3, 4, 5].map((star) => (
+                <FaStar
+                  key={star}
+                  size={32}
+                  className={Math.round(project.rating_avg || 0) >= star ? "text-[#acd916]" : "text-gray-300"}
+                />
+              ))}
+            </div>
+          </div>
+
+          {/* Mostrar el promedio de votos */}
+          {project.rating_avg !== null && project.rating_count > 0 && (
+            <p className="mt-4">
+              <strong>Puntuación:</strong> {project.rating_avg.toFixed(1)} ★ (
+              {project.rating_count} votos)
             </p>
           )}
 

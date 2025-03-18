@@ -72,7 +72,7 @@ export default function OtherProjectDetail({
     fetchData();
   }, [projectId, supabase]);
 
-  const canVote = !(project?.team_members?.includes(user?.id));
+  const canVote = !project?.team_members?.includes(user?.id);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
@@ -183,7 +183,9 @@ export default function OtherProjectDetail({
 
           {/* Sección de estrellas para votar */}
           <div className="mt-6">
-            {canVote && (<h3 className="text-lg font-semibold">Valora este proyecto:</h3>)}
+            {canVote && (
+              <h3 className="text-lg font-semibold">Valora este proyecto:</h3>
+            )}
             <div className="flex mt-2">
               {[1, 2, 3, 4, 5].map((star) => {
                 const displayRating =
