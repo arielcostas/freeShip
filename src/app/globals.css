@@ -395,3 +395,8 @@ li {
   background-color: #5865f2 !important;
   color: #ffffff !important;
 }
+
+.techStack {
+  font-weight: bold !important;
+  color: white !important;
+}

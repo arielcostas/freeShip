@@ -262,12 +262,12 @@ export default function EditProject() {
               {techStack.map((tech) => (
                 <span
                   key={tech}
-                  className="bg-blue-500 text-white px-3 py-1 rounded-full text-sm flex items-center"
+                  className="bg-[#5865f2] techStack px-3 py-1 rounded-full text-sm flex items-center"
                 >
                   {tech}
                   <button
                     type="button"
-                    className="ml-2 bg-red-500 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full"
+                    className="techStack ml-2 bg-red-500 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full"
                     onClick={() => handleRemoveTech(tech)}
                   >
                     ×
@@ -280,7 +280,7 @@ export default function EditProject() {
           {/* Campo para el Número de Colaboradores */}
           <div>
             <label className="block text-sm font-medium">
-              Número de Colaboradores
+              Número máximo de colaboradores:
             </label>
             <input
               type="number"
