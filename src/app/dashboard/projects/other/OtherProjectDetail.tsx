@@ -108,15 +108,21 @@ export default function OtherProjectDetail({
       .limit(1)
       .single();
 
-    if (lastVote && new Date(lastVote.rated_at) > new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)) {
+    if (
+      lastVote &&
+      new Date(lastVote.rated_at) >
+        new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)
+    ) {
       alert("Debes esperar 2 semanas para volver a votar.");
       return;
     }
 
     // Guardar la valoración en Supabase
-    const { error } = await supabase.from("project_ratings").insert([
-      { project_id: projectId, user_id: user.id, rating: selectedRating },
-    ]);
+    const { error } = await supabase
+      .from("project_ratings")
+      .insert([
+        { project_id: projectId, user_id: user.id, rating: selectedRating },
+      ]);
 
     if (error) {
       console.error("Error al registrar la valoración:", error);
@@ -181,7 +187,11 @@ export default function OtherProjectDetail({
                 // Si el usuario está pasando el cursor, usamos ese valor;
                 // si no, si ya votó usamos ese valor; de lo contrario, la media redondeada
                 const displayRating =
-                  hover !== null ? hover : rating !== null ? rating : Math.round(project.rating_avg || 0);
+                  hover !== null
+                    ? hover
+                    : rating !== null
+                      ? rating
+                      : Math.round(project.rating_avg || 0);
                 return (
                   <FaStar
                     key={star}
@@ -201,10 +211,10 @@ export default function OtherProjectDetail({
           {/* Mostrar el promedio de votos */}
           {project.rating_avg !== null && project.rating_count > 0 && (
             <p className="mt-4">
-              <strong>Puntuación:</strong> {project.rating_avg.toFixed(1)} ★ ({project.rating_count} votos)
+              <strong>Puntuación:</strong> {project.rating_avg.toFixed(1)} ★ (
+              {project.rating_count} votos)
             </p>
           )}
-
 
           {/* Sección de Aplicación */}
           <div className="mt-6">

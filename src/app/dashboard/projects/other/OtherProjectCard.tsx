@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { FaStar } from "react-icons/fa";
 
 const CATEGORY_LABELS: Record<string, string> = {
   "WEB/DESKTOP": "Desarrollo web o escritorio",
@@ -64,6 +65,20 @@ export default function OtherProjectCard({ project }: { project: any }) {
           >
             {project.description}
           </div>
+        </div>
+        {/* Sección de estrellas estáticas para mostrar la puntuación media */}
+        <div className="flex items-center mt-2">
+          {[1, 2, 3, 4, 5].map((star) => (
+            <FaStar
+              key={star}
+              size={20}
+              className={
+                star <= Math.round(project.rating_avg || 0)
+                  ? "text-[#acd916]"
+                  : "text-gray-300"
+              }
+            />
+          ))}
         </div>
       </Link>
     </li>
