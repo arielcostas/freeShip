@@ -27,7 +27,9 @@ export default function OtherProjectsDashboardView({
       const supabase = createClient();
       const { data, error } = await supabase
         .from("projects")
-        .select("id, title, description, type, tech_stack, author_name, rating_avg")
+        .select(
+          "id, title, description, type, tech_stack, author_name, rating_avg, team_members"
+        )
         .neq("author_id", userId)
         .eq("visible", true)
         .order("created_at", { ascending: false });

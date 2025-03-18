@@ -68,6 +68,7 @@ export default function OtherProjectCard({ project }: { project: any }) {
         </div>
 
         {/* Sección de estrellas estáticas para mostrar la puntuación media */}
+        {project.rating_avg > 0 && (
         <div className="flex items-center mt-2">
           {[1, 2, 3, 4, 5].map((star) => (
             <FaStar
@@ -81,6 +82,8 @@ export default function OtherProjectCard({ project }: { project: any }) {
             />
           ))}
         </div>
+        )}
+
       </Link>
     </li>
   );

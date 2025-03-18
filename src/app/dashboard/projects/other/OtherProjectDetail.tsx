@@ -72,6 +72,8 @@ export default function OtherProjectDetail({
     fetchData();
   }, [projectId, supabase]);
 
+  const canVote = !(project?.team_members?.includes(user?.id));
+
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.push("/");
@@ -181,11 +183,9 @@ export default function OtherProjectDetail({
 
           {/* Sección de estrellas para votar */}
           <div className="mt-6">
-            <h3 className="text-lg font-semibold">Valora este proyecto:</h3>
+            {canVote && (<h3 className="text-lg font-semibold">Valora este proyecto:</h3>)}
             <div className="flex mt-2">
               {[1, 2, 3, 4, 5].map((star) => {
-                // Si el usuario está pasando el cursor, usamos ese valor;
-                // si no, si ya votó usamos ese valor; de lo contrario, la media redondeada
                 const displayRating =
                   hover !== null
                     ? hover
@@ -196,12 +196,12 @@ export default function OtherProjectDetail({
                   <FaStar
                     key={star}
                     size={32}
-                    className={`cursor-pointer transition-all ${
+                    className={`${canVote ? "cursor-pointer" : ""} transition-all ${
                       displayRating >= star ? "text-[#acd916]" : "text-gray-300"
                     }`}
-                    onMouseEnter={() => setHover(star)}
-                    onMouseLeave={() => setHover(null)}
-                    onClick={() => handleRating(star)}
+                    onMouseEnter={canVote ? () => setHover(star) : undefined}
+                    onMouseLeave={canVote ? () => setHover(null) : undefined}
+                    onClick={canVote ? () => handleRating(star) : undefined}
                   />
                 );
               })}
