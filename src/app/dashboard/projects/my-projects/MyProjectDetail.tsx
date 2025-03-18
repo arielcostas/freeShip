@@ -124,7 +124,11 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
                 <FaStar
                   key={star}
                   size={32}
-                  className={Math.round(project.rating_avg || 0) >= star ? "text-[#acd916]" : "text-gray-300"}
+                  className={
+                    Math.round(project.rating_avg || 0) >= star
+                      ? "text-[#acd916]"
+                      : "text-gray-300"
+                  }
                 />
               ))}
             </div>

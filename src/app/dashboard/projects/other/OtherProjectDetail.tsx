@@ -100,22 +100,17 @@ export default function OtherProjectDetail({
       return;
     }
 
-    // Verificar si el usuario ha votado en las últimas 2 semanas
-    const { data: lastVote } = await supabase
+    // Verificar si el usuario ya ha votado antes
+    const { data: existingVote } = await supabase
       .from("project_ratings")
-      .select("rated_at")
+      .select("id") // Solo necesitamos saber si existe un voto
       .eq("project_id", projectId)
       .eq("user_id", user.id)
-      .order("rated_at", { ascending: false })
       .limit(1)
       .single();
 
-    if (
-      lastVote &&
-      new Date(lastVote.rated_at) >
-        new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)
-    ) {
-      alert("Debes esperar 2 semanas para volver a votar.");
+    if (existingVote) {
+      alert("Ya has votado este proyecto.");
       return;
     }
 
