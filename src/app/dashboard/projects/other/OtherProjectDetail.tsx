@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import Navbar from "@/app/(site)/Navbar";
 import Link from "next/link";
 import Spinner from "@/components/ui/spinner";
+import { FaStar } from "react-icons/fa";
 
 export default function OtherProjectDetail({
   projectId,
@@ -23,6 +24,8 @@ export default function OtherProjectDetail({
   );
   const [isMember, setIsMember] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [rating, setRating] = useState<number | null>(null);
+  const [hover, setHover] = useState<number | null>(null);
 
   useEffect(() => {
     async function fetchData() {
@@ -88,6 +91,46 @@ export default function OtherProjectDetail({
 
   const authorName = project.author_name || "Desconocido";
 
+  // Función para manejar la puntuación del usuario
+  const handleRating = async (selectedRating: number) => {
+    if (!user) {
+      alert("Debes iniciar sesión para puntuar el proyecto.");
+      return;
+    }
+
+    // Verificar si el usuario ha votado en las últimas 2 semanas
+    const { data: lastVote } = await supabase
+      .from("project_ratings")
+      .select("rated_at")
+      .eq("project_id", projectId)
+      .eq("user_id", user.id)
+      .order("rated_at", { ascending: false })
+      .limit(1)
+      .single();
+
+    if (lastVote && new Date(lastVote.rated_at) > new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)) {
+      alert("Debes esperar 2 semanas para volver a votar.");
+      return;
+    }
+
+    // Guardar la valoración en Supabase
+    const { error } = await supabase.from("project_ratings").insert([
+      { project_id: projectId, user_id: user.id, rating: selectedRating },
+    ]);
+
+    if (error) {
+      console.error("Error al registrar la valoración:", error);
+      alert("No se pudo registrar tu voto.");
+      return;
+    }
+
+    // Recalcular la media en Supabase
+    await supabase.rpc("update_project_rating", { project_id: projectId });
+
+    alert("¡Gracias por tu valoración!");
+    setRating(selectedRating); // Refrescar la UI
+  };
+
   return (
     <div className="flex flex-col h-screen w-full bg-gray-100">
       {/* Navbar ocupa todo el ancho */}
@@ -129,6 +172,39 @@ export default function OtherProjectDetail({
               </a>
             </p>
           )}
+
+          {/* Sección de estrellas para votar */}
+          <div className="mt-6">
+            <h3 className="text-lg font-semibold">Valora este proyecto:</h3>
+            <div className="flex mt-2">
+              {[1, 2, 3, 4, 5].map((star) => {
+                // Si el usuario está pasando el cursor, usamos ese valor;
+                // si no, si ya votó usamos ese valor; de lo contrario, la media redondeada
+                const displayRating =
+                  hover !== null ? hover : rating !== null ? rating : Math.round(project.rating_avg || 0);
+                return (
+                  <FaStar
+                    key={star}
+                    size={32}
+                    className={`cursor-pointer transition-all ${
+                      displayRating >= star ? "text-[#acd916]" : "text-gray-300"
+                    }`}
+                    onMouseEnter={() => setHover(star)}
+                    onMouseLeave={() => setHover(null)}
+                    onClick={() => handleRating(star)}
+                  />
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Mostrar el promedio de votos */}
+          {project.rating_avg !== null && project.rating_count > 0 && (
+            <p className="mt-4">
+              <strong>Puntuación:</strong> {project.rating_avg.toFixed(1)} ★ ({project.rating_count} votos)
+            </p>
+          )}
+
 
           {/* Sección de Aplicación */}
           <div className="mt-6">
