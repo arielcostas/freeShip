@@ -66,6 +66,7 @@ export default function OtherProjectCard({ project }: { project: any }) {
             {project.description}
           </div>
         </div>
+
         {/* Sección de estrellas estáticas para mostrar la puntuación media */}
         <div className="flex items-center mt-2">
           {[1, 2, 3, 4, 5].map((star) => (

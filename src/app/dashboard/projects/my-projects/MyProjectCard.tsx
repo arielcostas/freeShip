@@ -12,9 +12,9 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 export default function MyProjectCard({
-                                        project,
-                                        pendingApplications,
-                                      }: {
+  project,
+  pendingApplications,
+}: {
   project: any;
   pendingApplications: number;
 }) {
