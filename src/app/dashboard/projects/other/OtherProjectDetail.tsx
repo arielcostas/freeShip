@@ -9,8 +9,8 @@ import Spinner from "@/components/ui/spinner";
 import { FaStar } from "react-icons/fa";
 
 export default function OtherProjectDetail({
-                                             projectId,
-                                           }: {
+  projectId,
+}: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -19,7 +19,9 @@ export default function OtherProjectDetail({
   const [project, setProject] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [user, setUser] = useState<any>(null);
-  const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
+  const [applicationStatus, setApplicationStatus] = useState<string | null>(
+    null
+  );
   const [isMember, setIsMember] = useState(false);
   const [loading, setLoading] = useState(true);
   const [hasStarred, setHasStarred] = useState<boolean>(false);
@@ -42,7 +44,8 @@ export default function OtherProjectDetail({
       setProject(proj);
 
       // Obtener el usuario autenticado
-      const { data: userData, error: userError } = await supabase.auth.getUser();
+      const { data: userData, error: userError } =
+        await supabase.auth.getUser();
       if (!userError && userData?.user) {
         setUser(userData.user);
 
@@ -198,7 +201,8 @@ export default function OtherProjectDetail({
               />
             </div>
             <p className="mt-4">
-              <strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""} han marcado este proyecto.
+              <strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""}{" "}
+              han marcado este proyecto.
             </p>
           </div>
 

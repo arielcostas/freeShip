@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { createClient } from "@/lib/supabase/client"; // Asegúrate de usar el cliente para el lado del cliente
+import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
 import ProjectActions from "@/app/dashboard/projects/other/ProjectActions";
 import Navbar from "@/app/(site)/Navbar";
@@ -16,6 +16,7 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
   const [project, setProject] = useState<any>(null);
   const [authorName, setAuthorName] = useState("Desconocido");
   const [hasApplications, setHasApplications] = useState(false);
+  const [starCount, setStarCount] = useState(0);
   const [loading, setLoading] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
 
@@ -53,6 +54,14 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
         .eq("project_id", projectId);
 
       setHasApplications(applications && applications.length > 0);
+
+      // Obtener el número total de estrellas
+      const { data: stars } = await supabase
+        .from("project_ratings")
+        .select("id")
+        .eq("project_id", projectId);
+      setStarCount(stars ? stars.length : 0);
+
       setLoading(false);
     }
     fetchData();
@@ -117,30 +126,11 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
             </p>
           )}
 
-          {/* Sección de estrellas estáticas para mostrar la puntuación */}
-          <div className="mt-6">
-            <div className="flex mt-2">
-              {[1, 2, 3, 4, 5].map((star) => (
-                <FaStar
-                  key={star}
-                  size={32}
-                  className={
-                    Math.round(project.rating_avg || 0) >= star
-                      ? "text-[#acd916]"
-                      : "text-gray-300"
-                  }
-                />
-              ))}
-            </div>
+          {/* Mostrar el número total de estrellas */}
+          <div className="mt-6 flex items-center">
+            <FaStar size={32} className="text-[#acd916]" />
+            <p className="ml-2 text-lg font-bold">{starCount} usuarios han dado estrella</p>
           </div>
-
-          {/* Mostrar el promedio de votos */}
-          {project.rating_avg !== null && project.rating_count > 0 && (
-            <p className="mt-4">
-              <strong>Puntuación:</strong> {project.rating_avg.toFixed(1)} ★ (
-              {project.rating_count} votos)
-            </p>
-          )}
 
           {/* Botones de Editar y Eliminar */}
           <ProjectActions projectId={projectId} />
