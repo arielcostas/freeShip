@@ -188,23 +188,24 @@ export default function OtherProjectDetail({
             </p>
           )}
 
-          {/* Sección de like */}
-          <div className="mt-6">
-            <h3 className="text-lg font-semibold">Valora este proyecto:</h3>
-            <div className="flex mt-2">
-              <FaStar
-                size={32}
-                className={`cursor-pointer transition-all ${
-                  hasStarred ? "text-[#acd916]" : "text-gray-300"
-                }`}
-                onClick={toggleStar}
-              />
+          {isMember ? (
+            <div className="mt-6 flex items-center">
+              <FaStar size={32} className="text-[#acd916]" />
+              <p className="ml-2 text-lg font-bold">{starCount} usuarios han dado estrella</p>
             </div>
-            <p className="mt-4">
-              <strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""}{" "}
-              han marcado este proyecto.
-            </p>
-          </div>
+          ) : (
+            <div className="mt-6">
+              <h3 className="text-lg font-semibold">Valora este proyecto:</h3>
+              <div className="flex mt-2">
+                <FaStar
+                  size={32}
+                  className={`cursor-pointer transition-all ${hasStarred ? "text-[#acd916]" : "text-gray-300"}`}
+                  onClick={toggleStar}
+                />
+              </div>
+              <p className="mt-4"><strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""} han marcado este proyecto.</p>
+            </div>
+          )}
 
           {/* Sección de Aplicación */}
           <div className="mt-6">
