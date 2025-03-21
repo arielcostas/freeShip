@@ -7,6 +7,8 @@ import Navbar from "@/app/(site)/Navbar";
 import Link from "next/link";
 import Spinner from "@/components/ui/spinner";
 import { FaStar } from "react-icons/fa";
+import { motion } from "framer-motion";
+import Confetti from "react-confetti";
 
 export default function OtherProjectDetail({
   projectId,
@@ -26,6 +28,7 @@ export default function OtherProjectDetail({
   const [loading, setLoading] = useState(true);
   const [hasStarred, setHasStarred] = useState<boolean>(false);
   const [starCount, setStarCount] = useState<number>(0);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   useEffect(() => {
     async function fetchData() {
@@ -129,6 +132,8 @@ export default function OtherProjectDetail({
       }
       setHasStarred(true);
       setStarCount((prev) => prev + 1);
+      setShowConfetti(true);
+      setTimeout(() => setShowConfetti(false), 2000);
     }
   }
 
@@ -191,19 +196,31 @@ export default function OtherProjectDetail({
           {isMember ? (
             <div className="mt-6 flex items-center">
               <FaStar size={32} className="text-[#acd916]" />
-              <p className="ml-2 text-lg font-bold">{starCount} usuarios han dado estrella</p>
+              <p className="ml-2 text-lg font-bold">
+                {starCount} usuarios han dado estrella
+              </p>
             </div>
           ) : (
             <div className="mt-6">
               <h3 className="text-lg font-semibold">Valora este proyecto:</h3>
               <div className="flex mt-2">
-                <FaStar
-                  size={32}
-                  className={`cursor-pointer transition-all ${hasStarred ? "text-[#acd916]" : "text-gray-300"}`}
-                  onClick={toggleStar}
-                />
+                <motion.div
+                  animate={{ scale: hasStarred ? [1, 1.3, 1] : 1 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <FaStar
+                    size={32}
+                    className={`cursor-pointer transition-all ${
+                      hasStarred ? "text-[#acd916]" : "text-gray-300"
+                    }`}
+                    onClick={toggleStar}
+                  />
+                </motion.div>
               </div>
-              <p className="mt-4"><strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""} han marcado este proyecto.</p>
+              <p className="mt-4">
+                <strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""} han marcado este proyecto.
+              </p>
+              {showConfetti && <Confetti numberOfPieces={100} gravity={0.8} initialVelocityY={10} tweenDuration={1000} recycle={false} />}
             </div>
           )}
 
