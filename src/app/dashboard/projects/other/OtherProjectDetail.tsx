@@ -9,8 +9,8 @@ import Spinner from "@/components/ui/spinner";
 import { FaStar } from "react-icons/fa";
 
 export default function OtherProjectDetail({
-  projectId,
-}: {
+                                             projectId,
+                                           }: {
   projectId: string;
 }) {
   const supabase = createClient();
@@ -19,13 +19,11 @@ export default function OtherProjectDetail({
   const [project, setProject] = useState<any>(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [user, setUser] = useState<any>(null);
-  const [applicationStatus, setApplicationStatus] = useState<string | null>(
-    null
-  );
+  const [applicationStatus, setApplicationStatus] = useState<string | null>(null);
   const [isMember, setIsMember] = useState(false);
   const [loading, setLoading] = useState(true);
-  const [rating, setRating] = useState<number | null>(null);
-  const [hover, setHover] = useState<number | null>(null);
+  const [hasStarred, setHasStarred] = useState<boolean>(false);
+  const [starCount, setStarCount] = useState<number>(0);
 
   useEffect(() => {
     async function fetchData() {
@@ -44,8 +42,7 @@ export default function OtherProjectDetail({
       setProject(proj);
 
       // Obtener el usuario autenticado
-      const { data: userData, error: userError } =
-        await supabase.auth.getUser();
+      const { data: userData, error: userError } = await supabase.auth.getUser();
       if (!userError && userData?.user) {
         setUser(userData.user);
 
@@ -65,6 +62,22 @@ export default function OtherProjectDetail({
         if (proj.team_members && Array.isArray(proj.team_members)) {
           setIsMember(proj.team_members.includes(userData.user.id));
         }
+
+        // Comprobar si el usuario ya ha dado like (estrella)
+        const { data: userStar } = await supabase
+          .from("project_ratings")
+          .select("starred")
+          .eq("project_id", projectId)
+          .eq("user_id", userData.user.id)
+          .single();
+        setHasStarred(!!userStar);
+
+        // Contar el total de likes del proyecto
+        const { count } = await supabase
+          .from("project_ratings")
+          .select("*", { count: "exact" })
+          .eq("project_id", projectId);
+        setStarCount(count || 0);
       }
 
       setLoading(false);
@@ -72,12 +85,49 @@ export default function OtherProjectDetail({
     fetchData();
   }, [projectId, supabase]);
 
+  // Determina si el usuario puede votar (por ejemplo, no es miembro del equipo)
   const canVote = !project?.team_members?.includes(user?.id);
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     router.push("/");
   };
+
+  // Función para alternar el like (dar o quitar la estrella)
+  async function toggleStar() {
+    if (!user) {
+      alert("Debes iniciar sesión para dar like.");
+      return;
+    }
+
+    if (hasStarred) {
+      // Quitar like
+      const { error } = await supabase
+        .from("project_ratings")
+        .delete()
+        .eq("project_id", projectId)
+        .eq("user_id", user.id);
+      if (error) {
+        console.error("Error al quitar like:", error);
+        alert("No se pudo quitar el like.");
+        return;
+      }
+      setHasStarred(false);
+      setStarCount((prev) => Math.max(prev - 1, 0));
+    } else {
+      // Dar like
+      const { error } = await supabase
+        .from("project_ratings")
+        .insert([{ project_id: projectId, user_id: user.id, starred: true }]);
+      if (error) {
+        console.error("Error al dar like:", error);
+        alert("No se pudo dar like.");
+        return;
+      }
+      setHasStarred(true);
+      setStarCount((prev) => prev + 1);
+    }
+  }
 
   if (loading) {
     return (
@@ -92,47 +142,6 @@ export default function OtherProjectDetail({
   }
 
   const authorName = project.author_name || "Desconocido";
-
-  // Función para manejar la puntuación del usuario
-  const handleRating = async (selectedRating: number) => {
-    if (!user) {
-      alert("Debes iniciar sesión para puntuar el proyecto.");
-      return;
-    }
-
-    // Verificar si el usuario ya ha votado antes
-    const { data: existingVote } = await supabase
-      .from("project_ratings")
-      .select("id") // Solo necesitamos saber si existe un voto
-      .eq("project_id", projectId)
-      .eq("user_id", user.id)
-      .limit(1)
-      .single();
-
-    if (existingVote) {
-      alert("Ya has votado este proyecto.");
-      return;
-    }
-
-    // Guardar la valoración en Supabase
-    const { error } = await supabase
-      .from("project_ratings")
-      .insert([
-        { project_id: projectId, user_id: user.id, rating: selectedRating },
-      ]);
-
-    if (error) {
-      console.error("Error al registrar la valoración:", error);
-      alert("No se pudo registrar tu voto.");
-      return;
-    }
-
-    // Recalcular la media en Supabase
-    await supabase.rpc("update_project_rating", { project_id: projectId });
-
-    alert("¡Gracias por tu valoración!");
-    setRating(selectedRating); // Refrescar la UI
-  };
 
   return (
     <div className="flex flex-col h-screen w-full bg-gray-100">
@@ -176,42 +185,22 @@ export default function OtherProjectDetail({
             </p>
           )}
 
-          {/* Sección de estrellas para votar */}
+          {/* Sección de like */}
           <div className="mt-6">
-            {canVote && (
-              <h3 className="text-lg font-semibold">Valora este proyecto:</h3>
-            )}
+            <h3 className="text-lg font-semibold">Valora este proyecto:</h3>
             <div className="flex mt-2">
-              {[1, 2, 3, 4, 5].map((star) => {
-                const displayRating =
-                  hover !== null
-                    ? hover
-                    : rating !== null
-                      ? rating
-                      : Math.round(project.rating_avg || 0);
-                return (
-                  <FaStar
-                    key={star}
-                    size={32}
-                    className={`${canVote ? "cursor-pointer" : ""} transition-all ${
-                      displayRating >= star ? "text-[#acd916]" : "text-gray-300"
-                    }`}
-                    onMouseEnter={canVote ? () => setHover(star) : undefined}
-                    onMouseLeave={canVote ? () => setHover(null) : undefined}
-                    onClick={canVote ? () => handleRating(star) : undefined}
-                  />
-                );
-              })}
+              <FaStar
+                size={32}
+                className={`cursor-pointer transition-all ${
+                  hasStarred ? "text-[#acd916]" : "text-gray-300"
+                }`}
+                onClick={toggleStar}
+              />
             </div>
-          </div>
-
-          {/* Mostrar el promedio de votos */}
-          {project.rating_avg !== null && project.rating_count > 0 && (
             <p className="mt-4">
-              <strong>Puntuación:</strong> {project.rating_avg.toFixed(1)} ★ (
-              {project.rating_count} votos)
+              <strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""} han marcado este proyecto.
             </p>
-          )}
+          </div>
 
           {/* Sección de Aplicación */}
           <div className="mt-6">
