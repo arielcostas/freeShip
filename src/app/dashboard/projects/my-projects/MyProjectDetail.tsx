@@ -130,7 +130,7 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
           <div className="mt-6 flex items-center">
             <FaStar size={32} className="text-[#acd916]" />
             <p className="ml-2 text-lg font-bold">
-              {starCount} usuarios han dado estrella
+              <strong>{starCount}</strong>
             </p>
           </div>
 

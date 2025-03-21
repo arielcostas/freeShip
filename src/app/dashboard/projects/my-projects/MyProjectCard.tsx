@@ -64,20 +64,11 @@ export default function MyProjectCard({
           </div>
         </div>
 
-        {/* Sección de estrellas estáticas para mostrar la puntuación media */}
-        {project.rating_avg > 0 && (
+        {/* Sección de estrellas estáticas para mostrar el número de estrellas recibidas por la comunidad */}
+        {project.rating_count > 0 && (
           <div className="flex items-center mt-2">
-            {[1, 2, 3, 4, 5].map((star) => (
-              <FaStar
-                key={star}
-                size={20}
-                className={
-                  star <= Math.round(project.rating_avg || 0)
-                    ? "text-[#acd916]"
-                    : "text-gray-300"
-                }
-              />
-            ))}
+            <FaStar size={20} className="text-[#acd916]" />
+            <span className="ml-2 text-lg font-bold"> {project.rating_count}</span>
           </div>
         )}
       </Link>

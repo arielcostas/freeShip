@@ -197,13 +197,13 @@ export default function OtherProjectDetail({
             <div className="mt-6 flex items-center">
               <FaStar size={32} className="text-[#acd916]" />
               <p className="ml-2 text-lg font-bold">
-                {starCount} usuarios han dado estrella
+                <strong>{starCount}</strong>
               </p>
             </div>
           ) : (
             <div className="mt-6">
               <h3 className="text-lg font-semibold">Valora este proyecto:</h3>
-              <div className="flex mt-2">
+              <div className="mt-6 flex items-center">
                 <motion.div
                   animate={{ scale: hasStarred ? [1, 1.3, 1] : 1 }}
                   transition={{ duration: 0.3 }}
@@ -216,11 +216,11 @@ export default function OtherProjectDetail({
                     onClick={toggleStar}
                   />
                 </motion.div>
+                <p className="ml-2 text-lg font-bold">
+                  <strong>{starCount}</strong>
+                </p>
               </div>
-              <p className="mt-4">
-                <strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""}{" "}
-                han marcado este proyecto.
-              </p>
+
               {showConfetti && (
                 <Confetti
                   numberOfPieces={100}

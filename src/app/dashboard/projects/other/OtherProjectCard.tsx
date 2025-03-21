@@ -12,6 +12,7 @@ const CATEGORY_LABELS: Record<string, string> = {
 };
 
 export default function OtherProjectCard({ project }: { project: any }) {
+  console.log("Proyecto recibido:", project);
   return (
     <li
       className="relative w-full sm:w-4/5 mx-auto border p-6 rounded-2xl shadow-lg transition-transform transform hover:scale-[1.01]"
@@ -71,7 +72,10 @@ export default function OtherProjectCard({ project }: { project: any }) {
         {project.rating_count > 0 && (
           <div className="flex items-center mt-2">
             <FaStar size={20} className="text-[#acd916]" />
-            <span className="ml-2 text-lg font-bold"> {project.rating_count}</span>
+            <span className="ml-2 text-lg font-bold">
+              {" "}
+              {project.rating_count}
+            </span>
           </div>
         )}
       </Link>

@@ -28,7 +28,7 @@ export default function OtherProjectsDashboardView({
       const { data, error } = await supabase
         .from("projects")
         .select(
-          "id, title, description, type, tech_stack, author_name, rating_avg, team_members"
+          "id, title, description, type, tech_stack, author_name, rating_avg, team_members, rating_count"
         )
         .neq("author_id", userId)
         .eq("visible", true)
