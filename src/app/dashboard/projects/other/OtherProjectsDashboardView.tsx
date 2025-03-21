@@ -9,8 +9,8 @@ import OtherProjectFilter from "@/components/OtherProjectFilter";
 import Spinner from "@/components/ui/spinner";
 
 export default function OtherProjectsDashboardView({
-                                                     userId,
-                                                   }: {
+  userId,
+}: {
   userId: string;
 }) {
   const [projects, setProjects] = useState<any[]>([]);
