@@ -99,7 +99,9 @@ export default function Navbar({ handleSignOut }: NavbarProps) {
                 <path fill="#acd916" d="M3.7 37.28h13.4v26.8H3.7z"></path>
               </g>
             </svg>
-            <span className="hidden md:block text-lg font-semibold">bugoverflow</span>
+            <span className="hidden md:block text-lg font-semibold">
+              bugoverflow
+            </span>
           </Link>
         </div>
 
