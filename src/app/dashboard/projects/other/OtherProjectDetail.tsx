@@ -218,9 +218,18 @@ export default function OtherProjectDetail({
                 </motion.div>
               </div>
               <p className="mt-4">
-                <strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""} han marcado este proyecto.
+                <strong>{starCount}</strong> usuario{starCount !== 1 ? "s" : ""}{" "}
+                han marcado este proyecto.
               </p>
-              {showConfetti && <Confetti numberOfPieces={100} gravity={0.8} initialVelocityY={10} tweenDuration={1000} recycle={false} />}
+              {showConfetti && (
+                <Confetti
+                  numberOfPieces={100}
+                  gravity={0.6}
+                  initialVelocityY={10}
+                  tweenDuration={1000}
+                  recycle={false}
+                />
+              )}
             </div>
           )}
 
