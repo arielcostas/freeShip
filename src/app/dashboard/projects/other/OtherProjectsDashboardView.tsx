@@ -6,11 +6,11 @@ import OtherProjectsList from "@/app/dashboard/projects/other/OtherProjectsList"
 import { Button } from "@/components/ui/button";
 import { ChevronDown, ChevronUp } from "lucide-react";
 import OtherProjectFilter from "@/components/OtherProjectFilter";
-import Spinner from "../../../../components/ui/spinner";
+import Spinner from "@/components/ui/spinner";
 
 export default function OtherProjectsDashboardView({
-  userId,
-}: {
+                                                     userId,
+                                                   }: {
   userId: string;
 }) {
   const [projects, setProjects] = useState<any[]>([]);
@@ -37,8 +37,12 @@ export default function OtherProjectsDashboardView({
       if (error) {
         console.error("Error loading projects:", error);
       } else {
-        setProjects(data);
-        setFilteredProjects(data);
+        // Filtrar proyectos para que no se muestren aquellos donde el usuario es miembro
+        const filteredData = data.filter(
+          (project) => !project.team_members?.includes(userId)
+        );
+        setProjects(filteredData);
+        setFilteredProjects(filteredData);
       }
       setLoading(false);
     };

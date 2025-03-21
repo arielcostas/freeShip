@@ -68,7 +68,10 @@ export default function MyProjectCard({
         {project.rating_count > 0 && (
           <div className="flex items-center mt-2">
             <FaStar size={20} className="text-[#acd916]" />
-            <span className="ml-2 text-lg font-bold"> {project.rating_count}</span>
+            <span className="ml-2 text-lg font-bold">
+              {" "}
+              {project.rating_count}
+            </span>
           </div>
         )}
       </Link>
