@@ -40,7 +40,7 @@ export default function HallDashboardView() {
 
   return (
     <div className="p-20 overflow-y-auto max-h-[calc(100vh-250px)]">
-      <h2 className="text-2xl font-bold mb-6 text-center">
+      <h2 className="text-3xl font-bold mb-6 text-center">
         🏆 Hall de la Fama 🏆
       </h2>
       <ul className="space-y-6 relative">
