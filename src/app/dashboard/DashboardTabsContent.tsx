@@ -5,9 +5,9 @@ import HallDashboardView from "@/app/dashboard/projects/hall/HallDashboardView";
 import Spinner from "../../components/ui/spinner";
 
 export function DashboardTabsContent({
-                                       activeTab,
-                                       userId,
-                                     }: {
+  activeTab,
+  userId,
+}: {
   activeTab: string;
   userId: string;
 }) {

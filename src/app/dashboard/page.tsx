@@ -18,8 +18,8 @@ export const metadata: Metadata = {
 };
 
 export default async function Dashboard({
-                                          searchParams,
-                                        }: {
+  searchParams,
+}: {
   searchParams?: { tab?: string };
 }) {
   const params = await searchParams;
@@ -68,7 +68,10 @@ export default async function Dashboard({
             href="?tab=hall"
             className="w-1/4 flex justify-center items-center"
           >
-            <Star className={`${activeTab === "hall" ? `text-[${randomColor}]` : "text-gray-400"}`} size={36} />
+            <Star
+              className={`${activeTab === "hall" ? `text-[${randomColor}]` : "text-gray-400"}`}
+              size={36}
+            />
           </Link>
 
           <Link
