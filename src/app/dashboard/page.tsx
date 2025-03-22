@@ -47,7 +47,7 @@ export default async function Dashboard({
       <Navbar handleSignOut={handleSignOut} className="bg-white shadow-md" />
 
       {/* Contenedor principal */}
-      <div className="h-0 flex-grow flex flex-col w-full mt-20 bg-white shadow-md rounded-lg">
+      <div className="h-0 flex-grow flex flex-col overflow-hidden w-full mt-20 bg-white shadow-md rounded-lg">
         {/* Tabs */}
         <div className="flex border-b items-center">
           <Link
@@ -64,7 +64,10 @@ export default async function Dashboard({
           </Link>
 
           {/* Tab central con estrella */}
-          <Link href="?tab=hall" className="w-1/4 flex justify-center items-center">
+          <Link
+            href="?tab=hall"
+            className="w-1/4 flex justify-center items-center"
+          >
             <Star
               style={{ color: activeTab === "hall" ? randomColor : "#9CA3AF" }}
               size={36}

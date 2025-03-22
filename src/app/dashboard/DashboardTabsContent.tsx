@@ -38,9 +38,7 @@ export function DashboardTabsContent({
               <OtherProjectsDashboardView userId={userId} />
             </div>
           ) : (
-            <div className="flex-grow h-full w-full theme-card p-4 rounded-lg shadow-md flex flex-col overflow-hidden">
-              <HallDashboardView userId={userId} />
-            </div>
+            <HallDashboardView userId={userId} />
           )}
         </Suspense>
       </div>

@@ -39,7 +39,7 @@ export default function HallDashboardView() {
   if (loading) return <Spinner />;
 
   return (
-    <div className="p-4">
+    <div className="p-4 overflow-y-auto max-h-[calc(100vh-250px)]">
       <h2 className="text-2xl font-bold mb-6 text-center">
         🏆 Hall de la Fama 🏆
       </h2>
