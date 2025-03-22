@@ -27,7 +27,9 @@ export default function HallDashboardView() {
         const supabase = createClient();
         const { data, error } = await supabase
           .from("projects")
-          .select("id, title, rating_count, description, author_name, author_id")
+          .select(
+            "id, title, rating_count, description, author_name, author_id"
+          )
           .order("rating_count", { ascending: false })
           .limit(10);
 
