@@ -6,6 +6,7 @@ import { Suspense } from "react";
 import { DashboardTabsContent } from "./DashboardTabsContent";
 import Link from "next/link";
 import Spinner from "../../components/ui/spinner";
+import { Star } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -17,12 +18,13 @@ export const metadata: Metadata = {
 };
 
 export default async function Dashboard({
-  searchParams,
-}: {
+                                          searchParams,
+                                        }: {
   searchParams?: { tab?: string };
 }) {
   const params = await searchParams;
-  const activeTab = params?.tab === "comunidad" ? "comunidad" : "misProyectos";
+  const activeTab = params?.tab || "misProyectos";
+  const randomColor = Math.random() < 0.5 ? "#5865F2" : "#acd916";
 
   const supabase = createClient();
   const {
@@ -47,24 +49,40 @@ export default async function Dashboard({
       {/* Contenedor principal */}
       <div className="flex flex-col flex-grow w-full mt-20 bg-white shadow-md rounded-lg">
         {/* Tabs */}
-        <div className="flex border-b">
-          {["misProyectos", "comunidad"].map((tab) => (
-            <Link
-              key={tab}
-              href={`?tab=${tab}`}
-              className={`flex-1 py-2 text-center font-bold transition-colors ${
-                activeTab === tab
-                  ? tab === "misProyectos"
-                    ? "border-b-2 border-[#acd916] text-gray-600"
-                    : "border-b-2 border-[#5865F2] text-gray-600"
+        <div className="flex border-b items-center">
+          <Link
+            href="?tab=misProyectos"
+            className={`flex-1 py-2 text-center font-bold transition-colors ${
+              activeTab === "misProyectos"
+                ? "border-b-2 border-[#acd916] text-gray-600"
+                : activeTab === "hall"
+                  ? "text-gray-600"
                   : "text-gray-600"
-              }`}
-            >
-              {tab === "misProyectos"
-                ? "Mis proyectos"
-                : "Proyectos de la comunidad"}
-            </Link>
-          ))}
+            }`}
+          >
+            Mis proyectos
+          </Link>
+
+          {/* Tab central con estrella */}
+          <Link
+            href="?tab=hall"
+            className="w-1/4 flex justify-center items-center"
+          >
+            <Star className={`${activeTab === "hall" ? `text-[${randomColor}]` : "text-gray-400"}`} size={36} />
+          </Link>
+
+          <Link
+            href="?tab=comunidad"
+            className={`flex-1 py-2 text-center font-bold transition-colors ${
+              activeTab === "comunidad"
+                ? "border-b-2 border-[#5865F2] text-gray-600"
+                : activeTab === "hall"
+                  ? "text-gray-600"
+                  : "text-gray-600"
+            }`}
+          >
+            Proyectos de la comunidad
+          </Link>
         </div>
 
         {/* Contenido con Suspense, usando Spinner como fallback */}
