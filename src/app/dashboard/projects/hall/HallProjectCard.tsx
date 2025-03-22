@@ -33,7 +33,7 @@ export default function HallProjectCard({ project }: { project: any }) {
   if (isLoading) {
     return (
       <li className="w-full sm:w-4/5 mx-auto flex justify-center py-6">
-        <Spinner/>
+        <Spinner />
       </li>
     );
   }

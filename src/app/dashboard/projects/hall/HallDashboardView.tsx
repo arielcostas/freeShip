@@ -33,12 +33,12 @@ export default function HallDashboardView() {
           .order("rating_count", { ascending: false })
           .limit(10);
 
-        console.log("Supabase response:", data, error);
-
         if (error) {
           console.error("Error fetching projects:", error.message || error);
         } else {
-          setProjects(data);
+          // Filtrar proyectos sin votos
+          const filteredProjects = data.filter((project) => project.rating_count > 0);
+          setProjects(filteredProjects);
         }
       } catch (err) {
         console.error("Unexpected error:", err);
