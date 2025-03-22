@@ -40,10 +40,18 @@ export default function HallDashboardView() {
 
   return (
     <div className="p-4">
-      <h2 className="text-xl font-bold mb-4">Top 10 Proyectos Más Votados</h2>
-      <ul className="space-y-4">
-        {projects.map((project) => (
-          <OtherProjectCard key={project.id} project={project} />
+      <h2 className="text-2xl font-bold mb-6 text-center">🏆 Hall de la Fama 🏆</h2>
+      <ul className="space-y-6 relative">
+        {projects.map((project, index) => (
+          <div key={project.id} className="relative flex items-center">
+            {/* Medalla más grande y centrada verticalmente */}
+            {index < 3 && (
+              <span className="absolute -left-12 top-1/2 transform -translate-y-1/2 text-5xl">
+              {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
+            </span>
+            )}
+            <OtherProjectCard project={project} />
+          </div>
         ))}
       </ul>
     </div>
