@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import Spinner from "@/components/ui/spinner";
-import OtherProjectCard from "../other/OtherProjectCard";
+import HallProjectCard from "@/app/dashboard/projects/hall/HallProjectCard";
 
 export default function HallDashboardView() {
   const [projects, setProjects] = useState([]);
@@ -27,7 +27,7 @@ export default function HallDashboardView() {
         const supabase = createClient();
         const { data, error } = await supabase
           .from("projects")
-          .select("id, title, rating_count, description, author_name")
+          .select("id, title, rating_count, description, author_name, author_id")
           .order("rating_count", { ascending: false })
           .limit(10);
 
@@ -66,7 +66,7 @@ export default function HallDashboardView() {
                     {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
                   </span>
                 )}
-                <OtherProjectCard project={project} />
+                <HallProjectCard project={project} />
               </div>
             ))}
           </ul>
@@ -81,13 +81,16 @@ export default function HallDashboardView() {
           </h2>
           <ul className="space-y-4 relative">
             {projects.map((project, index) => (
-              <div key={project.id} className="relative flex items-center pl-10">
+              <div
+                key={project.id}
+                className="relative flex items-center pl-10"
+              >
                 {index < 3 && (
                   <span className="absolute left-2 top-1/2 transform -translate-y-1/2 text-3xl">
                     {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
                   </span>
                 )}
-                <OtherProjectCard project={project} />
+                <HallProjectCard project={project} />
               </div>
             ))}
           </ul>
