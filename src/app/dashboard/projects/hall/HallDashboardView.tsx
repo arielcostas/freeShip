@@ -77,10 +77,8 @@ export default function HallDashboardView() {
 
       {/* Versión para móvil */}
       {isMobile && (
-        <div className="p-4 overflow-y-auto max-h-[calc(100vh-250px)]">
-          <h2 className="text-xl font-bold mb-4 text-center">
-            ⇀ 1% ↼
-          </h2>
+        <div className="overflow-y-auto max-h-[calc(100vh-250px)]">
+          <h2 className="text-3xl font-bold mb-4 text-center">⇀ 1% ↼</h2>
           <ul className="space-y-4 relative">
             {projects.map((project, index) => (
               <div
