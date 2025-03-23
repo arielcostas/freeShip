@@ -19,8 +19,8 @@ export default function MyProjectCard({
   pendingApplications: number;
 }) {
   return (
-    <li
-      className="relative w-full sm:w-4/5 mx-auto border p-6 rounded-2xl shadow-lg transition-transform transform hover:scale-[1.01]"
+    <article
+      className="w-full sm:w-4/5 mx-auto border p-6 rounded-2xl shadow-lg"
       style={{
         backgroundColor: "var(--card-bg)",
         borderColor: "var(--border-color)",
@@ -77,10 +77,10 @@ export default function MyProjectCard({
       </Link>
       {/* Indicador de solicitudes pendientes */}
       {pendingApplications > 0 && (
-        <span className="absolute top-3 right-3 bg-red-600 text-white font-semibold text-xs px-3 py-1.5 rounded-full shadow-lg ring-2 ring-white">
+        <span className="bg-red-600 text-white font-semibold text-xs px-3 py-1.5 rounded-full shadow-lg ring-2 ring-white">
           {pendingApplications}
         </span>
       )}
-    </li>
+    </article>
   );
 }

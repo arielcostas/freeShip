@@ -24,7 +24,7 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
   }
 
   return myProjects.length > 0 || joinedProjects.length > 0 ? (
-    <ul className="space-y-2">
+    <section className="space-y-2">
       {/* Renderizar los proyectos creados por el usuario */}
       {myProjects.map((project: any) => (
         <MyProjectCard
@@ -38,7 +38,7 @@ export default async function MyProjectsList({ userId }: { userId: string }) {
       {joinedProjects.map((project: any) => (
         <OtherProjectCard key={project.id} project={project} />
       ))}
-    </ul>
+    </section>
   ) : (
     <p className="text-center text-gray-500">
       Todavía no tienes proyectos. ¡Crea o únete a uno!

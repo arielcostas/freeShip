@@ -14,7 +14,7 @@ export function DashboardTabsContent({
   return (
     <>
       {/* Este contenido será visible en pantallas móviles */}
-      <div className="md:hidden theme-card p-4 rounded-lg shadow-md">
+      <div className="md:hidden p-4 rounded-lg">
         <Suspense fallback={<Spinner />}>
           {activeTab === "misProyectos" ? (
             <MyProjectsDashboardView userId={userId} />

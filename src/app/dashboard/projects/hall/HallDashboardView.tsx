@@ -32,7 +32,7 @@ export default function HallDashboardView({
         const { data, error } = await supabase
           .from("projects")
           .select(
-            "id, title, rating_count, description, author_name, author_id, (author_id=auth.uid()) AS is_mine"
+            "id, title, rating_count, description, author_name, author_id"
           )
           .gt("rating_count", 0)
           .order("rating_count", { ascending: false })
@@ -41,6 +41,11 @@ export default function HallDashboardView({
         if (error) {
           throw error;
         }
+
+        const projects = data.map(p => ({
+          ...project,
+          is_mine: projects.author_id === userId
+        }))
 
         setProjects(data);
         setLoading(false);
