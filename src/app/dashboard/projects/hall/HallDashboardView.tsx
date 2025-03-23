@@ -58,9 +58,9 @@ export default function HallDashboardView() {
     <div>
       {/* Versión para PC */}
       {!isMobile && (
-        <div className="p-3 pl-20 overflow-y-auto max-h-[calc(100vh-250px)]">
-          <h2 className="text-3xl font-bold mb-6 text-center">
-            🏆 Hall de la Fama 🏆
+        <div className="pl-20 overflow-y-auto max-h-[calc(100vh-250px)]">
+          <h2 className="text-3xl font-bold mb-6 text-center pr-20">
+            1%
           </h2>
           <ul className="space-y-6 relative">
             {projects.map((project, index) => (
