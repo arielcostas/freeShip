@@ -6,7 +6,7 @@ import { Suspense } from "react";
 import { DashboardTabsContent } from "./DashboardTabsContent";
 import Link from "next/link";
 import Spinner from "../../components/ui/spinner";
-import { Star } from "lucide-react";
+import { Crown } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Dashboard",
@@ -68,7 +68,7 @@ export default async function Dashboard({
             href="?tab=hall"
             className="w-1/4 flex justify-center items-center"
           >
-            <Star
+            <Crown
               style={{ color: activeTab === "hall" ? randomColor : "#9CA3AF" }}
               size={36}
             />

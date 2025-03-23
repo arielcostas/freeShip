@@ -37,7 +37,9 @@ export default function HallDashboardView() {
           console.error("Error fetching projects:", error.message || error);
         } else {
           // Filtrar proyectos sin votos
-          const filteredProjects = data.filter((project) => project.rating_count > 0);
+          const filteredProjects = data.filter(
+            (project) => project.rating_count > 0
+          );
           setProjects(filteredProjects);
         }
       } catch (err) {

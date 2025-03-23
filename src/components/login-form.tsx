@@ -27,7 +27,7 @@ export default function LoginForm() {
     if (error) {
       setMessage("Credenciales incorrectas.");
     } else {
-      router.push("/dashboard");
+      router.push("/dashboard?tab=hall");
     }
   };
 
