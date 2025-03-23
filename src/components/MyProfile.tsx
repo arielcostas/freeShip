@@ -175,7 +175,7 @@ export default function MyProfile() {
         <h1 className="text-2xl font-bold mb-4">Mis datos de perfil</h1>
 
         <div className="mb-4">
-          <label className="block text-sm font-medium mb-1">Username</label>
+          <label className="block text-sm font-medium mb-1">Nombre</label>
           <input
             type="text"
             value={profile.username}
@@ -183,7 +183,7 @@ export default function MyProfile() {
             className="w-full border rounded-md px-3 py-2"
           />
         </div>
-
+        {/*
         {profile.discord_username && (
           <div className="mb-4">
             <label className="block text-sm font-medium mb-1">
@@ -197,6 +197,7 @@ export default function MyProfile() {
             />
           </div>
         )}
+        */}
 
         <div className="mb-4">
           <label className="block text-sm font-medium mb-1">Email</label>
