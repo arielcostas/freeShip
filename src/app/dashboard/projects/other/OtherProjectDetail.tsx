@@ -178,7 +178,7 @@ export default function OtherProjectDetail({
             </p>
           )}
 
-          {/* Mostrar el repositorio de GitHub solo si el usuario es miembro */}
+          {/* Mostrar el repositorio de GitHub sólo si el usuario es miembro */}
           {isMember && project.github_repository && (
             <p className="mt-2">
               <strong>Repositorio de GitHub:</strong>{" "}
@@ -189,6 +189,21 @@ export default function OtherProjectDetail({
                 className="text-[#5865f2] underline"
               >
                 {project.github_repository}
+              </a>
+            </p>
+          )}
+
+          {/* Mostrar el link a la sala de chat sólo si el usuario es miembro */}
+          {isMember && project.chat_room_link && (
+            <p className="mt-2">
+              <strong>Link a la sala de chat:</strong>{" "}
+              <a
+                href={project.chat_room_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#5865f2] underline"
+              >
+                {project.chat_room_link}
               </a>
             </p>
           )}
