@@ -25,7 +25,7 @@ export default function LoginForm() {
     });
 
     if (error) {
-      setMessage("Credenciales incorrectas.");
+      setMessage("Credenciales incorrectas");
     } else {
       router.push("/dashboard?tab=hall");
     }
@@ -37,9 +37,9 @@ export default function LoginForm() {
       email: email.toLowerCase(),
     });
     if (error) {
-      setMessage("Error enviando Magic Link.");
+      setMessage("Error enviando Magic Link");
     } else {
-      alert("Revisa tu email para acceder.");
+      alert("Revisa tu email para acceder");
     }
   };
 
