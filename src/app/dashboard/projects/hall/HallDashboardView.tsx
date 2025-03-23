@@ -79,7 +79,7 @@ export default function HallDashboardView() {
       {isMobile && (
         <div className="p-4 overflow-y-auto max-h-[calc(100vh-250px)]">
           <h2 className="text-xl font-bold mb-4 text-center">
-            🏆 Hall de la Fama 🏆
+            ⇀ 1% ↼
           </h2>
           <ul className="space-y-4 relative">
             {projects.map((project, index) => (
