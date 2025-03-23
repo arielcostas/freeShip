@@ -126,6 +126,20 @@ export default function MyProjectDetail({ projectId }: { projectId: string }) {
             </p>
           )}
 
+          {project.chat_room_link && (
+            <p className="mt-2">
+              <strong>Invitación a la sala de chat:</strong>{" "}
+              <a
+                href={project.chat_room_link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#5865f2] underline"
+              >
+                {project.chat_room_link}
+              </a>
+            </p>
+          )}
+
           {/* Mostrar el número total de estrellas */}
           <div className="mt-6 flex items-center">
             <FaStar size={32} className="text-[#acd916]" />

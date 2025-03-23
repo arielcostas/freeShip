@@ -50,7 +50,6 @@ export default function CreateProjectPage() {
 
       if (user) {
         setUserId(user.id);
-
       } else {
         router.push("/login");
       }
@@ -233,7 +232,8 @@ export default function CreateProjectPage() {
 
             <div>
               <label className="block text-sm font-medium">
-                Invitación a sala de chat (sólo visible para los miembros del proyecto)
+                Invitación a sala de chat (sólo visible para los miembros del
+                proyecto)
               </label>
               <input
                 type="text"
