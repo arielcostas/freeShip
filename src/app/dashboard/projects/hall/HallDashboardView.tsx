@@ -58,7 +58,7 @@ export default function HallDashboardView() {
     <div>
       {/* Versión para PC */}
       {!isMobile && (
-        <div className="p-20 overflow-y-auto max-h-[calc(100vh-250px)]">
+        <div className="p-3 pl-20 overflow-y-auto max-h-[calc(100vh-250px)]">
           <h2 className="text-3xl font-bold mb-6 text-center">
             🏆 Hall de la Fama 🏆
           </h2>
@@ -66,7 +66,7 @@ export default function HallDashboardView() {
             {projects.map((project, index) => (
               <div key={project.id} className="relative flex items-center">
                 {index < 3 && (
-                  <span className="absolute -left-12 top-1/2 transform -translate-y-1/2 text-5xl">
+                  <span className="absolute -left-3 top-1/2 transform -translate-y-1/2 text-5xl">
                     {index === 0 ? "🥇" : index === 1 ? "🥈" : "🥉"}
                   </span>
                 )}
