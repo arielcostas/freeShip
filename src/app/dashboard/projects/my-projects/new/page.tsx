@@ -5,8 +5,6 @@ import { redirect, useRouter } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/app/(site)/Navbar";
-import { createProjectChannel } from "@/lib/discord/client/CreateProjectChannel";
-import { toast } from "react-toastify";
 
 // Se define el array de tipos de proyecto con su valor y label amigable
 const PROJECT_TYPES = [
@@ -27,7 +25,6 @@ export default function CreateProjectPage() {
   const supabase = createClient();
 
   const [userId, setUserId] = useState<string | null>(null);
-  const [discordUsername, setDiscordUsername] = useState<string | null>(null); // Estado para Discord Username
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [type, setType] = useState("");
@@ -36,16 +33,15 @@ export default function CreateProjectPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [collaboratorsNumber, setCollaboratorsNumber] = useState(1);
-  // Por defecto, la integración con Discord se muestra desmarcada
-  const [discordIntegration, setDiscordIntegration] = useState(false);
   const [githubRepository, setGithubRepository] = useState("");
+  const [chatRoomLink, setChatRoomLink] = useState("");
 
   const handleSignOut = async () => {
     await supabase.auth.signOut();
     redirect("/");
   };
 
-  // Obtener userId y discordUsername del usuario autenticado
+  // Obtener userId del usuario autenticado
   useEffect(() => {
     const getUser = async () => {
       const {
@@ -55,16 +51,6 @@ export default function CreateProjectPage() {
       if (user) {
         setUserId(user.id);
 
-        // Obtener el username de Discord (si está disponible)
-        const { data: profileData, error } = await supabase
-          .from("profiles")
-          .select("discord_username")
-          .eq("id", user.id)
-          .single();
-
-        if (profileData) {
-          setDiscordUsername(profileData.discord_username);
-        }
       } else {
         router.push("/login");
       }
@@ -95,6 +81,8 @@ export default function CreateProjectPage() {
             tech_stack: techStack.length > 0 ? techStack : null,
             author_id: userId,
             collaborators_number: collaboratorsNumber,
+            github_repository: githubRepository,
+            chat_room_link: chatRoomLink,
           },
         ])
         .select()
@@ -102,75 +90,6 @@ export default function CreateProjectPage() {
 
       if (projectError) {
         throw new Error(`Error al crear el proyecto: ${projectError.message}`);
-      }
-
-      // 2. Si la integración con Discord está habilitada, crear el canal de Discord
-      if (discordIntegration && projectData) {
-        try {
-          alert("Enviando solicitud a /api/discord...");
-          alert(
-            JSON.stringify({
-              title,
-              projectId: projectData.id,
-              userId,
-              discordUsername,
-            })
-          );
-
-          // Llamamos a la API para crear el canal de Discord
-          const response = await fetch("/api/discord", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              title,
-              projectId: projectData.id,
-              userId,
-              discordUsername,
-            }),
-          });
-
-          const discordChannel = await response.json();
-          alert("Respuesta de Discord: " + JSON.stringify(discordChannel));
-
-          if (discordChannel) {
-            // Actualizar el proyecto con la información del canal de Discord
-            await supabase
-              .from("projects")
-              .update({
-                discord_channel_id: discordChannel.channelId,
-                discord_channel_url: discordChannel.channelUrl,
-              })
-              .eq("id", projectData.id);
-
-            toast({
-              title: "Canal de Discord creado",
-              description: "Se ha creado un canal de Discord para tu proyecto",
-            });
-
-            // 3. Enviar la invitación de Discord al usuario creador
-            await fetch("/api/discord/invite", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({
-                userId,
-                inviteLink: discordChannel.channelUrl,
-              }),
-            });
-
-            toast({
-              title: "Invitación enviada",
-              description: "Se ha enviado la invitación de Discord al usuario.",
-            });
-          }
-        } catch (discordError) {
-          console.error("Error en la integración con Discord:", discordError);
-          toast({
-            title: "Error en Discord",
-            description:
-              "El proyecto se creó pero hubo un problema con la integración en Discord.",
-            variant: "destructive",
-          });
-        }
       }
 
       // Redirigir al dashboard una vez completado todo
@@ -312,23 +231,18 @@ export default function CreateProjectPage() {
               />
             </div>
 
-            {/*
-            <div className="flex items-center">
-              <input
-                type="checkbox"
-                id="discordIntegration"
-                checked={discordIntegration}
-                onChange={(e) => setDiscordIntegration(e.target.checked)}
-                className="mr-2"
-              />
-              <label
-                htmlFor="discordIntegration"
-                className="text-sm font-medium"
-              >
-                Crear canal de Discord para el proyecto
+            <div>
+              <label className="block text-sm font-medium">
+                Invitación a sala de chat (sólo visible para los miembros del proyecto)
               </label>
+              <input
+                type="text"
+                value={chatRoomLink}
+                onChange={(e) => setChatRoomLink(e.target.value)}
+                className="w-full border p-2 rounded"
+                placeholder="Ejemplo: https://discord.gg/aB1fc2dFG"
+              />
             </div>
-            */}
 
             <div className="flex justify-between items-center">
               <Button
