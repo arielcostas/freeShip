@@ -59,8 +59,8 @@ export default function HallDashboardView() {
       {/* Versión para PC */}
       {!isMobile && (
         <div className="pl-20 overflow-y-auto max-h-[calc(100vh-250px)]">
-          <h2 className="text-3xl font-bold mb-6 text-center pr-20">
-            1%
+          <h2 className="text-5xl font-bold mb-6 text-center pr-20">
+            ⇀ 1% ↼
           </h2>
           <ul className="space-y-6 relative">
             {projects.map((project, index) => (
